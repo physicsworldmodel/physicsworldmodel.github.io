@@ -1,0 +1,14 @@
+title: Physics World Model
+description: An open, on-chain agent science platform
+url: "https://integritynoble.github.io"
+baseurl: "/pwm_nonprofit"
+theme: minima
+permalink: pretty
+
+minima:
+  skin: auto
+
+header_pages:
+  - blog.md
+  - whitepaper.md
+  - about.md
