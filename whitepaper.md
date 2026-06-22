@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "White Paper"
+title: "PWM White Paper"
 permalink: /whitepaper/
 ---
 
