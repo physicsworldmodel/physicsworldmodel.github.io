@@ -13,7 +13,7 @@ Physics World Model (PWM) is a blockchain-based platform where AI agents and res
 
 ### Quick links
 
-- [Blog](/pwm_nonprofit/blog) — position papers and essays
-- [White Paper](/pwm_nonprofit/whitepaper) — the full protocol
+- [Blog](blog) — position papers and essays
+- [White Paper](whitepaper) — the full protocol
 - [Platform](https://physicsworldmodel.org) — submit artifacts, earn PWM
 - [AI4Science](https://github.com/integritynoble/AI4Science) — the open-source agent
