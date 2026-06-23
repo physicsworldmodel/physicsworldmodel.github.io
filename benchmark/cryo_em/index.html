@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="talentapp:project_verification" content="0b1860cf96b3030acb50eeffe91d87d72eb2b34fc28427c6af9b6eebf9f80af41d1a8121269ae8448c051ac16b78389a778784fc21ce08b0b2682f30fa6000ec">
+    <title>Cryo-EM Single Particle Analysis — Physics World Model</title>
+    <meta name="description" content="Physics World Model — register Principles, Digital Twins, Benchmarks, and Solutions on-chain. Each verified contribution earns PWM tokens as royalties. Open science, 100% free, NumFOCUS sponsored.">
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS (CDN for MVP — replace with local build in production) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTMX for dynamic UI without full-page reloads -->
+    
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      [x-cloak] { display: none !important; }
+      .sidebar-icon { width: 1rem; display: inline-block; text-align: center; }
+      .main-bg {
+        background-image: radial-gradient(circle, #e0e7ff 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-color: #f9fafb;
+      }
+      /* Long rendered equations scroll within their box instead of widening the page (mobile). */
+      .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+    </style>
+    
+</head>
+<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">📖 Read-only mirror — for the full platform (submit, mine, login) visit <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a></div>
+<body class="h-full">
+    
+    <!-- Slim top bar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center gap-4">
+                    <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"
+                            class="lg:hidden p-1.5 rounded-md text-gray-500 hover:bg-gray-100" aria-label="Toggle sidebar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="/" class="flex items-center gap-1.5 text-base font-extrabold">
+                        <span class="text-indigo-600">⚛</span>
+                        <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Physics World Model</span>
+                    </a>
+                    <span class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold tracking-wide">NUMFOCUS · NONPROFIT</span>
+                </div>
+                <div class="flex-1 max-w-xl mx-4 hidden md:block">
+                    <form action="/benchmarks/" method="get" class="relative">
+                        <input type="text" name="q" placeholder="Search benchmarks, principles, modalities…"
+                               class="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400">
+                        <svg class="absolute left-2.5 top-2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
+                    </form>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                    <a href="/login/" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="flex min-h-[calc(100vh-3.5rem)]">
+        
+        <!-- Persistent sidebar (Tier 1/2/3 nav) -->
+        <aside id="sidebar"
+               class="fixed lg:static top-14 lg:top-0 left-0 bottom-0 z-30 w-60 bg-white border-r border-gray-200 shadow-[inset_-1px_0_0_0_#e5e7eb] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto">
+            <nav class="px-3 py-4 text-sm">
+                <!-- Tier 1: Browse -->
+                <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Browse</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⌂</span> Home</a></li>
+                    <li><a href="/agents/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">🤖</span> Agents <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-600 font-bold leading-none">MCP</span></a></li>
+                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
+                    <li><a href="/start/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-emerald-700 font-semibold hover:bg-emerald-50 "><span class="sidebar-icon">★</span> Start here <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold leading-none">AI4Science</span></a></li>
+                    <li><a href="/submit/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-violet-700 font-semibold hover:bg-violet-50 "><span class="sidebar-icon">✦</span> Submit <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-700 font-bold leading-none">earn PWM</span></a></li>
+                </ul>
+
+                <!-- Tier 2: Explore -->
+                <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Explore</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
+                    <li><a href="https://physicsworldmodel.org/digital-twins" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">📐</span> Digital Twins</a></li>
+                    <li><a href="https://physicsworldmodel.org/principles" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚛</span> Principles</a></li>
+                    <li>
+                      <div class="flex items-center">
+                        <a href="/frontier/" class="flex-1 flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">◆</span> Grand Hard Problems</a>
+                        <button id="ghp-toggle" type="button" aria-expanded="false" aria-label="Expand grand hard problems"
+                                class="shrink-0 px-2 py-1.5 text-gray-400 hover:text-violet-600 transition-transform">▸</button>
+                      </div>
+                      <ul id="ghp-submenu" class="hidden mt-0.5 ml-3 pl-2 border-l border-gray-100 space-y-0.5"></ul>
+                    </li>
+                </ul>
+                <script>
+                  (function () {
+                    var btn = document.getElementById('ghp-toggle');
+                    var menu = document.getElementById('ghp-submenu');
+                    if (!btn || !menu) return;
+                    var loaded = false, here = window.location.pathname;
+                    function load() {
+                      if (loaded) return; loaded = true;
+                      fetch('/api/frontier/list', { credentials: 'same-origin' })
+                        .then(function (r) { return r.json(); })
+                        .then(function (d) {
+                          var html = '';
+                          (d.groups || []).forEach(function (g) {
+                            html += '<li class="px-2 pt-1.5 pb-0.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider">' + g.icon + ' ' + g.label + '</li>';
+                            (g.items || []).forEach(function (it) {
+                              var on = it.url === here;
+                              html += '<li><a href="' + it.url + '" class="block px-2 py-1 rounded text-[13px] ' +
+                                (on ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-violet-50 hover:text-violet-700') +
+                                '">' + it.short + '</a></li>';
+                            });
+                          });
+                          menu.innerHTML = html || '<li class="px-2 py-1 text-[12px] text-gray-400">No problems yet</li>';
+                        })
+                        .catch(function () { menu.innerHTML = '<li class="px-2 py-1 text-[12px] text-gray-400">Could not load</li>'; });
+                    }
+                    function setOpen(open) {
+                      menu.classList.toggle('hidden', !open);
+                      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                      btn.textContent = open ? '▾' : '▸';
+                      if (open) load();
+                    }
+                    btn.addEventListener('click', function () {
+                      setOpen(menu.classList.contains('hidden'));
+                    });
+                    
+                  })();
+                </script>
+
+                
+
+                <!-- Tier 3b: Meta -->
+                <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Meta</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="https://physicsworldmodel.org/developer-winner" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">🏅</span> Developer Winner</a></li>
+                    <li><a href="/whitepaper/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">📄</span> White Paper</a></li>
+                    <li><a href="/blog/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">✎</span> Blog</a></li>
+                    
+                    <li><a href="/token/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⊙</span> How to get PWM</a></li>
+                    
+                    <li><a href="/community/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⌬</span> Community</a></li>
+                    
+                </ul>
+
+                <!-- NumFOCUS attribution -->
+                <div class="mt-6 px-2 text-[10px] text-gray-400 leading-snug">
+                    PWM is a fiscally sponsored project of NumFOCUS, a 501(c)(3) public charity. Donations are tax-deductible.
+                </div>
+            </nav>
+        </aside>
+        
+
+        <main class="flex-1 px-4 sm:px-6 lg:px-8 py-6 min-w-0 main-bg">
+            
+
+
+
+
+
+<div class="space-y-8">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center space-x-2 text-sm text-gray-500">
+        <a href="https://physicsworldmodel.org/benchmark" class="hover:text-indigo-600">Benchmarks</a>
+        <span>/</span>
+        <span class="font-medium text-gray-900">Cryo-EM Single Particle Analysis</span>
+    </nav>
+
+    <!-- Page header -->
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+            <div class="flex items-center gap-2 flex-wrap">
+                <h1 class="text-2xl font-bold text-gray-900">Cryo-EM Single Particle Analysis</h1>
+                
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 text-xs font-medium">TESTNET</span>
+                
+            </div>
+            <p class="mt-1 text-sm text-gray-500">Cryo-EM Single Particle Analysis</p>
+        </div>
+        
+        <div class="flex gap-2 flex-wrap">
+            <a href="#submit-modes"
+               class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-indigo-700 bg-white border border-indigo-300 hover:bg-indigo-50 shadow-sm">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Contribute a Benchmark
+            </a>
+        </div>
+        
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 1 — Introduction
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="intro" class="bg-white shadow rounded-xl p-6 space-y-5">
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900">Introduction</h2>
+            <span class="text-xs px-2 py-1 rounded font-medium bg-indigo-100 text-indigo-700">1 / 4</span>
+        </div>
+
+        <!-- Plain-language description -->
+        
+        <p class="text-base text-gray-700 leading-relaxed">
+            <strong>Cryo-EM Single Particle Analysis</strong> (Cryo-EM Single Particle Analysis) is a physical imaging and measurement system
+            in the <em>scientific_instrumentation</em> domain.
+            The core challenge is <em>inverse reconstruction</em>: given the raw measurements your instrument produces,
+            recover the original signal as faithfully as possible. Algorithms compete to solve this inverse problem
+            with the highest accuracy.
+        </p>
+        
+
+        <!-- Forward model -->
+        <div class="border border-indigo-100 bg-indigo-50/40 rounded-lg p-4 space-y-2">
+            <h3 class="text-sm font-semibold text-indigo-800">Forward Model</h3>
+            <p class="text-xs text-gray-600">
+                The forward model maps the true signal <strong>x</strong> to measured data <strong>y</strong> through the physical acquisition process.
+                Reconstruction algorithms must invert or account for this mapping to recover the original signal.
+            </p>
+            
+            <div class="katex-fm overflow-x-auto py-3 text-center" data-eq="I(\mathbf{k}) = \mathrm{CTF}(\Delta f,\mathbf{k})\cdot\mathcal{F}\{P_\phi V\}(\mathbf{k}) + n"></div>
+            
+            
+            <p class="text-xs text-gray-500">
+                Built from
+                <a href="#primitives-reference" class="text-indigo-600 hover:underline font-medium">11 composable primitives</a>
+                — full reference in the <a href="#contents" class="text-indigo-600 hover:underline">Contents</a> section below.
+            </p>
+            
+        </div>
+
+        <!-- Earn PWM info -->
+        <div class="border border-emerald-200 bg-emerald-50 rounded-lg p-4 space-y-2">
+            <h3 class="text-sm font-semibold text-emerald-800">Earn PWM by contributing</h3>
+            <p class="text-sm text-emerald-900">
+                Physics World Model rewards researchers and developers who improve this benchmark.
+                Accepted contributions earn <strong>PWM tokens</strong> — the protocol's native reward.
+            </p>
+            <ul class="text-sm text-emerald-900 list-disc list-inside space-y-0.5">
+                <li><strong>Submit with upload</strong> — share your code, model weights, or reconstruction results for peer review.</li>
+                <li><strong>Submit without upload</strong> — register your result on-chain with a content hash. No file upload required.</li>
+            </ul>
+            <p class="text-xs text-emerald-700">
+                Scroll through the
+                <a href="#leaderboard" class="underline font-medium">Solutions</a> and
+                <a href="#contents" class="underline font-medium">Contents</a> sections below —
+                the <a href="#submit-modes" class="underline font-medium">Submit</a> section will unlock automatically once you've read through all sections.
+            </p>
+        </div>
+
+        <div id="sentinel-intro"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 2 — Solutions / Leaderboard
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="leaderboard" class="bg-white shadow rounded-xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900">Solutions</h2>
+            <span class="text-xs px-2 py-1 rounded font-medium bg-indigo-100 text-indigo-700">2 / 4</span>
+        </div>
+        <p class="text-sm text-gray-500">
+            Reconstruction algorithms ranked by quality on the Cryo-EM Single Particle Analysis benchmark.
+            Submit your algorithm to earn PWM and appear on this leaderboard.
+        </p>
+
+        <!-- AI Chatbox -->
+        
+        <div class="rounded-xl p-4 bg-gradient-to-br from-indigo-50 to-violet-50 ring-2 ring-indigo-200 shadow-sm">
+            
+
+
+
+<div class="agentbox agentbox-inline"
+     data-variant="inline" data-auth="0"
+     data-ctx-layer="" data-ctx-id="" data-ctx-title="Cryo-EM Single Particle Analysis benchmarks" data-ctx-topic="Cryo-EM Single Particle Analysis">
+
+  
+  <div class="ab-head flex items-center gap-2.5 mb-2.5">
+    <span class="ab-avatar inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-lg shadow-md shrink-0">💬</span>
+    <div class="min-w-0 leading-tight">
+      <p class="text-sm font-extrabold text-gray-900 flex items-center gap-1.5">
+        Ask the PWM AI agent
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 uppercase tracking-wide">AI</span>
+      </p>
+      <p class="text-[11px] text-gray-500">Ask about this Cryo-EM Single Particle Analysis benchmarks — or how to improve it & earn PWM</p>
+    </div>
+  </div>
+  
+
+  <div class="ab-transcript space-y-2 mb-2"></div>
+
+  <div class="flex gap-2">
+    <input class="ab-input flex-1 outline-none" type="text" autocomplete="off"
+           placeholder="Search artifacts (log in to chat) — e.g. MRI, CT…" />
+    <button class="ab-go" type="button">🔎 Find</button>
+  </div>
+
+  <div class="ab-chips mt-2 flex flex-wrap gap-1.5">
+    
+    <button type="button" class="ab-chip" data-q="MRI">MRI</button>
+    
+    <button type="button" class="ab-chip" data-q="CT">CT</button>
+    
+    <button type="button" class="ab-chip" data-q="CASSI">CASSI</button>
+    
+    <button type="button" class="ab-chip" data-q="hyperspectral">hyperspectral</button>
+    
+    <button type="button" class="ab-chip" data-q="ultrasound">ultrasound</button>
+    
+  </div>
+
+  <div class="ab-results mt-3 space-y-1.5"></div>
+
+  <p class="ab-hint mt-2 text-[11px] text-gray-400">
+    
+    Free to search; <a href="/login/" class="underline">log in</a> to chat with the agent &amp; earn PWM.
+    
+    <a href="/how-to-earn/" class="underline">How it works ↗</a>
+  </p>
+</div>
+
+<style>
+  .agentbox-hero .ab-input, .agentbox-hero .ab-go { font-size: 1rem; padding: 0.7rem 1rem; }
+  .agentbox .ab-input { background:#fff; color:#111827; border:1px solid #d1d5db; border-radius:10px;
+                        padding:0.55rem 0.85rem; font-size:0.9rem; }
+  .agentbox-inline .ab-input { font-size:0.95rem; padding:0.62rem 0.9rem; border-color:#a5b4fc; }
+  .agentbox-inline .ab-go { padding:0.62rem 1.05rem; font-size:0.92rem; }
+  .agentbox .ab-input:focus { border-color:#6366f1; box-shadow:0 0 0 2px #c7d2fe; }
+  .agentbox .ab-go { background:#10b981; color:#fff; font-weight:700; border:none; border-radius:10px;
+                     padding:0.55rem 1rem; cursor:pointer; white-space:nowrap; }
+  .agentbox .ab-go:hover { background:#059669; }
+  .agentbox .ab-chip { font-size:11px; padding:3px 9px; border-radius:999px; cursor:pointer;
+                       border:1px solid rgba(148,163,184,.5); background:rgba(255,255,255,.85); color:#4338ca; }
+  .agentbox-hero .ab-chip { background:rgba(255,255,255,.15); color:#e0e7ff; border-color:rgba(255,255,255,.3); }
+  .agentbox .ab-chip:hover { border-color:#6366f1; }
+  .agentbox .ab-card { display:flex; align-items:center; justify-content:space-between; gap:8px;
+                       background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px; }
+  .agentbox .ab-card a { color:#4f46e5; font-weight:600; text-decoration:none; }
+  .agentbox .ab-card a:hover { text-decoration:underline; }
+  .agentbox .ab-tag { font-size:10px; color:#6b7280; }
+  .agentbox-hero .ab-results, .agentbox-hero .ab-transcript { max-height: 38vh; overflow-y:auto; }
+  .agentbox-inline .ab-transcript { max-height: 40vh; overflow-y:auto; }
+  /* chat bubbles */
+  .ab-msg { font-size:13px; line-height:1.5; padding:8px 12px; border-radius:12px; white-space:pre-wrap; max-width:92%; }
+  .ab-msg-user { background:#4f46e5; color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .ab-msg-bot  { background:#eef2ff; color:#1e1b4b; border:1px solid #c7d2fe; border-bottom-left-radius:4px; }
+  .agentbox-hero .ab-msg-bot { background:rgba(255,255,255,.12); color:#e0e7ff; border-color:rgba(255,255,255,.25); }
+  .agentbox-hero .ab-msg-user { background:#6366f1; }
+  .ab-answer { background:#eef2ff; border:1px solid #c7d2fe; border-radius:10px; padding:8px 12px; font-size:13px; color:#3730a3; line-height:1.5; }
+  .agentbox-hero .ab-answer { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.25); color:#e0e7ff; }
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.agentbox').forEach(function (box) {
+    if (box.dataset.wired) return; box.dataset.wired = '1';
+    var input = box.querySelector('.ab-input');
+    var go    = box.querySelector('.ab-go');
+    var out   = box.querySelector('.ab-results');
+    var trans = box.querySelector('.ab-transcript');
+    var loggedIn = box.dataset.auth === '1';
+    var ICON  = {principle:'⚛','digital-twin':'📐',benchmark:'☆',solution:'⚡'};
+    var history = [];  // {role, content} for the chat endpoint
+    var ctx = (box.dataset.ctxId || box.dataset.ctxTitle || box.dataset.ctxTopic)
+      ? {layer:box.dataset.ctxLayer||'', id:box.dataset.ctxId||'', title:box.dataset.ctxTitle||'', topic:box.dataset.ctxTopic||''}
+      : null;
+
+    function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function bubble(role, text) {
+      var d=document.createElement('div');
+      d.className='ab-msg ' + (role==='user'?'ab-msg-user':'ab-msg-bot');
+      d.textContent=text; trans.appendChild(d); trans.scrollTop=trans.scrollHeight; return d;
+    }
+    function renderLinks(res) {
+      out.innerHTML='';
+      if (!res || !res.length) return;
+      var lab=document.createElement('p'); lab.className='ab-tag'; lab.textContent='Artifacts you can improve:'; out.appendChild(lab);
+      res.forEach(function (x) {
+        var d=document.createElement('div'); d.className='ab-card';
+        d.innerHTML='<div style="min-width:0"><span>'+(ICON[x.layer_name]||'')+'</span> '+
+          '<a href="'+esc(x.url)+'">'+esc(x.title)+'</a> '+
+          '<span class="ab-tag">'+esc(x.layer_name)+' · '+esc(x.id)+'</span></div>'+
+          '<a class="ab-tag" href="'+esc(x.url)+'" style="white-space:nowrap;color:#4f46e5">open →</a>';
+        out.appendChild(d);
+      });
+    }
+
+    // Logged-in: real conversation with Haiku.
+    async function chat(q) {
+      bubble('user', q); history.push({role:'user', content:q});
+      var thinking = bubble('bot', '…');
+      try {
+        var r = await fetch('/api/agent/chat', {
+          method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
+          body: JSON.stringify({message:q, history:history.slice(0,-1), context:ctx})
+        });
+        var data = await r.json();
+        thinking.textContent = data.reply || '(no reply)';
+        if (data.reply) history.push({role:'assistant', content:data.reply});
+        renderLinks(data.results);
+      } catch(e) { thinking.textContent = 'Chat unavailable — try again.'; }
+    }
+
+    // Logged-out: link search + a nudge to log in.
+    async function search(q) {
+      out.innerHTML='<p class="ab-tag">Searching…</p>';
+      try {
+        var r=await fetch('/api/agent/search',{method:'POST',headers:{'Content-Type':'application/json'},
+          credentials:'same-origin',body:JSON.stringify({interest:q,limit:8,ai:false})});
+        var data=await r.json();
+        if (!(data.results||[]).length) {
+          out.innerHTML='<p class="ab-tag">No matches. <a href="/artifacts/" class="underline">Browse all</a>.</p>'; return;
+        }
+        renderLinks(data.results);
+      } catch(e){ out.innerHTML='<p class="ab-tag" style="color:#dc2626">Search unavailable.</p>'; }
+    }
+
+    function submit() {
+      var q=input.value.trim(); if(!q) return; input.value='';
+      if (loggedIn) chat(q); else search(q);
+    }
+    go.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e){ if(e.key==='Enter') submit(); });
+    box.querySelectorAll('.ab-chip').forEach(function(c){
+      c.addEventListener('click', function(){ input.value=c.getAttribute('data-q'); submit(); });
+    });
+  });
+})();
+</script>
+        </div>
+
+        <!-- Leaderboard table -->
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead>
+                    <tr class="bg-indigo-50 border-b-2 border-indigo-200">
+                        <th class="px-4 py-3 text-center font-bold text-indigo-700">#</th>
+                        <th class="px-4 py-3 text-left font-bold text-indigo-700">Method</th>
+                        <th class="px-4 py-3 text-right font-bold text-indigo-700">Score</th>
+                        <th class="px-4 py-3 text-right font-medium text-gray-600">PSNR (dB)</th>
+                        <th class="px-4 py-3 text-right font-medium text-gray-600">SSIM</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500">Trust</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500">Source</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-indigo-50">
+                    
+                    
+                    
+                    <tr class="bg-gradient-to-r from-indigo-50 to-blue-50">
+                        <td class="px-4 py-3 text-center">
+                            <span class="text-lg">&#129351;</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                DiffusionCryo
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">DiffusionCryo</p>
+                                <p class="text-xs text-gray-500 mt-1">Luo 2024</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">39.8 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.963</span>
+                                </div>
+                                
+                                <div class="mt-3 block w-full text-center px-3 py-2 bg-gray-200 text-gray-500 text-xs font-bold rounded-lg cursor-not-allowed">
+                                    Checkpoint unavailable
+                                </div>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.895</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">39.8</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.963</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Luo 2024</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="bg-gray-50/50">
+                        <td class="px-4 py-3 text-center">
+                            <span class="text-lg">&#129352;</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                CryoSTAR
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">CryoSTAR</p>
+                                <p class="text-xs text-gray-500 mt-1">Yang 2024</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">38.4 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.952</span>
+                                </div>
+                                
+                                <div class="mt-3 block w-full text-center px-3 py-2 bg-gray-200 text-gray-500 text-xs font-bold rounded-lg cursor-not-allowed">
+                                    Checkpoint unavailable
+                                </div>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.866</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">38.4</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.952</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Yang 2024</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="bg-indigo-50/30">
+                        <td class="px-4 py-3 text-center">
+                            <span class="text-lg">&#129353;</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                CryoFormer
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">CryoFormer</p>
+                                <p class="text-xs text-gray-500 mt-1">Gao 2024</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">37.1 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.941</span>
+                                </div>
+                                
+                                <div class="mt-3 block w-full text-center px-3 py-2 bg-gray-200 text-gray-500 text-xs font-bold rounded-lg cursor-not-allowed">
+                                    Checkpoint unavailable
+                                </div>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.839</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">37.1</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.941</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Gao 2024</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="hover:bg-indigo-50/20">
+                        <td class="px-4 py-3 text-center">
+                            <span class="font-bold text-gray-500">4</span>
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                CryoGEM
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">CryoGEM</p>
+                                <p class="text-xs text-gray-500 mt-1">He 2023</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">35.2 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.924</span>
+                                </div>
+                                
+                                <a href="/ai4science/"
+                                   class="mt-3 block w-full text-center px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 no-underline">
+                                    Try in AI4Science &rarr;
+                                </a>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.799</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">35.2</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.924</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">He 2023</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="hover:bg-indigo-50/20">
+                        <td class="px-4 py-3 text-center">
+                            <span class="font-bold text-gray-500">5</span>
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                cryoDRGN
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">cryoDRGN</p>
+                                <p class="text-xs text-gray-500 mt-1">Zhong 2021</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">33.7 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.901</span>
+                                </div>
+                                
+                                <a href="/ai4science/"
+                                   class="mt-3 block w-full text-center px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 no-underline">
+                                    Try in AI4Science &rarr;
+                                </a>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.762</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">33.7</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.901</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Zhong 2021</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="hover:bg-indigo-50/20">
+                        <td class="px-4 py-3 text-center">
+                            <span class="font-bold text-gray-500">6</span>
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                IsoNet
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">IsoNet</p>
+                                <p class="text-xs text-gray-500 mt-1">Liu 2021</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">31.4 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.871</span>
+                                </div>
+                                
+                                <div class="mt-3 block w-full text-center px-3 py-2 bg-gray-200 text-gray-500 text-xs font-bold rounded-lg cursor-not-allowed">
+                                    Checkpoint unavailable
+                                </div>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.709</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">31.4</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.871</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Liu 2021</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="hover:bg-indigo-50/20">
+                        <td class="px-4 py-3 text-center">
+                            <span class="font-bold text-gray-500">7</span>
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                cryoSPARC
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">cryoSPARC</p>
+                                <p class="text-xs text-gray-500 mt-1">Punjani 2017</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">28.1 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.823</span>
+                                </div>
+                                
+                                <a href="/ai4science/"
+                                   class="mt-3 block w-full text-center px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 no-underline">
+                                    Try in AI4Science &rarr;
+                                </a>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.630</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">28.1</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.823</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Punjani 2017</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="hover:bg-indigo-50/20">
+                        <td class="px-4 py-3 text-center">
+                            <span class="font-bold text-gray-500">8</span>
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                RELION-3D
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">RELION-3D</p>
+                                <p class="text-xs text-gray-500 mt-1">Scheres 2012</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">25.8 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.782</span>
+                                </div>
+                                
+                                <a href="/ai4science/"
+                                   class="mt-3 block w-full text-center px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 no-underline">
+                                    Try in AI4Science &rarr;
+                                </a>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.571</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">25.8</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.782</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Scheres 2012</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr class="hover:bg-indigo-50/20">
+                        <td class="px-4 py-3 text-center">
+                            <span class="font-bold text-gray-500">9</span>
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800 relative group">
+                            <span class="flex items-center gap-1.5">
+                                CTFFIND4
+                                
+                            </span>
+                            <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-150 absolute left-0 top-full mt-1 z-50 w-72 bg-white shadow-xl rounded-lg border border-gray-200 p-4 text-left">
+                                <p class="text-sm font-bold text-gray-900">CTFFIND4</p>
+                                <p class="text-xs text-gray-500 mt-1">Rohou 2015</p>
+                                <div class="mt-2 flex gap-3 text-xs">
+                                    <span class="text-green-700 font-mono">22.3 dB</span>
+                                    <span class="text-blue-700 font-mono">SSIM 0.714</span>
+                                </div>
+                                
+                                <a href="/ai4science/"
+                                   class="mt-3 block w-full text-center px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 no-underline">
+                                    Try in AI4Science &rarr;
+                                </a>
+                                
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono text-lg font-bold text-indigo-800">0.479</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">22.3</td>
+                        <td class="px-4 py-3 text-right font-mono text-gray-700">0.714</td>
+                        <td class="px-4 py-3">
+                            
+                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-800 border border-green-300">&#10003; Certified</span>
+                            
+                        </td>
+                        <td class="px-4 py-3 text-xs text-gray-500">Rohou 2015</td>
+                    </tr>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+        <p class="text-xs text-gray-400 italic">Dataset: PWM Benchmark (9 algorithms)</p>
+        
+
+        <!-- Report issue (logged in users) -->
+        
+
+        <div id="sentinel-list"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 3 — Contents
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="contents" class="space-y-4">
+
+        <div class="bg-white shadow rounded-xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-900">Contents</h2>
+                <span class="text-xs px-2 py-1 rounded font-medium bg-indigo-100 text-indigo-700">3 / 4</span>
+            </div>
+            <p class="text-sm text-gray-500">Content deployed on the Physics World Model protocol for this benchmark.</p>
+
+            <!-- Deployment status -->
+            
+            <div class="flex items-start gap-3 bg-sky-50 border border-sky-200 rounded-xl px-5 py-3">
+                <span class="text-sky-500 text-lg leading-none mt-0.5">○</span>
+                <div>
+                    <p class="text-sm font-semibold text-sky-800">Registered on Base Sepolia testnet (chain 84532)</p>
+                    <p class="text-xs text-sky-700 mt-0.5">All PWM artifacts — including genesis CASSI &amp; CACTI — are currently anchored on Base Sepolia. Mainnet graduation is pending protocol verification.</p>
+                </div>
+            </div>
+            
+
+            <!-- On-chain artifact registry -->
+            
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+                <div class="px-4 py-2.5 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+                    <p class="text-xs font-bold text-gray-600 uppercase tracking-wide">On-Chain Artifact Registry</p>
+                    <span class="text-[10px] text-gray-400">Base Sepolia → Base Mainnet on graduation</span>
+                </div>
+                <div class="divide-y divide-gray-100">
+                    
+                    
+                    
+                    <div class="flex items-start gap-3 px-4 py-3">
+                        <span class="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-rose-100 text-rose-700 text-[11px] font-bold flex items-center justify-center">L1</span>
+                        <div class="min-w-0 flex-1 space-y-0.5">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-semibold text-gray-800">Principle</span>
+                                <a href="https://physicsworldmodel.org/artifact/l1/L1-129" class="text-xs font-mono text-indigo-600 hover:underline">L1-129</a>
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700">Testnet</span>
+                            </div>
+                            
+                            <p class="text-[11px] text-gray-500">
+                                <span class="font-medium">TX:</span>
+                                <a href="https://sepolia.basescan.org/tx/0x22ccda357f539047c2daa1d41b4447ee79e3bf5561621d4bd8ee90249bdb7c10" target="_blank" rel="noopener" class="font-mono text-indigo-500 hover:underline">0x22ccda357f539047&hellip;</a>
+                                <span class="text-gray-400 ml-1">block 41,554,213</span>
+                            </p>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <div class="flex items-start gap-3 px-4 py-3">
+                        <span class="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-purple-100 text-purple-700 text-[11px] font-bold flex items-center justify-center">L2</span>
+                        <div class="min-w-0 flex-1 space-y-0.5">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-semibold text-gray-800">Digital Twin</span>
+                                <a href="https://physicsworldmodel.org/artifact/l2/L2-129-001" class="text-xs font-mono text-indigo-600 hover:underline">L2-129-001</a>
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700">Testnet</span>
+                            </div>
+                            
+                            <p class="text-[11px] text-gray-500 truncate" title="Cryo-EM SPA Homogeneous Spec">Cryo-EM SPA Homogeneous Spec</p>
+                            
+                            
+                            <p class="text-[11px] text-gray-500">
+                                <span class="font-medium">TX:</span>
+                                <a href="https://sepolia.basescan.org/tx/0x380ba6f72e1173ebae7e179d3938d5c04fb9a2a07a8cbaea259204b04019694f" target="_blank" rel="noopener" class="font-mono text-indigo-500 hover:underline">0x380ba6f72e1173eb&hellip;</a>
+                                <span class="text-gray-400 ml-1">block 41,554,217</span>
+                            </p>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="flex items-start gap-3 px-4 py-3 bg-indigo-50/40">
+                        <span class="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold flex items-center justify-center">L3</span>
+                        <div class="min-w-0 flex-1 space-y-0.5">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-semibold text-gray-800">Benchmark &mdash; Cryo-EM Single Particle Analysis</span>
+                                <a href="https://physicsworldmodel.org/artifact/l3/L3-129-001-001-T1" class="text-xs font-mono text-indigo-600 hover:underline">L3-129-001-001-T1</a>
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700">Testnet</span>
+                                
+                            </div>
+                            
+                            <p class="text-[11px] text-gray-500">
+                                <span class="font-medium">TX:</span>
+                                <a href="https://sepolia.basescan.org/tx/0x80bdc85fabedd4734a8d51d96244cde59c3ecb47366459160768919ce710fbbe" target="_blank" rel="noopener" class="font-mono text-indigo-500 hover:underline">0x80bdc85fabedd473&hellip;</a>
+                                <span class="text-gray-400 ml-1">block 41,554,220</span>
+                            </p>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-3 px-4 py-3">
+                        <span class="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-green-100 text-green-700 text-[11px] font-bold flex items-center justify-center">L4</span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-semibold text-gray-800">Solutions</span>
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700">
+                                    Testnet
+                                </span>
+                            </div>
+                            
+                            <p class="text-[11px] text-gray-500 mt-0.5">9 methods registered on leaderboard</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Benchmark Specification (from on-chain manifest) -->
+            
+            
+            <div class="border border-indigo-100 rounded-xl overflow-hidden">
+                <div class="px-4 py-2.5 bg-indigo-50 border-b border-indigo-100 flex items-center justify-between">
+                    <p class="text-xs font-bold text-indigo-700 uppercase tracking-wide">Benchmark Specification &mdash; L3-129-001-001-T1</p>
+                    <span class="text-[10px] text-indigo-400 font-mono">T1_ideal_stable</span>
+                </div>
+
+                <div class="p-4 space-y-5">
+
+                    
+                    
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <p class="text-xs font-bold text-gray-700">Dataset</p>
+                            <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-mono">500000 test cases</span>
+                            <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-600 font-mono">ε = 2.5</span>
+                        </div>
+                        
+                        <p class="text-sm text-gray-600 mb-2">Apoferritin single-particle benchmark (mouse apoferritin, 440 kDa, octahedral O symmetry), modeled on the EMPIAR-10424 standard: reconstruct the 3D Coulomb potential from the particle stack and report gold-standard FSC=0.143 resolution. Reference map EMD-11638 (1.22 Angstrom; Nakane et al. 2020, Nature).</p>
+                        
+                        
+                        <p class="text-xs text-gray-500 mb-2">Source: <a href="https://www.ebi.ac.uk/empiar/EMPIAR-10424/" target="_blank" rel="noopener" class="text-indigo-600 hover:underline">https://www.ebi.ac.uk/empiar/EMPIAR-10424/</a></p>
+                        
+                        
+                        
+                        <div class="flex flex-wrap gap-2 text-[11px]">
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-mono" title="Particle stack size">500k particles</span>
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-mono" title="Pixel size">0.8 Å/px</span>
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-mono" title="Defocus">1.0 µm defocus</span>
+                            <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-mono" title="Electron dose">30 e⁻/Å²</span>
+                            
+                            
+                        </div>
+                        
+                    </div>
+                    
+
+                    
+                    
+                    <div>
+                        <p class="text-xs font-bold text-gray-700 mb-2">Baseline Solvers</p>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
+                                <thead>
+                                    <tr class="bg-gray-50 text-gray-600">
+                                        <th class="px-3 py-2 text-left font-semibold">Solver</th>
+                                        <th class="px-3 py-2 text-right font-semibold">FSC-0.143 (Å)</th>
+                                        
+                                        
+                                        <th class="px-3 py-2 text-right font-semibold">Q</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-3 py-2 font-medium text-gray-800">RELION-3.1</td>
+                                        <td class="px-3 py-2 text-right font-mono text-gray-700">2.8</td>
+                                        
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-1.5 py-0.5 rounded font-bold text-[10px]
+                                                bg-blue-100 text-blue-700
+                                                ">
+                                                0.82
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-3 py-2 font-medium text-gray-800">cryoSPARC</td>
+                                        <td class="px-3 py-2 text-right font-mono text-gray-700">2.6</td>
+                                        
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-1.5 py-0.5 rounded font-bold text-[10px]
+                                                bg-emerald-100 text-emerald-700
+                                                ">
+                                                0.9
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-3 py-2 font-medium text-gray-800">Topaz-ML3D</td>
+                                        <td class="px-3 py-2 text-right font-mono text-gray-700">2.4</td>
+                                        
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-1.5 py-0.5 rounded font-bold text-[10px]
+                                                bg-emerald-100 text-emerald-700
+                                                ">
+                                                0.96
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    
+                    
+                    <div>
+                        <p class="text-xs font-bold text-gray-700 mb-2">Quality Scoring</p>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
+                                <thead>
+                                    <tr class="bg-gray-50 text-gray-600">
+                                        <th class="px-3 py-2 text-left font-semibold">Tier</th>
+                                        
+                                        <th class="px-3 py-2 text-right font-semibold">Max Res. (Å) ↓</th>
+                                        
+                                        <th class="px-3 py-2 text-right font-semibold">Q score</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    
+                                    
+                                    <tr class="bg-emerald-50/60">
+                                        <td class="px-3 py-2 font-semibold
+                                            text-emerald-700
+                                            ">Excellent</td>
+                                        
+                                        <td class="px-3 py-2 text-right font-mono text-gray-600">≤ 2.0</td>
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-2 py-0.5 rounded font-bold text-[11px]
+                                                bg-emerald-100 text-emerald-700
+                                                ">1.0</span>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr class="">
+                                        <td class="px-3 py-2 font-semibold
+                                            text-emerald-700
+                                            ">Strong</td>
+                                        
+                                        <td class="px-3 py-2 text-right font-mono text-gray-600">≤ 2.2</td>
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-2 py-0.5 rounded font-bold text-[11px]
+                                                bg-emerald-100 text-emerald-700
+                                                ">0.96</span>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr class="">
+                                        <td class="px-3 py-2 font-semibold
+                                            text-blue-700
+                                            ">Good</td>
+                                        
+                                        <td class="px-3 py-2 text-right font-mono text-gray-600">≤ 2.5</td>
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-2 py-0.5 rounded font-bold text-[11px]
+                                                bg-blue-100 text-blue-700
+                                                ">0.9</span>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr class="">
+                                        <td class="px-3 py-2 font-semibold
+                                            text-amber-700
+                                            ">Standard</td>
+                                        
+                                        <td class="px-3 py-2 text-right font-mono text-gray-600">≤ 2.8</td>
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-2 py-0.5 rounded font-bold text-[11px]
+                                                bg-amber-100 text-amber-700
+                                                ">0.82</span>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    <tr class="">
+                                        <td class="px-3 py-2 font-semibold
+                                            text-amber-700
+                                            ">Floor</td>
+                                        
+                                        <td class="px-3 py-2 text-right font-mono text-gray-600">≤ 3.2</td>
+                                        
+                                        <td class="px-3 py-2 text-right">
+                                            <span class="inline-block px-2 py-0.5 rounded font-bold text-[11px]
+                                                bg-amber-100 text-amber-700
+                                                ">0.75</span>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    
+                    <details class="border border-gray-200 rounded-lg">
+                        <summary class="px-3 py-2 text-xs font-semibold text-gray-600 cursor-pointer hover:text-indigo-600">S1–S4 Verification Gates</summary>
+                        <div class="overflow-hidden rounded-b-lg">
+                            <table class="min-w-full text-xs">
+                                <thead>
+                                    <tr class="bg-gray-50 text-gray-500">
+                                        <th class="px-3 py-1.5 text-left font-semibold w-10">Gate</th>
+                                        <th class="px-3 py-1.5 text-left font-semibold">What it checks</th>
+                                        <th class="px-3 py-1.5 text-right font-semibold w-16">Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr>
+                                        <td class="px-3 py-2 font-bold text-indigo-600">S1</td>
+                                        <td class="px-3 py-2 text-gray-600">Dataset dimensions (×) match spec; all schema fields present and correctly typed.</td>
+                                        <td class="px-3 py-2 text-right"><span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">PASS</span></td>
+                                    </tr>
+                                    <tr class="bg-gray-50/50">
+                                        <td class="px-3 py-2 font-bold text-indigo-600">S2</td>
+                                        <td class="px-3 py-2 text-gray-600">Forward model defined by this data and Principle has a bounded inverse; geometry is well-determined (κ finite).</td>
+                                        <td class="px-3 py-2 text-right"><span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">PASS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 font-bold text-indigo-600">S3</td>
+                                        <td class="px-3 py-2 text-gray-600">Baseline solver converges within the regime defined by the Principle; convergence rate confirmed across test cases.</td>
+                                        <td class="px-3 py-2 text-right"><span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">PASS</span></td>
+                                    </tr>
+                                    <tr class="bg-gray-50/50">
+                                        <td class="px-3 py-2 font-bold text-indigo-600">S4</td>
+                                        <td class="px-3 py-2 text-gray-600">Best baseline achieves PSNR ≥ ε=2.5 dB (Topaz-ML3D: 2.4 dB); feasibility confirmed.</td>
+                                        <td class="px-3 py-2 text-right"><span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">PASS</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+
+                    
+                    <div>
+                        <p class="text-xs font-bold text-gray-700 mb-2">Reward Split (per accepted Benchmark)</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-[11px]">
+                            <div class="border border-indigo-200 rounded-lg px-2 py-2 bg-indigo-50">
+                                <p class="text-xl font-bold text-indigo-700">60%</p>
+                                <p class="text-indigo-600 font-semibold">L3 Builder</p>
+                                <p class="text-gray-500 mt-0.5">This benchmark</p>
+                            </div>
+                            <div class="border border-purple-200 rounded-lg px-2 py-2 bg-purple-50">
+                                <p class="text-xl font-bold text-purple-700">15%</p>
+                                <p class="text-purple-600 font-semibold">L2 Creator</p>
+                                <p class="text-gray-500 mt-0.5">L2-129-001</p>
+                            </div>
+                            <div class="border border-rose-200 rounded-lg px-2 py-2 bg-rose-50">
+                                <p class="text-xl font-bold text-rose-700">10%</p>
+                                <p class="text-rose-600 font-semibold">L1 Author</p>
+                                <p class="text-gray-500 mt-0.5">L1-129</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg px-2 py-2 bg-gray-50">
+                                <p class="text-xl font-bold text-gray-600">15%</p>
+                                <p class="text-gray-600 font-semibold">Treasury</p>
+                                <p class="text-gray-500 mt-0.5">Protocol fund</p>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-gray-400 mt-2">+ 15% of each accepted L4 Solution reward flows back to this benchmark's pool.</p>
+                    </div>
+
+                </div>
+            </div>
+            
+
+            <!-- Primitives reference -->
+            <details id="primitives-reference" open class="border border-gray-200 rounded-lg">
+                <summary class="px-4 py-3 cursor-pointer text-sm font-semibold text-gray-700 hover:text-indigo-600">
+                    Digital Twin Primitives Reference (11 primitives)
+                </summary>
+                <div class="px-4 pb-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-2">
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">P</span>
+                                <span class="text-sm font-medium text-gray-800">Propagation</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Free-space or medium propagation kernel (Fresnel, Rayleigh-Sommerfeld).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">M</span>
+                                <span class="text-sm font-medium text-gray-800">Mask / Modulation</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Spatial or spatio-temporal amplitude modulation (coded aperture, SLM pattern).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">Π</span>
+                                <span class="text-sm font-medium text-gray-800">Projection</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Geometric projection operator (Radon transform, fan-beam, cone-beam).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">F</span>
+                                <span class="text-sm font-medium text-gray-800">Fourier Sampling</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Sampling in the Fourier / k-space domain (MRI, ptychography).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">C</span>
+                                <span class="text-sm font-medium text-gray-800">Convolution</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Shift-invariant convolution with a point-spread function (PSF).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">Σ</span>
+                                <span class="text-sm font-medium text-gray-800">Summation / Integration</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Summation along a physical dimension (spectral, temporal, angular).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">D</span>
+                                <span class="text-sm font-medium text-gray-800">Detector</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Sensor readout with gain g and noise model η (Gaussian, Poisson, mixed).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">S</span>
+                                <span class="text-sm font-medium text-gray-800">Structured Illumination</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Patterned illumination (block, Hadamard, random) applied to the scene.</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">W</span>
+                                <span class="text-sm font-medium text-gray-800">Wavelength Dispersion</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Spectral dispersion element (prism, grating) with shift α and aperture a.</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">R</span>
+                                <span class="text-sm font-medium text-gray-800">Rotation / Motion</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Sample or gantry rotation (CT, electron tomography).</p>
+                        </div>
+                        
+                        <div class="px-3 py-2 border border-gray-200 rounded bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-indigo-600">Λ</span>
+                                <span class="text-sm font-medium text-gray-800">Wavelength Selection</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Spectral filter or monochromator selecting a wavelength band.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        
+        
+        <div class="bg-white shadow rounded-xl p-6">
+            <h3 class="text-base font-bold text-gray-900 mb-3">
+                Reconstruction Gallery &mdash; 4 Scenes
+            </h3>
+            <p class="text-xs text-gray-500 mb-3">
+                Method: <span class="font-semibold">CPU_baseline</span> |
+                Mismatch: <span class="font-mono">nominal</span>
+                (nominal=True, perturbed=False)
+            </p>
+
+            <div class="flex flex-wrap gap-1 mb-4 border-b border-gray-200 pb-2" id="gallery-scene-tabs">
+                
+                <button
+                    onclick="selectGalleryScene(0)"
+                    id="scene-tab-0"
+                    class="px-3 py-1.5 text-xs font-medium rounded-t-md transition-colors
+                        bg-indigo-100 text-indigo-800 border-b-2 border-indigo-500
+                        "
+                >scene_00</button>
+                
+                <button
+                    onclick="selectGalleryScene(1)"
+                    id="scene-tab-1"
+                    class="px-3 py-1.5 text-xs font-medium rounded-t-md transition-colors
+                        bg-gray-50 text-gray-600 hover:bg-gray-100"
+                >scene_01</button>
+                
+                <button
+                    onclick="selectGalleryScene(2)"
+                    id="scene-tab-2"
+                    class="px-3 py-1.5 text-xs font-medium rounded-t-md transition-colors
+                        bg-gray-50 text-gray-600 hover:bg-gray-100"
+                >scene_02</button>
+                
+                <button
+                    onclick="selectGalleryScene(3)"
+                    id="scene-tab-3"
+                    class="px-3 py-1.5 text-xs font-medium rounded-t-md transition-colors
+                        bg-gray-50 text-gray-600 hover:bg-gray-100"
+                >scene_03</button>
+                
+            </div>
+
+            
+            <div id="gallery-scene-0"
+                 class="gallery-scene-panel ">
+                <div class="max-w-sm">
+                    <img src="/gcs/benchmark_gallery/img/benchmark_gallery/cryo_em/scene_00/recon_III.png" alt="Oracle Reconstruction" class="w-full rounded border-2 border-blue-300" loading="lazy" />
+                    <p class="mt-1 text-xs font-medium text-blue-700 text-center">Oracle Reconstruction</p>
+                    <div class="flex flex-wrap gap-1 justify-center mt-1">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">27.064067468908355 dB PSNR</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">SSIM 0.1086584939480722</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gallery-scene-1"
+                 class="gallery-scene-panel hidden">
+                <div class="max-w-sm">
+                    <img src="/gcs/benchmark_gallery/img/benchmark_gallery/cryo_em/scene_01/recon_III.png" alt="Oracle Reconstruction" class="w-full rounded border-2 border-blue-300" loading="lazy" />
+                    <p class="mt-1 text-xs font-medium text-blue-700 text-center">Oracle Reconstruction</p>
+                    <div class="flex flex-wrap gap-1 justify-center mt-1">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">23.61547175072268 dB PSNR</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">SSIM 0.05677883204682544</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gallery-scene-2"
+                 class="gallery-scene-panel hidden">
+                <div class="max-w-sm">
+                    <img src="/gcs/benchmark_gallery/img/benchmark_gallery/cryo_em/scene_02/recon_III.png" alt="Oracle Reconstruction" class="w-full rounded border-2 border-blue-300" loading="lazy" />
+                    <p class="mt-1 text-xs font-medium text-blue-700 text-center">Oracle Reconstruction</p>
+                    <div class="flex flex-wrap gap-1 justify-center mt-1">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">22.680579558335342 dB PSNR</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">SSIM 0.08145810208457709</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gallery-scene-3"
+                 class="gallery-scene-panel hidden">
+                <div class="max-w-sm">
+                    <img src="/gcs/benchmark_gallery/img/benchmark_gallery/cryo_em/scene_03/recon_III.png" alt="Oracle Reconstruction" class="w-full rounded border-2 border-blue-300" loading="lazy" />
+                    <p class="mt-1 text-xs font-medium text-blue-700 text-center">Oracle Reconstruction</p>
+                    <div class="flex flex-wrap gap-1 justify-center mt-1">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">27.534558717255628 dB PSNR</span>
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">SSIM 0.12052593031266332</span>
+                    </div>
+                </div>
+            </div>
+            
+
+            <details class="mt-4 border border-gray-200 rounded-lg">
+                <summary class="px-4 py-2 text-xs font-medium text-gray-600 cursor-pointer hover:text-indigo-600 hover:bg-gray-50">
+                    Per-scene Oracle PSNR breakdown (4 scenes)
+                </summary>
+                <div class="px-4 pb-4 pt-2 overflow-x-auto">
+                    <table class="min-w-full text-xs">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-2 py-1.5 text-left font-medium text-gray-600">Scene</th>
+                                <th class="px-2 py-1.5 text-right font-medium text-blue-700">PSNR (dB)</th>
+                                <th class="px-2 py-1.5 text-right font-medium text-blue-600">SSIM</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-2 py-1.5 font-medium text-gray-700">scene_00</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-700">27.064067468908355</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-600">0.1086584939480722</td>
+                            </tr>
+                            
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-2 py-1.5 font-medium text-gray-700">scene_01</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-700">23.61547175072268</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-600">0.05677883204682544</td>
+                            </tr>
+                            
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-2 py-1.5 font-medium text-gray-700">scene_02</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-700">22.680579558335342</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-600">0.08145810208457709</td>
+                            </tr>
+                            
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-2 py-1.5 font-medium text-gray-700">scene_03</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-700">27.534558717255628</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-600">0.12052593031266332</td>
+                            </tr>
+                            
+                            <tr class="bg-gray-100 font-semibold">
+                                <td class="px-2 py-1.5 text-gray-700">Mean</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-700">25.2236693738055</td>
+                                <td class="px-2 py-1.5 text-right font-mono text-blue-600">0.09185533959803452</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+        
+
+        
+        
+
+        <div id="sentinel-contents"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SECTION 4 — Submit (scroll-gated)
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="submit-modes" class="relative">
+        <!-- Lock overlay: hidden once all 3 prior sections scrolled through -->
+        <div id="submit-lock" class="absolute inset-0 bg-white/88 backdrop-blur-sm rounded-xl flex flex-col items-center justify-center z-10 border-2 border-dashed border-gray-300 min-h-[160px]">
+            <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            <p class="text-sm font-semibold text-gray-600 mb-1">Read through all sections above to unlock</p>
+            <p class="text-xs text-gray-400">Scroll through each section to proceed.</p>
+            <div class="flex gap-2 mt-3">
+                <span id="prog-intro" class="px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-400 transition-colors">Introduction</span>
+                <span id="prog-list" class="px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-400 transition-colors">Solutions</span>
+                <span id="prog-contents" class="px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-400 transition-colors">Contents</span>
+            </div>
+        </div>
+
+        <!-- Submit panels (blurred until unlocked) -->
+        <div id="submit-panels" class="bg-white shadow rounded-xl p-6 space-y-6" style="filter: blur(3px); pointer-events: none; user-select: none;">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-900">Submit</h2>
+                <span class="text-xs px-2 py-1 rounded font-medium bg-indigo-100 text-indigo-700">4 / 4</span>
+            </div>
+
+            
+            <div>
+                <h3 class="text-base font-bold text-gray-900 mb-1">Improve this benchmark</h3>
+                <p class="text-sm text-gray-500 mb-3">A free one-click check of <strong>L3-129-001-001-T1</strong> (no files), or upload a refinement. Accepted submissions earn PWM.</p>
+                
+                  
+
+
+
+<div id="contribute" class="bg-white border-2 border-emerald-200 rounded-xl overflow-hidden"
+     data-layer="l3" data-aid="L3-129-001-001-T1" data-auth="0">
+  <div class="px-5 py-3 border-b border-emerald-100 bg-gradient-to-r from-emerald-50 to-green-50">
+    <h2 class="text-sm font-bold text-emerald-900 flex items-center gap-2">🎁 Contribute &amp; earn PWM</h2>
+    <p class="text-[11px] text-emerald-800 mt-0.5">
+      Improve <strong>L3-129-001-001-T1</strong> — submit <strong>with or without uploading</strong>.
+      Accepted submissions earn the <strong>1/16</strong> modify share of A(t).
+    </p>
+  </div>
+
+  <div class="p-5 space-y-5">
+
+    
+    <div>
+      <p class="text-sm font-bold text-gray-800 mb-1">⬆ Submit by uploading your files
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 uppercase align-middle">earn PWM · unlimited</span>
+      </p>
+      <p class="text-[11px] text-gray-500 mb-2">
+        Upload your <code class="bg-gray-100 px-1 rounded">.md</code> + <code class="bg-gray-100 px-1 rounded">.json</code>
+        as a modification of L3-129-001-001-T1 — the main way to contribute &amp; earn. Unlimited submissions.
+      </p>
+      
+      <div class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-800">
+        <a href="/login/" class="underline font-semibold">Log in</a> to upload &amp; submit your files.
+      </div>
+      
+    </div>
+
+    <div class="border-t border-dashed border-gray-200"></div>
+
+    
+    <div>
+      <p class="text-xs font-bold text-gray-600 mb-1">✨ Or try a free one-click check
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 uppercase align-middle">free · 1×</span>
+      </p>
+      <p class="text-[11px] text-gray-500 mb-2">
+        No files, no typing — we submit a check of <span class="font-mono">L3-129-001-001-T1</span> for you once; it
+        goes through review and earns the <strong>1/16</strong> share. One free no-upload Benchmark per account.
+      </p>
+      
+        <button class="cb-check bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-50 text-sm font-semibold rounded-lg px-4 py-2">
+          ✨ Free one-click check
+        </button>
+        <p class="cb-check-result text-[11px] mt-1.5 text-gray-400">
+          You'll be asked to log in first — then it's one click, no files.
+        </p>
+      
+    </div>
+
+    <div class="border-t border-dashed border-gray-200"></div>
+
+    
+    <div>
+      <p class="text-xs font-bold text-gray-700 mb-1">🛠 Helper: build your files in ChatGPT / Gemini / Claude</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] mb-3">
+        <div class="rounded-lg border border-gray-200 p-2.5">
+          <p class="font-bold text-gray-600 mb-1">Layer template</p>
+          <div class="flex flex-wrap gap-x-3 gap-y-1">
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact-templates/benchmark/raw/benchmark.md">⬇ benchmark.md</a>
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact-templates/benchmark/raw/benchmark.json">⬇ benchmark.json</a>
+            
+          </div>
+        </div>
+        <div class="rounded-lg border border-gray-200 p-2.5">
+          <p class="font-bold text-gray-600 mb-1">Fork L3-129-001-001-T1</p>
+          <div class="flex flex-wrap gap-x-3 gap-y-1">
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact/l3/L3-129-001-001-T1/raw/L3-129-001-001-T1.md">⬇ L3-129-001-001-T1.md</a>
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact/l3/L3-129-001-001-T1/raw/L3-129-001-001-T1.json">⬇ L3-129-001-001-T1.json</a>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-lg border border-indigo-200 bg-indigo-50/50 p-3">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Prompt — copy into your LLM</p>
+          <button type="button" class="cb-copy text-[10px] px-2 py-0.5 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Copy</button>
+        </div>
+        <pre class="cb-prompt text-[11px] text-gray-800 whitespace-pre-wrap font-mono leading-snug">You are helping me submit a MODIFICATION of L3-129-001-001-T1 (Cryo-EM Single Particle Analysis Benchmark) to the PWM Protocol — a Benchmark (L3) artifact.
+
+I will paste a Markdown template (or the current L3-129-001-001-T1.md).
+1. Rewrite the Markdown so the science is correct and clearly explained for my change.
+2. Regenerate the sibling L3-129-001-001-T1.json so EVERY field matches the Markdown.
+3. Keep the schema in the "File Mapping" footer at the bottom of the MD.
+4. Keep the parent reference unchanged unless I ask otherwise.
+Rules: the Markdown is the source of truth; use SI units; do NOT invent benchmark scores.
+Output each file in its own fenced code block tagged with the filename.
+
+Here is my template:
+[PASTE THE .md HERE]</pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var box = document.getElementById('contribute');
+  if (!box || box.dataset.wired) return; box.dataset.wired = '1';
+  var layer = box.dataset.layer, aid = box.dataset.aid, loggedIn = box.dataset.auth === '1';
+  function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function gotoLogin(){ location.href = '/login?next=' + encodeURIComponent(location.pathname + '#contribute'); }
+
+  var copyBtn = box.querySelector('.cb-copy');
+  if (copyBtn) copyBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText(box.querySelector('.cb-prompt').textContent);
+    copyBtn.textContent = '✓ Copied'; setTimeout(function(){ copyBtn.textContent = 'Copy'; }, 1500);
+  });
+
+  // ---- Mode A: one-click no-upload check ----
+  var chk = box.querySelector('.cb-check'), chkRes = box.querySelector('.cb-check-result');
+
+  // Auto-fire the check when the user returns from login via the #contribute redirect.
+  // Detection: page was loaded with #contribute hash AND user is now logged in AND
+  // the URL still contains the hash (i.e. this is the post-login landing, not a repeat visit).
+  if (chk && loggedIn && window.location.hash === '#contribute') {
+    // Remove the hash so a page refresh doesn't re-trigger
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    // Scroll to the panel and auto-click after a short delay so the UI settles
+    box.scrollIntoView({behavior: 'smooth', block: 'center'});
+    setTimeout(function() { chk.click(); }, 800);
+  }
+
+  if (chk) chk.addEventListener('click', async function () {
+    if (!loggedIn) { gotoLogin(); return; }
+    chk.disabled = true; var orig = chk.textContent; chk.textContent = 'Submitting your free check…';
+    chkRes.className = 'cb-check-result text-[11px] mt-1.5 text-gray-500';
+    chkRes.textContent = 'Preparing & submitting (a few seconds)…';
+    try {
+      var r = await fetch('/api/agent/check-submit', {
+        method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
+        body: JSON.stringify({layer: layer, artifact_id: aid})
+      });
+      var d = await r.json();
+      if (!r.ok) { chkRes.className='cb-check-result text-[11px] mt-1.5 text-red-600'; chkRes.textContent = d.error || 'Submit failed.'; chk.disabled=false; chk.textContent=orig; return; }
+      chk.classList.add('hidden');
+      chkRes.className='cb-check-result text-[11px] mt-1.5 text-emerald-700 font-semibold';
+      var expiryNote = d.expires_date ? ' <span class="text-amber-600 font-normal">(valid 30 days — expires '+esc(d.expires_date)+')</span>' : '';
+      chkRes.innerHTML='✓ '+esc(d.message)+expiryNote+' &middot; <a class="underline" href="https://physicsworldmodel.org/get_pwm">track in /get_pwm</a>';
+    } catch (e) { chkRes.className='cb-check-result text-[11px] mt-1.5 text-red-600'; chkRes.textContent='Submit unavailable — try again.'; chk.disabled=false; chk.textContent=orig; }
+  });
+
+  // ---- Mode B: upload ----
+  var upBtn = box.querySelector('.cb-upload');
+  if (upBtn) upBtn.addEventListener('click', async function () {
+    var core = box.querySelector('.cb-up-core'), codeIn = box.querySelector('.cb-up-code'),
+        res = box.querySelector('.cb-up-result');
+    var fd = new FormData(); fd.append('layer', layer); fd.append('modifies', aid);
+    var n = 0;
+    if (core) { for (var i=0;i<core.files.length;i++){ fd.append('files', core.files[i]); n++; } }
+    if (codeIn) { for (var j=0;j<codeIn.files.length;j++){ fd.append('files', codeIn.files[j]); n++; } }
+    if (!n) { res.className='cb-up-result text-[11px] mt-1.5 text-red-600'; res.textContent='Choose your .md and .json first.'; return; }
+    upBtn.disabled = true; res.className='cb-up-result text-[11px] mt-1.5 text-gray-500'; res.textContent='Uploading…';
+    try {
+      var r = await fetch('/api/submit/upload', { method:'POST', credentials:'same-origin', body: fd });
+      var html = await r.text();
+      res.className='cb-up-result text-[12px] mt-1.5'; res.innerHTML = html;
+    } catch (e) { res.className='cb-up-result text-[11px] mt-1.5 text-red-600'; res.textContent='Upload unavailable — try again.'; }
+    upBtn.disabled = false;
+  });
+})();
+</script>
+                
+            </div>
+            
+
+            
+            <div class="border-t border-dashed border-gray-200 pt-4">
+                <h3 class="text-base font-bold text-gray-900 mb-1">Contribute a new Benchmark Variant (L3)</h3>
+                <p class="text-sm text-gray-500 mb-3">
+                    Define a new evaluation variant for <strong>Cryo-EM Single Particle Analysis</strong> — different mismatch parameters, dataset, or difficulty tier.
+                    Accepted L3 contributions earn the <strong>3/16 new-artifact share</strong> of A(t).
+                </p>
+                
+                  
+
+
+
+<div id="contribute" class="bg-white border-2 border-emerald-200 rounded-xl overflow-hidden"
+     data-layer="l3" data-aid="L3-129-001-001-T1" data-auth="0">
+  <div class="px-5 py-3 border-b border-emerald-100 bg-gradient-to-r from-emerald-50 to-green-50">
+    <h2 class="text-sm font-bold text-emerald-900 flex items-center gap-2">🎁 Contribute &amp; earn PWM</h2>
+    <p class="text-[11px] text-emerald-800 mt-0.5">
+      Improve <strong>L3-129-001-001-T1</strong> — submit <strong>with or without uploading</strong>.
+      Accepted submissions earn the <strong>1/16</strong> modify share of A(t).
+    </p>
+  </div>
+
+  <div class="p-5 space-y-5">
+
+    
+    <div>
+      <p class="text-sm font-bold text-gray-800 mb-1">⬆ Submit by uploading your files
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 uppercase align-middle">earn PWM · unlimited</span>
+      </p>
+      <p class="text-[11px] text-gray-500 mb-2">
+        Upload your <code class="bg-gray-100 px-1 rounded">.md</code> + <code class="bg-gray-100 px-1 rounded">.json</code>
+        as a modification of L3-129-001-001-T1 — the main way to contribute &amp; earn. Unlimited submissions.
+      </p>
+      
+      <div class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-800">
+        <a href="/login/" class="underline font-semibold">Log in</a> to upload &amp; submit your files.
+      </div>
+      
+    </div>
+
+    <div class="border-t border-dashed border-gray-200"></div>
+
+    
+    <div>
+      <p class="text-xs font-bold text-gray-600 mb-1">✨ Or try a free one-click check
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 uppercase align-middle">free · 1×</span>
+      </p>
+      <p class="text-[11px] text-gray-500 mb-2">
+        No files, no typing — we submit a check of <span class="font-mono">L3-129-001-001-T1</span> for you once; it
+        goes through review and earns the <strong>1/16</strong> share. One free no-upload Benchmark per account.
+      </p>
+      
+        <button class="cb-check bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-50 text-sm font-semibold rounded-lg px-4 py-2">
+          ✨ Free one-click check
+        </button>
+        <p class="cb-check-result text-[11px] mt-1.5 text-gray-400">
+          You'll be asked to log in first — then it's one click, no files.
+        </p>
+      
+    </div>
+
+    <div class="border-t border-dashed border-gray-200"></div>
+
+    
+    <div>
+      <p class="text-xs font-bold text-gray-700 mb-1">🛠 Helper: build your files in ChatGPT / Gemini / Claude</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] mb-3">
+        <div class="rounded-lg border border-gray-200 p-2.5">
+          <p class="font-bold text-gray-600 mb-1">Layer template</p>
+          <div class="flex flex-wrap gap-x-3 gap-y-1">
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact-templates/benchmark/raw/benchmark.md">⬇ benchmark.md</a>
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact-templates/benchmark/raw/benchmark.json">⬇ benchmark.json</a>
+            
+          </div>
+        </div>
+        <div class="rounded-lg border border-gray-200 p-2.5">
+          <p class="font-bold text-gray-600 mb-1">Fork L3-129-001-001-T1</p>
+          <div class="flex flex-wrap gap-x-3 gap-y-1">
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact/l3/L3-129-001-001-T1/raw/L3-129-001-001-T1.md">⬇ L3-129-001-001-T1.md</a>
+            <a class="text-indigo-600 hover:underline font-mono" href="https://physicsworldmodel.org/artifact/l3/L3-129-001-001-T1/raw/L3-129-001-001-T1.json">⬇ L3-129-001-001-T1.json</a>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-lg border border-indigo-200 bg-indigo-50/50 p-3">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Prompt — copy into your LLM</p>
+          <button type="button" class="cb-copy text-[10px] px-2 py-0.5 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Copy</button>
+        </div>
+        <pre class="cb-prompt text-[11px] text-gray-800 whitespace-pre-wrap font-mono leading-snug">You are helping me submit a MODIFICATION of L3-129-001-001-T1 (Cryo-EM Single Particle Analysis Benchmark) to the PWM Protocol — a Benchmark (L3) artifact.
+
+I will paste a Markdown template (or the current L3-129-001-001-T1.md).
+1. Rewrite the Markdown so the science is correct and clearly explained for my change.
+2. Regenerate the sibling L3-129-001-001-T1.json so EVERY field matches the Markdown.
+3. Keep the schema in the "File Mapping" footer at the bottom of the MD.
+4. Keep the parent reference unchanged unless I ask otherwise.
+Rules: the Markdown is the source of truth; use SI units; do NOT invent benchmark scores.
+Output each file in its own fenced code block tagged with the filename.
+
+Here is my template:
+[PASTE THE .md HERE]</pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var box = document.getElementById('contribute');
+  if (!box || box.dataset.wired) return; box.dataset.wired = '1';
+  var layer = box.dataset.layer, aid = box.dataset.aid, loggedIn = box.dataset.auth === '1';
+  function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function gotoLogin(){ location.href = '/login?next=' + encodeURIComponent(location.pathname + '#contribute'); }
+
+  var copyBtn = box.querySelector('.cb-copy');
+  if (copyBtn) copyBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText(box.querySelector('.cb-prompt').textContent);
+    copyBtn.textContent = '✓ Copied'; setTimeout(function(){ copyBtn.textContent = 'Copy'; }, 1500);
+  });
+
+  // ---- Mode A: one-click no-upload check ----
+  var chk = box.querySelector('.cb-check'), chkRes = box.querySelector('.cb-check-result');
+
+  // Auto-fire the check when the user returns from login via the #contribute redirect.
+  // Detection: page was loaded with #contribute hash AND user is now logged in AND
+  // the URL still contains the hash (i.e. this is the post-login landing, not a repeat visit).
+  if (chk && loggedIn && window.location.hash === '#contribute') {
+    // Remove the hash so a page refresh doesn't re-trigger
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    // Scroll to the panel and auto-click after a short delay so the UI settles
+    box.scrollIntoView({behavior: 'smooth', block: 'center'});
+    setTimeout(function() { chk.click(); }, 800);
+  }
+
+  if (chk) chk.addEventListener('click', async function () {
+    if (!loggedIn) { gotoLogin(); return; }
+    chk.disabled = true; var orig = chk.textContent; chk.textContent = 'Submitting your free check…';
+    chkRes.className = 'cb-check-result text-[11px] mt-1.5 text-gray-500';
+    chkRes.textContent = 'Preparing & submitting (a few seconds)…';
+    try {
+      var r = await fetch('/api/agent/check-submit', {
+        method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
+        body: JSON.stringify({layer: layer, artifact_id: aid})
+      });
+      var d = await r.json();
+      if (!r.ok) { chkRes.className='cb-check-result text-[11px] mt-1.5 text-red-600'; chkRes.textContent = d.error || 'Submit failed.'; chk.disabled=false; chk.textContent=orig; return; }
+      chk.classList.add('hidden');
+      chkRes.className='cb-check-result text-[11px] mt-1.5 text-emerald-700 font-semibold';
+      var expiryNote = d.expires_date ? ' <span class="text-amber-600 font-normal">(valid 30 days — expires '+esc(d.expires_date)+')</span>' : '';
+      chkRes.innerHTML='✓ '+esc(d.message)+expiryNote+' &middot; <a class="underline" href="https://physicsworldmodel.org/get_pwm">track in /get_pwm</a>';
+    } catch (e) { chkRes.className='cb-check-result text-[11px] mt-1.5 text-red-600'; chkRes.textContent='Submit unavailable — try again.'; chk.disabled=false; chk.textContent=orig; }
+  });
+
+  // ---- Mode B: upload ----
+  var upBtn = box.querySelector('.cb-upload');
+  if (upBtn) upBtn.addEventListener('click', async function () {
+    var core = box.querySelector('.cb-up-core'), codeIn = box.querySelector('.cb-up-code'),
+        res = box.querySelector('.cb-up-result');
+    var fd = new FormData(); fd.append('layer', layer); fd.append('modifies', aid);
+    var n = 0;
+    if (core) { for (var i=0;i<core.files.length;i++){ fd.append('files', core.files[i]); n++; } }
+    if (codeIn) { for (var j=0;j<codeIn.files.length;j++){ fd.append('files', codeIn.files[j]); n++; } }
+    if (!n) { res.className='cb-up-result text-[11px] mt-1.5 text-red-600'; res.textContent='Choose your .md and .json first.'; return; }
+    upBtn.disabled = true; res.className='cb-up-result text-[11px] mt-1.5 text-gray-500'; res.textContent='Uploading…';
+    try {
+      var r = await fetch('/api/submit/upload', { method:'POST', credentials:'same-origin', body: fd });
+      var html = await r.text();
+      res.className='cb-up-result text-[12px] mt-1.5'; res.innerHTML = html;
+    } catch (e) { res.className='cb-up-result text-[11px] mt-1.5 text-red-600'; res.textContent='Upload unavailable — try again.'; }
+    upBtn.disabled = false;
+  });
+})();
+</script>
+                
+            </div>
+            
+        </div>
+    </section>
+
+</div>
+
+
+<script>
+if (window.location.hash === '#primitives-reference') {
+    var el = document.getElementById('primitives-reference');
+    if (el) el.open = true;
+}
+</script>
+
+
+
+<script>
+function selectGalleryScene(idx) {
+    document.querySelectorAll('.gallery-scene-panel').forEach(function(el) {
+        el.classList.add('hidden');
+    });
+    var panel = document.getElementById('gallery-scene-' + idx);
+    if (panel) panel.classList.remove('hidden');
+    document.querySelectorAll('#gallery-scene-tabs button').forEach(function(btn) {
+        btn.className = btn.className
+            .replace(/bg-indigo-100/g, 'bg-gray-50')
+            .replace(/text-indigo-800/g, 'text-indigo-800'.length > 0 ? 'text-gray-600' : '')
+            .replace(/border-b-2/g, '')
+            .replace(/border-indigo-500/g, '');
+        if (!btn.className.includes('hover:bg-gray-100')) btn.className += ' hover:bg-gray-100';
+    });
+    var activeTab = document.getElementById('scene-tab-' + idx);
+    if (activeTab) {
+        activeTab.className = activeTab.className
+            .replace(/bg-gray-50/g, 'bg-indigo-100')
+            .replace(/text-gray-600/g, 'text-indigo-800')
+            .replace(/hover:bg-gray-100/g, '');
+        activeTab.className += ' border-b-2 border-indigo-500';
+    }
+}
+</script>
+
+
+
+<script>
+function startDownload(btn, url) {
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = '';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    var icon = btn.querySelector('.dl-icon');
+    var label = btn.querySelector('.dl-label');
+    if (icon) icon.classList.add('animate-bounce');
+    if (label) label.textContent = 'Downloading…';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    setTimeout(function() {
+        if (icon) icon.classList.remove('animate-bounce');
+        if (label) label.textContent = 'Download';
+        btn.disabled = false;
+        btn.style.opacity = '1';
+    }, 4000);
+}
+
+function reportIssue(form) {
+    var data = new FormData(form);
+    var details = data.get('details') || '';
+    var issueType = data.get('issue_type') || 'other';
+    fetch('/claims/scaffold', {
+        method: 'POST',
+        credentials: 'include',
+        body: new URLSearchParams({
+            title: '[DISPUTE] ' + issueType + ' — ' + data.get('variant_key') + ': ' + details.substring(0, 120),
+            modality: data.get('variant_key'),
+            method: issueType,
+            arxiv_id: '',
+            authors: '',
+            source_url: '',
+            claimed_psnr: '',
+            claimed_ssim: '',
+            claim_type: 'trust_dispute',
+        })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+        var status = document.getElementById('report-status');
+        status.textContent = 'Report submitted (claim ID: ' + d.claim_id + '). Admin will review at /claims';
+        status.className = 'text-xs text-green-600 ml-2';
+        form.reset();
+    })
+    .catch(function(e) {
+        var status = document.getElementById('report-status');
+        status.textContent = 'Error: ' + e.message;
+        status.className = 'text-xs text-red-600 ml-2';
+    });
+}
+</script>
+
+
+<script>
+(function() {
+    var seen = {};
+    var sentinels = ['intro', 'list', 'contents'];
+
+    function checkUnlock() {
+        if (!sentinels.every(function(id) { return seen[id]; })) return;
+        var lock = document.getElementById('submit-lock');
+        var panels = document.getElementById('submit-panels');
+        if (lock) {
+            lock.style.transition = 'opacity 0.4s';
+            lock.style.opacity = '0';
+            setTimeout(function() { lock.style.display = 'none'; }, 400);
+        }
+        if (panels) {
+            panels.style.transition = 'filter 0.4s';
+            panels.style.filter = '';
+            panels.style.pointerEvents = '';
+            panels.style.userSelect = '';
+        }
+    }
+
+    function markSeen(id) {
+        if (seen[id]) return;
+        seen[id] = true;
+        var prog = document.getElementById('prog-' + id);
+        if (prog) {
+            prog.className = prog.className
+                .replace('bg-gray-100', 'bg-emerald-100')
+                .replace('text-gray-400', 'text-emerald-700');
+            prog.textContent += ' ✓';
+        }
+        checkUnlock();
+    }
+
+    if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) markSeen(e.target.dataset.sentinel);
+            });
+        }, { threshold: 0.1 });
+        sentinels.forEach(function(id) {
+            var el = document.getElementById('sentinel-' + id);
+            if (el) { el.dataset.sentinel = id; obs.observe(el); }
+        });
+    } else {
+        // Fallback for old browsers: unlock immediately
+        var lock = document.getElementById('submit-lock');
+        var panels = document.getElementById('submit-panels');
+        if (lock) lock.style.display = 'none';
+        if (panels) { panels.style.filter = ''; panels.style.pointerEvents = ''; }
+    }
+})();
+</script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script>
+(function() {
+  function renderFM() {
+    document.querySelectorAll('.katex-fm[data-eq]').forEach(function(el) {
+      if (!el.querySelector('.katex')) {
+        try { katex.render(el.dataset.eq, el, {displayMode: true, throwOnError: false}); } catch(e) {}
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(renderFM, 50); });
+  } else { setTimeout(renderFM, 50); }
+  window.addEventListener('load', renderFM);
+})();
+</script>
+
+
+            <footer class="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-400">
+                PWM · NumFOCUS fiscally sponsored
+            </footer>
+        </main>
+    </div>
+
+    
+    
+    <div id="float-chat" style="position:fixed; right:18px; bottom:18px; z-index:60;">
+      <button id="float-chat-toggle" type="button"
+              style="width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+                     background:#4f46e5;color:#fff;font-size:22px;box-shadow:0 6px 20px rgba(0,0,0,.25);"
+              title="Ask the PWM agent">💬</button>
+      <div id="float-chat-panel"
+           style="display:none;position:absolute;right:0;bottom:64px;width:min(92vw,380px);
+                  background:#fff;border:1px solid #e5e7eb;border-radius:14px;
+                  box-shadow:0 12px 40px rgba(0,0,0,.25);padding:14px;">
+        
+
+
+
+<div class="agentbox agentbox-inline"
+     data-variant="inline" data-auth="0"
+     >
+
+  
+  <div class="ab-head flex items-center gap-2.5 mb-2.5">
+    <span class="ab-avatar inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-lg shadow-md shrink-0">💬</span>
+    <div class="min-w-0 leading-tight">
+      <p class="text-sm font-extrabold text-gray-900 flex items-center gap-1.5">
+        Ask the PWM AI agent
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 uppercase tracking-wide">AI</span>
+      </p>
+      <p class="text-[11px] text-gray-500">Chat, or find an artifact to improve &amp; earn PWM</p>
+    </div>
+  </div>
+  
+
+  <div class="ab-transcript space-y-2 mb-2"></div>
+
+  <div class="flex gap-2">
+    <input class="ab-input flex-1 outline-none" type="text" autocomplete="off"
+           placeholder="Search artifacts (log in to chat) — e.g. MRI, CT…" />
+    <button class="ab-go" type="button">🔎 Find</button>
+  </div>
+
+  <div class="ab-chips mt-2 flex flex-wrap gap-1.5">
+    
+    <button type="button" class="ab-chip" data-q="MRI">MRI</button>
+    
+    <button type="button" class="ab-chip" data-q="CT">CT</button>
+    
+    <button type="button" class="ab-chip" data-q="CASSI">CASSI</button>
+    
+    <button type="button" class="ab-chip" data-q="hyperspectral">hyperspectral</button>
+    
+    <button type="button" class="ab-chip" data-q="ultrasound">ultrasound</button>
+    
+  </div>
+
+  <div class="ab-results mt-3 space-y-1.5"></div>
+
+  <p class="ab-hint mt-2 text-[11px] text-gray-400">
+    
+    Free to search; <a href="/login/" class="underline">log in</a> to chat with the agent &amp; earn PWM.
+    
+    <a href="/how-to-earn/" class="underline">How it works ↗</a>
+  </p>
+</div>
+
+<style>
+  .agentbox-hero .ab-input, .agentbox-hero .ab-go { font-size: 1rem; padding: 0.7rem 1rem; }
+  .agentbox .ab-input { background:#fff; color:#111827; border:1px solid #d1d5db; border-radius:10px;
+                        padding:0.55rem 0.85rem; font-size:0.9rem; }
+  .agentbox-inline .ab-input { font-size:0.95rem; padding:0.62rem 0.9rem; border-color:#a5b4fc; }
+  .agentbox-inline .ab-go { padding:0.62rem 1.05rem; font-size:0.92rem; }
+  .agentbox .ab-input:focus { border-color:#6366f1; box-shadow:0 0 0 2px #c7d2fe; }
+  .agentbox .ab-go { background:#10b981; color:#fff; font-weight:700; border:none; border-radius:10px;
+                     padding:0.55rem 1rem; cursor:pointer; white-space:nowrap; }
+  .agentbox .ab-go:hover { background:#059669; }
+  .agentbox .ab-chip { font-size:11px; padding:3px 9px; border-radius:999px; cursor:pointer;
+                       border:1px solid rgba(148,163,184,.5); background:rgba(255,255,255,.85); color:#4338ca; }
+  .agentbox-hero .ab-chip { background:rgba(255,255,255,.15); color:#e0e7ff; border-color:rgba(255,255,255,.3); }
+  .agentbox .ab-chip:hover { border-color:#6366f1; }
+  .agentbox .ab-card { display:flex; align-items:center; justify-content:space-between; gap:8px;
+                       background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px; }
+  .agentbox .ab-card a { color:#4f46e5; font-weight:600; text-decoration:none; }
+  .agentbox .ab-card a:hover { text-decoration:underline; }
+  .agentbox .ab-tag { font-size:10px; color:#6b7280; }
+  .agentbox-hero .ab-results, .agentbox-hero .ab-transcript { max-height: 38vh; overflow-y:auto; }
+  .agentbox-inline .ab-transcript { max-height: 40vh; overflow-y:auto; }
+  /* chat bubbles */
+  .ab-msg { font-size:13px; line-height:1.5; padding:8px 12px; border-radius:12px; white-space:pre-wrap; max-width:92%; }
+  .ab-msg-user { background:#4f46e5; color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .ab-msg-bot  { background:#eef2ff; color:#1e1b4b; border:1px solid #c7d2fe; border-bottom-left-radius:4px; }
+  .agentbox-hero .ab-msg-bot { background:rgba(255,255,255,.12); color:#e0e7ff; border-color:rgba(255,255,255,.25); }
+  .agentbox-hero .ab-msg-user { background:#6366f1; }
+  .ab-answer { background:#eef2ff; border:1px solid #c7d2fe; border-radius:10px; padding:8px 12px; font-size:13px; color:#3730a3; line-height:1.5; }
+  .agentbox-hero .ab-answer { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.25); color:#e0e7ff; }
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.agentbox').forEach(function (box) {
+    if (box.dataset.wired) return; box.dataset.wired = '1';
+    var input = box.querySelector('.ab-input');
+    var go    = box.querySelector('.ab-go');
+    var out   = box.querySelector('.ab-results');
+    var trans = box.querySelector('.ab-transcript');
+    var loggedIn = box.dataset.auth === '1';
+    var ICON  = {principle:'⚛','digital-twin':'📐',benchmark:'☆',solution:'⚡'};
+    var history = [];  // {role, content} for the chat endpoint
+    var ctx = (box.dataset.ctxId || box.dataset.ctxTitle || box.dataset.ctxTopic)
+      ? {layer:box.dataset.ctxLayer||'', id:box.dataset.ctxId||'', title:box.dataset.ctxTitle||'', topic:box.dataset.ctxTopic||''}
+      : null;
+
+    function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function bubble(role, text) {
+      var d=document.createElement('div');
+      d.className='ab-msg ' + (role==='user'?'ab-msg-user':'ab-msg-bot');
+      d.textContent=text; trans.appendChild(d); trans.scrollTop=trans.scrollHeight; return d;
+    }
+    function renderLinks(res) {
+      out.innerHTML='';
+      if (!res || !res.length) return;
+      var lab=document.createElement('p'); lab.className='ab-tag'; lab.textContent='Artifacts you can improve:'; out.appendChild(lab);
+      res.forEach(function (x) {
+        var d=document.createElement('div'); d.className='ab-card';
+        d.innerHTML='<div style="min-width:0"><span>'+(ICON[x.layer_name]||'')+'</span> '+
+          '<a href="'+esc(x.url)+'">'+esc(x.title)+'</a> '+
+          '<span class="ab-tag">'+esc(x.layer_name)+' · '+esc(x.id)+'</span></div>'+
+          '<a class="ab-tag" href="'+esc(x.url)+'" style="white-space:nowrap;color:#4f46e5">open →</a>';
+        out.appendChild(d);
+      });
+    }
+
+    // Logged-in: real conversation with Haiku.
+    async function chat(q) {
+      bubble('user', q); history.push({role:'user', content:q});
+      var thinking = bubble('bot', '…');
+      try {
+        var r = await fetch('/api/agent/chat', {
+          method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
+          body: JSON.stringify({message:q, history:history.slice(0,-1), context:ctx})
+        });
+        var data = await r.json();
+        thinking.textContent = data.reply || '(no reply)';
+        if (data.reply) history.push({role:'assistant', content:data.reply});
+        renderLinks(data.results);
+      } catch(e) { thinking.textContent = 'Chat unavailable — try again.'; }
+    }
+
+    // Logged-out: link search + a nudge to log in.
+    async function search(q) {
+      out.innerHTML='<p class="ab-tag">Searching…</p>';
+      try {
+        var r=await fetch('/api/agent/search',{method:'POST',headers:{'Content-Type':'application/json'},
+          credentials:'same-origin',body:JSON.stringify({interest:q,limit:8,ai:false})});
+        var data=await r.json();
+        if (!(data.results||[]).length) {
+          out.innerHTML='<p class="ab-tag">No matches. <a href="/artifacts/" class="underline">Browse all</a>.</p>'; return;
+        }
+        renderLinks(data.results);
+      } catch(e){ out.innerHTML='<p class="ab-tag" style="color:#dc2626">Search unavailable.</p>'; }
+    }
+
+    function submit() {
+      var q=input.value.trim(); if(!q) return; input.value='';
+      if (loggedIn) chat(q); else search(q);
+    }
+    go.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e){ if(e.key==='Enter') submit(); });
+    box.querySelectorAll('.ab-chip').forEach(function(c){
+      c.addEventListener('click', function(){ input.value=c.getAttribute('data-q'); submit(); });
+    });
+  });
+})();
+</script>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var t=document.getElementById('float-chat-toggle'),
+            pnl=document.getElementById('float-chat-panel');
+        if (!t) return;
+        t.addEventListener('click', function(){
+          pnl.style.display = (pnl.style.display==='none'?'block':'none');
+          if (pnl.style.display==='block') { var i=pnl.querySelector('.ab-input'); if(i) i.focus(); }
+        });
+      })();
+    </script>
+    
+
+    
+</body>
+</html>

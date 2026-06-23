@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="talentapp:project_verification" content="0b1860cf96b3030acb50eeffe91d87d72eb2b34fc28427c6af9b6eebf9f80af41d1a8121269ae8448c051ac16b78389a778784fc21ce08b0b2682f30fa6000ec">
+    <title>Reverse Aging — Grand Hard Problem — Physics World Model</title>
+    <meta name="description" content="Physics World Model — register Principles, Digital Twins, Benchmarks, and Solutions on-chain. Each verified contribution earns PWM tokens as royalties. Open science, 100% free, NumFOCUS sponsored.">
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS (CDN for MVP — replace with local build in production) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTMX for dynamic UI without full-page reloads -->
+    
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      [x-cloak] { display: none !important; }
+      .sidebar-icon { width: 1rem; display: inline-block; text-align: center; }
+      .main-bg {
+        background-image: radial-gradient(circle, #e0e7ff 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-color: #f9fafb;
+      }
+      /* Long rendered equations scroll within their box instead of widening the page (mobile). */
+      .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+    </style>
+    
+</head>
+<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">📖 Read-only mirror — for the full platform (submit, mine, login) visit <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a></div>
+<body class="h-full">
+    
+    <!-- Slim top bar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center gap-4">
+                    <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"
+                            class="lg:hidden p-1.5 rounded-md text-gray-500 hover:bg-gray-100" aria-label="Toggle sidebar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="/" class="flex items-center gap-1.5 text-base font-extrabold">
+                        <span class="text-indigo-600">⚛</span>
+                        <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Physics World Model</span>
+                    </a>
+                    <span class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold tracking-wide">NUMFOCUS · NONPROFIT</span>
+                </div>
+                <div class="flex-1 max-w-xl mx-4 hidden md:block">
+                    <form action="/benchmarks/" method="get" class="relative">
+                        <input type="text" name="q" placeholder="Search benchmarks, principles, modalities…"
+                               class="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400">
+                        <svg class="absolute left-2.5 top-2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
+                    </form>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                    <a href="/login/" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="flex min-h-[calc(100vh-3.5rem)]">
+        
+        <!-- Persistent sidebar (Tier 1/2/3 nav) -->
+        <aside id="sidebar"
+               class="fixed lg:static top-14 lg:top-0 left-0 bottom-0 z-30 w-60 bg-white border-r border-gray-200 shadow-[inset_-1px_0_0_0_#e5e7eb] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto">
+            <nav class="px-3 py-4 text-sm">
+                <!-- Tier 1: Browse -->
+                <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Browse</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⌂</span> Home</a></li>
+                    <li><a href="/agents/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">🤖</span> Agents <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-600 font-bold leading-none">MCP</span></a></li>
+                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
+                    <li><a href="/start/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-emerald-700 font-semibold hover:bg-emerald-50 "><span class="sidebar-icon">★</span> Start here <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold leading-none">AI4Science</span></a></li>
+                    <li><a href="/submit/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-violet-700 font-semibold hover:bg-violet-50 "><span class="sidebar-icon">✦</span> Submit <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-700 font-bold leading-none">earn PWM</span></a></li>
+                </ul>
+
+                <!-- Tier 2: Explore -->
+                <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Explore</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
+                    <li><a href="https://physicsworldmodel.org/digital-twins" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">📐</span> Digital Twins</a></li>
+                    <li><a href="https://physicsworldmodel.org/principles" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚛</span> Principles</a></li>
+                    <li>
+                      <div class="flex items-center">
+                        <a href="/frontier/" class="flex-1 flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-violet-50 hover:text-violet-700 border-l-2 border-violet-500 bg-violet-50 text-violet-700 font-semibold pl-[6px]"><span class="sidebar-icon">◆</span> Grand Hard Problems</a>
+                        <button id="ghp-toggle" type="button" aria-expanded="false" aria-label="Expand grand hard problems"
+                                class="shrink-0 px-2 py-1.5 text-gray-400 hover:text-violet-600 transition-transform">▸</button>
+                      </div>
+                      <ul id="ghp-submenu" class="hidden mt-0.5 ml-3 pl-2 border-l border-gray-100 space-y-0.5"></ul>
+                    </li>
+                </ul>
+                <script>
+                  (function () {
+                    var btn = document.getElementById('ghp-toggle');
+                    var menu = document.getElementById('ghp-submenu');
+                    if (!btn || !menu) return;
+                    var loaded = false, here = window.location.pathname;
+                    function load() {
+                      if (loaded) return; loaded = true;
+                      fetch('/api/frontier/list', { credentials: 'same-origin' })
+                        .then(function (r) { return r.json(); })
+                        .then(function (d) {
+                          var html = '';
+                          (d.groups || []).forEach(function (g) {
+                            html += '<li class="px-2 pt-1.5 pb-0.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider">' + g.icon + ' ' + g.label + '</li>';
+                            (g.items || []).forEach(function (it) {
+                              var on = it.url === here;
+                              html += '<li><a href="' + it.url + '" class="block px-2 py-1 rounded text-[13px] ' +
+                                (on ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-violet-50 hover:text-violet-700') +
+                                '">' + it.short + '</a></li>';
+                            });
+                          });
+                          menu.innerHTML = html || '<li class="px-2 py-1 text-[12px] text-gray-400">No problems yet</li>';
+                        })
+                        .catch(function () { menu.innerHTML = '<li class="px-2 py-1 text-[12px] text-gray-400">Could not load</li>'; });
+                    }
+                    function setOpen(open) {
+                      menu.classList.toggle('hidden', !open);
+                      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                      btn.textContent = open ? '▾' : '▸';
+                      if (open) load();
+                    }
+                    btn.addEventListener('click', function () {
+                      setOpen(menu.classList.contains('hidden'));
+                    });
+                    setOpen(true);
+                  })();
+                </script>
+
+                
+
+                <!-- Tier 3b: Meta -->
+                <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Meta</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="https://physicsworldmodel.org/developer-winner" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">🏅</span> Developer Winner</a></li>
+                    <li><a href="/whitepaper/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">📄</span> White Paper</a></li>
+                    <li><a href="/blog/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">✎</span> Blog</a></li>
+                    
+                    <li><a href="/token/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⊙</span> How to get PWM</a></li>
+                    
+                    <li><a href="/community/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⌬</span> Community</a></li>
+                    
+                </ul>
+
+                <!-- NumFOCUS attribution -->
+                <div class="mt-6 px-2 text-[10px] text-gray-400 leading-snug">
+                    PWM is a fiscally sponsored project of NumFOCUS, a 501(c)(3) public charity. Donations are tax-deductible.
+                </div>
+            </nav>
+        </aside>
+        
+
+        <main class="flex-1 px-4 sm:px-6 lg:px-8 py-6 min-w-0 main-bg">
+            
+<div class="max-w-4xl mx-auto space-y-6">
+
+  <!-- Breadcrumb -->
+  <nav class="text-xs text-gray-500 flex items-center gap-2 flex-wrap">
+    <a href="/frontier/" class="hover:text-violet-600">Grand Hard Problems</a>
+    <span class="text-gray-300">/</span>
+    <span class="text-gray-600">Life Sciences &amp; Aging</span><span class="text-gray-300">/</span>
+    <span class="text-gray-700">Reverse Aging</span>
+  </nav>
+
+  <!-- Hero -->
+  <header class="rounded-xl bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-200 px-6 py-6">
+    <div class="flex items-center gap-2 flex-wrap mb-2">
+      <span class="text-base">🧬</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700 font-semibold">◆ Frontier — not yet benchmarked</span>
+      <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-white text-gray-500 border border-gray-200 font-semibold">Ch.13 Life Sciences &amp; Aging</span>
+    </div>
+    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">Reverse Aging</h1>
+    <p class="text-sm text-gray-500 mt-1">Epigenetic Reprogramming &amp; Reverse Aging · Aging Biology</p>
+    <p class="mt-3 text-base text-gray-700 leading-relaxed max-w-3xl">Restore a youthful epigenome with partial reprogramming — turn biological age down without losing cell identity.</p>
+  </header>
+
+  <!-- The problem -->
+  
+  <section class="bg-white border border-gray-200 rounded-xl p-6">
+    <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-2">📋 The problem</h2>
+    <p class="text-sm text-gray-700 leading-relaxed">Aging is, in part, a loss of epigenetic information — cells forget which genes to express. Transient partial reprogramming with Yamanaka factors (OSK) can reset the methylation landscape toward a youthful state and reverse biological-age clocks in vivo, without erasing cell identity.</p>
+  </section>
+  
+
+  <!-- Why it's hard -->
+  
+  <section class="bg-white border border-gray-200 rounded-xl p-6">
+    <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-2">🧗 Why it's a grand challenge</h2>
+    <p class="text-sm text-gray-600 leading-relaxed">The window between rejuvenation and dedifferentiation (or tumorigenesis) is narrow, effects differ by tissue, and &#39;biological age&#39; itself is measured by clocks we don&#39;t fully trust.</p>
+  </section>
+  
+
+  <!-- Governing model -->
+  
+  <section class="bg-white border border-gray-200 rounded-xl p-6">
+    <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-2">🧮 Governing model</h2>
+    <pre class="bg-gray-900 text-emerald-200 rounded-lg px-4 py-3 text-sm overflow-x-auto whitespace-pre-wrap break-words sm:whitespace-pre sm:break-normal mb-2"><code>dA/dt = k_dmg − k_rep · u(t);   Age_bio = Clock(M_methylation)</code></pre>
+    <p class="text-sm text-gray-600 leading-relaxed">Information-theoretic aging: biological age A(t) accumulates as epigenetic noise; transient OSK reprogramming u(t) drives dA/dt = k_dmg − k_rep·u(t), read out by a DNA-methylation clock.</p>
+    <p class="text-xs text-gray-500 mt-2"><span class="font-semibold text-gray-600">Current best:</span> Partial OSK reprogramming (Lu et al., optic-nerve / Sinclair lab)</p>
+  </section>
+  
+
+  <!-- Possible approaches -->
+  
+  <section class="bg-white border border-gray-200 rounded-xl p-6">
+    <h2 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-2">🧭 Possible approaches</h2>
+    <ul class="list-disc pl-5 space-y-1.5 text-sm text-gray-600">
+      <li>Learn a causal map: reprogramming dose/duration → methylation state → biological age</li><li>Closed-loop control of OSK exposure that maximizes age reversal under identity-preservation constraints</li><li>Multi-tissue methylation foundation models that separate rejuvenation from dedifferentiation</li>
+    </ul>
+  </section>
+  
+
+  <!-- Two CTAs: build the benchmark / build an agent -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section class="rounded-xl border border-emerald-200 bg-emerald-50/60 p-5">
+      <h2 class="text-sm font-bold text-emerald-800 uppercase tracking-wide mb-1">🎯 Build the benchmark</h2>
+      <p class="text-[13px] text-emerald-900/90 leading-relaxed">Given single-cell methylation before/after transient OSK across tissues, predict restored biological age within ~2 years while flagging any loss of cell identity.</p>
+      <div class="mt-2 space-y-0.5 text-[12px] text-emerald-900/80">
+        <p><span class="font-semibold">Metric:</span> <span class="font-mono">years_reversed</span> — biological years restored</p>
+        <p><span class="font-semibold">Datasets to start from:</span> Multi-tissue DNAm reprogramming atlas, Horvath pan-tissue clock corpus, OSK transient-induction time course</p>
+      </div>
+      <a href="https://physicsworldmodel.org/submit/benchmark" class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition-colors">
+        ☆ Build the benchmark — earn PWM →
+      </a>
+    </section>
+
+    <section class="rounded-xl border border-violet-200 bg-violet-50/60 p-5">
+      <h2 class="text-sm font-bold text-violet-800 uppercase tracking-wide mb-1">🤖 Build an AI agent to solve it</h2>
+      <p class="text-[13px] text-violet-900/90 leading-relaxed">An agent that designs reprogramming protocols (factors, dose, schedule) per cell type and predicts the age-reversal vs safety trade-off.</p>
+      <p class="text-[12px] text-violet-900/70 mt-1">Once a benchmark exists, an AI4Science agent can iterate solutions against it — every verified solution earns PWM.</p>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <a href="/ai4science/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-semibold hover:bg-violet-700 transition-colors">✦ Build with AI4Science →</a>
+        <a href="https://physicsworldmodel.org/submit/solution" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-violet-300 text-violet-700 text-xs font-semibold hover:bg-violet-50 transition-colors">⚡ Submit a solution →</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Links: principle artifact + back -->
+  <section class="flex items-center justify-between gap-3 flex-wrap text-sm border-t border-gray-200 pt-4">
+    <a href="https://physicsworldmodel.org/artifact/l1/L1-901" class="text-indigo-600 hover:underline font-medium">
+      ⚛ View the machine-readable principle (L1-901) →
+    </a>
+    <a href="/frontier/" class="text-gray-500 hover:text-violet-600">← All grand hard problems</a>
+  </section>
+
+  <p class="text-[11px] text-gray-400">
+    This is a frontier framing page — an open problem, not yet benchmarked or verified, unlike PWM's mature
+    <a href="/benchmarks/" class="underline">computational-imaging benchmarks</a>.
+  </p>
+
+</div>
+
+            <footer class="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-400">
+                PWM · NumFOCUS fiscally sponsored
+            </footer>
+        </main>
+    </div>
+
+    
+    
+    <div id="float-chat" style="position:fixed; right:18px; bottom:18px; z-index:60;">
+      <button id="float-chat-toggle" type="button"
+              style="width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;
+                     background:#4f46e5;color:#fff;font-size:22px;box-shadow:0 6px 20px rgba(0,0,0,.25);"
+              title="Ask the PWM agent">💬</button>
+      <div id="float-chat-panel"
+           style="display:none;position:absolute;right:0;bottom:64px;width:min(92vw,380px);
+                  background:#fff;border:1px solid #e5e7eb;border-radius:14px;
+                  box-shadow:0 12px 40px rgba(0,0,0,.25);padding:14px;">
+        
+
+
+
+<div class="agentbox agentbox-inline"
+     data-variant="inline" data-auth="0"
+     >
+
+  
+  <div class="ab-head flex items-center gap-2.5 mb-2.5">
+    <span class="ab-avatar inline-flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white text-lg shadow-md shrink-0">💬</span>
+    <div class="min-w-0 leading-tight">
+      <p class="text-sm font-extrabold text-gray-900 flex items-center gap-1.5">
+        Ask the PWM AI agent
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 uppercase tracking-wide">AI</span>
+      </p>
+      <p class="text-[11px] text-gray-500">Chat, or find an artifact to improve &amp; earn PWM</p>
+    </div>
+  </div>
+  
+
+  <div class="ab-transcript space-y-2 mb-2"></div>
+
+  <div class="flex gap-2">
+    <input class="ab-input flex-1 outline-none" type="text" autocomplete="off"
+           placeholder="Search artifacts (log in to chat) — e.g. MRI, CT…" />
+    <button class="ab-go" type="button">🔎 Find</button>
+  </div>
+
+  <div class="ab-chips mt-2 flex flex-wrap gap-1.5">
+    
+    <button type="button" class="ab-chip" data-q="MRI">MRI</button>
+    
+    <button type="button" class="ab-chip" data-q="CT">CT</button>
+    
+    <button type="button" class="ab-chip" data-q="CASSI">CASSI</button>
+    
+    <button type="button" class="ab-chip" data-q="hyperspectral">hyperspectral</button>
+    
+    <button type="button" class="ab-chip" data-q="ultrasound">ultrasound</button>
+    
+  </div>
+
+  <div class="ab-results mt-3 space-y-1.5"></div>
+
+  <p class="ab-hint mt-2 text-[11px] text-gray-400">
+    
+    Free to search; <a href="/login/" class="underline">log in</a> to chat with the agent &amp; earn PWM.
+    
+    <a href="/how-to-earn/" class="underline">How it works ↗</a>
+  </p>
+</div>
+
+<style>
+  .agentbox-hero .ab-input, .agentbox-hero .ab-go { font-size: 1rem; padding: 0.7rem 1rem; }
+  .agentbox .ab-input { background:#fff; color:#111827; border:1px solid #d1d5db; border-radius:10px;
+                        padding:0.55rem 0.85rem; font-size:0.9rem; }
+  .agentbox-inline .ab-input { font-size:0.95rem; padding:0.62rem 0.9rem; border-color:#a5b4fc; }
+  .agentbox-inline .ab-go { padding:0.62rem 1.05rem; font-size:0.92rem; }
+  .agentbox .ab-input:focus { border-color:#6366f1; box-shadow:0 0 0 2px #c7d2fe; }
+  .agentbox .ab-go { background:#10b981; color:#fff; font-weight:700; border:none; border-radius:10px;
+                     padding:0.55rem 1rem; cursor:pointer; white-space:nowrap; }
+  .agentbox .ab-go:hover { background:#059669; }
+  .agentbox .ab-chip { font-size:11px; padding:3px 9px; border-radius:999px; cursor:pointer;
+                       border:1px solid rgba(148,163,184,.5); background:rgba(255,255,255,.85); color:#4338ca; }
+  .agentbox-hero .ab-chip { background:rgba(255,255,255,.15); color:#e0e7ff; border-color:rgba(255,255,255,.3); }
+  .agentbox .ab-chip:hover { border-color:#6366f1; }
+  .agentbox .ab-card { display:flex; align-items:center; justify-content:space-between; gap:8px;
+                       background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px; }
+  .agentbox .ab-card a { color:#4f46e5; font-weight:600; text-decoration:none; }
+  .agentbox .ab-card a:hover { text-decoration:underline; }
+  .agentbox .ab-tag { font-size:10px; color:#6b7280; }
+  .agentbox-hero .ab-results, .agentbox-hero .ab-transcript { max-height: 38vh; overflow-y:auto; }
+  .agentbox-inline .ab-transcript { max-height: 40vh; overflow-y:auto; }
+  /* chat bubbles */
+  .ab-msg { font-size:13px; line-height:1.5; padding:8px 12px; border-radius:12px; white-space:pre-wrap; max-width:92%; }
+  .ab-msg-user { background:#4f46e5; color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .ab-msg-bot  { background:#eef2ff; color:#1e1b4b; border:1px solid #c7d2fe; border-bottom-left-radius:4px; }
+  .agentbox-hero .ab-msg-bot { background:rgba(255,255,255,.12); color:#e0e7ff; border-color:rgba(255,255,255,.25); }
+  .agentbox-hero .ab-msg-user { background:#6366f1; }
+  .ab-answer { background:#eef2ff; border:1px solid #c7d2fe; border-radius:10px; padding:8px 12px; font-size:13px; color:#3730a3; line-height:1.5; }
+  .agentbox-hero .ab-answer { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.25); color:#e0e7ff; }
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.agentbox').forEach(function (box) {
+    if (box.dataset.wired) return; box.dataset.wired = '1';
+    var input = box.querySelector('.ab-input');
+    var go    = box.querySelector('.ab-go');
+    var out   = box.querySelector('.ab-results');
+    var trans = box.querySelector('.ab-transcript');
+    var loggedIn = box.dataset.auth === '1';
+    var ICON  = {principle:'⚛','digital-twin':'📐',benchmark:'☆',solution:'⚡'};
+    var history = [];  // {role, content} for the chat endpoint
+    var ctx = (box.dataset.ctxId || box.dataset.ctxTitle || box.dataset.ctxTopic)
+      ? {layer:box.dataset.ctxLayer||'', id:box.dataset.ctxId||'', title:box.dataset.ctxTitle||'', topic:box.dataset.ctxTopic||''}
+      : null;
+
+    function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function bubble(role, text) {
+      var d=document.createElement('div');
+      d.className='ab-msg ' + (role==='user'?'ab-msg-user':'ab-msg-bot');
+      d.textContent=text; trans.appendChild(d); trans.scrollTop=trans.scrollHeight; return d;
+    }
+    function renderLinks(res) {
+      out.innerHTML='';
+      if (!res || !res.length) return;
+      var lab=document.createElement('p'); lab.className='ab-tag'; lab.textContent='Artifacts you can improve:'; out.appendChild(lab);
+      res.forEach(function (x) {
+        var d=document.createElement('div'); d.className='ab-card';
+        d.innerHTML='<div style="min-width:0"><span>'+(ICON[x.layer_name]||'')+'</span> '+
+          '<a href="'+esc(x.url)+'">'+esc(x.title)+'</a> '+
+          '<span class="ab-tag">'+esc(x.layer_name)+' · '+esc(x.id)+'</span></div>'+
+          '<a class="ab-tag" href="'+esc(x.url)+'" style="white-space:nowrap;color:#4f46e5">open →</a>';
+        out.appendChild(d);
+      });
+    }
+
+    // Logged-in: real conversation with Haiku.
+    async function chat(q) {
+      bubble('user', q); history.push({role:'user', content:q});
+      var thinking = bubble('bot', '…');
+      try {
+        var r = await fetch('/api/agent/chat', {
+          method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
+          body: JSON.stringify({message:q, history:history.slice(0,-1), context:ctx})
+        });
+        var data = await r.json();
+        thinking.textContent = data.reply || '(no reply)';
+        if (data.reply) history.push({role:'assistant', content:data.reply});
+        renderLinks(data.results);
+      } catch(e) { thinking.textContent = 'Chat unavailable — try again.'; }
+    }
+
+    // Logged-out: link search + a nudge to log in.
+    async function search(q) {
+      out.innerHTML='<p class="ab-tag">Searching…</p>';
+      try {
+        var r=await fetch('/api/agent/search',{method:'POST',headers:{'Content-Type':'application/json'},
+          credentials:'same-origin',body:JSON.stringify({interest:q,limit:8,ai:false})});
+        var data=await r.json();
+        if (!(data.results||[]).length) {
+          out.innerHTML='<p class="ab-tag">No matches. <a href="/artifacts/" class="underline">Browse all</a>.</p>'; return;
+        }
+        renderLinks(data.results);
+      } catch(e){ out.innerHTML='<p class="ab-tag" style="color:#dc2626">Search unavailable.</p>'; }
+    }
+
+    function submit() {
+      var q=input.value.trim(); if(!q) return; input.value='';
+      if (loggedIn) chat(q); else search(q);
+    }
+    go.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e){ if(e.key==='Enter') submit(); });
+    box.querySelectorAll('.ab-chip').forEach(function(c){
+      c.addEventListener('click', function(){ input.value=c.getAttribute('data-q'); submit(); });
+    });
+  });
+})();
+</script>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var t=document.getElementById('float-chat-toggle'),
+            pnl=document.getElementById('float-chat-panel');
+        if (!t) return;
+        t.addEventListener('click', function(){
+          pnl.style.display = (pnl.style.display==='none'?'block':'none');
+          if (pnl.style.display==='block') { var i=pnl.querySelector('.ab-input'); if(i) i.focus(); }
+        });
+      })();
+    </script>
+    
+
+    
+</body>
+</html>
