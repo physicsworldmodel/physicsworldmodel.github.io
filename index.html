@@ -86,12 +86,7 @@
   }
 </style>
 </head>
-
-<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">
-  📖 Read-only mirror — for the full platform (submit, mine, login) visit
-  <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a>
-</div>
-
+<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">📖 Read-only mirror — for the full platform (submit, mine, login) visit <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a></div>
 <body class="h-full">
     
     <!-- Slim top bar -->
@@ -110,7 +105,7 @@
                     <span class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold tracking-wide">NUMFOCUS · NONPROFIT</span>
                 </div>
                 <div class="flex-1 max-w-xl mx-4 hidden md:block">
-                    <form action="https://physicsworldmodel.org/benchmarks" method="get" class="relative">
+                    <form action="/benchmarks/" method="get" class="relative">
                         <input type="text" name="q" placeholder="Search benchmarks, principles, modalities…"
                                class="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400">
                         <svg class="absolute left-2.5 top-2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
@@ -118,7 +113,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     
-                    <a href="https://physicsworldmodel.org/login" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
+                    <a href="/login/" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
                     
                 </div>
             </div>
@@ -136,21 +131,21 @@
                 <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Browse</p>
                 <ul class="mt-1 mb-3 space-y-0.5">
                     <li><a href="/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 border-l-2 border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold pl-[6px]"><span class="sidebar-icon">⌂</span> Home</a></li>
-                    <li><a href="https://physicsworldmodel.org/agents" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">🤖</span> Agents <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-600 font-bold leading-none">MCP</span></a></li>
-                    <li><a href="https://physicsworldmodel.org/artifacts?layer=l3" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
-                    <li><a href="https://physicsworldmodel.org/start" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-emerald-700 font-semibold hover:bg-emerald-50 "><span class="sidebar-icon">★</span> Start here <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold leading-none">AI4Science</span></a></li>
-                    <li><a href="https://physicsworldmodel.org/submit" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-violet-700 font-semibold hover:bg-violet-50 "><span class="sidebar-icon">✦</span> Submit <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-700 font-bold leading-none">earn PWM</span></a></li>
+                    <li><a href="/agents/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">🤖</span> Agents <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-600 font-bold leading-none">MCP</span></a></li>
+                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
+                    <li><a href="/start/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-emerald-700 font-semibold hover:bg-emerald-50 "><span class="sidebar-icon">★</span> Start here <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold leading-none">AI4Science</span></a></li>
+                    <li><a href="/submit/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-violet-700 font-semibold hover:bg-violet-50 "><span class="sidebar-icon">✦</span> Submit <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-700 font-bold leading-none">earn PWM</span></a></li>
                 </ul>
 
                 <!-- Tier 2: Explore -->
                 <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Explore</p>
                 <ul class="mt-1 mb-3 space-y-0.5">
-                    <li><a href="https://physicsworldmodel.org/artifacts?layer=l4" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
+                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
                     <li><a href="https://physicsworldmodel.org/digital-twins" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">📐</span> Digital Twins</a></li>
                     <li><a href="https://physicsworldmodel.org/principles" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚛</span> Principles</a></li>
                     <li>
                       <div class="flex items-center">
-                        <a href="https://physicsworldmodel.org/frontier" class="flex-1 flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">◆</span> Grand Hard Problems</a>
+                        <a href="/frontier/" class="flex-1 flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">◆</span> Grand Hard Problems</a>
                         <button id="ghp-toggle" type="button" aria-expanded="false" aria-label="Expand grand hard problems"
                                 class="shrink-0 px-2 py-1.5 text-gray-400 hover:text-violet-600 transition-transform">▸</button>
                       </div>
@@ -204,9 +199,9 @@
                     <li><a href="/whitepaper/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">📄</span> White Paper</a></li>
                     <li><a href="/blog/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">✎</span> Blog</a></li>
                     
-                    <li><a href="https://physicsworldmodel.org/token" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⊙</span> How to get PWM</a></li>
+                    <li><a href="/token/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⊙</span> How to get PWM</a></li>
                     
-                    <li><a href="https://physicsworldmodel.org/community" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⌬</span> Community</a></li>
+                    <li><a href="/community/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⌬</span> Community</a></li>
                     
                 </ul>
 
@@ -262,8 +257,8 @@
       <span class="text-xs md:text-sm text-indigo-200/70 font-medium mr-0.5">Register on-chain to earn PWM:</span>
       <a href="https://physicsworldmodel.org/principles" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-amber-400/15 border border-amber-300/40 text-amber-200 hover:bg-amber-400/25 transition-colors">Principle</a>
       <a href="https://physicsworldmodel.org/digital-twins" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-blue-400/15 border border-blue-300/40 text-blue-200 hover:bg-blue-400/25 transition-colors">Digital Twin</a>
-      <a href="https://physicsworldmodel.org/artifacts?layer=l3" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-emerald-400/15 border border-emerald-300/40 text-emerald-200 hover:bg-emerald-400/25 transition-colors">Benchmark</a>
-      <a href="https://physicsworldmodel.org/artifacts?layer=l4" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-violet-400/15 border border-violet-300/40 text-violet-200 hover:bg-violet-400/25 transition-colors">Solution</a>
+      <a href="/artifacts/" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-emerald-400/15 border border-emerald-300/40 text-emerald-200 hover:bg-emerald-400/25 transition-colors">Benchmark</a>
+      <a href="/artifacts/" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-violet-400/15 border border-violet-300/40 text-violet-200 hover:bg-violet-400/25 transition-colors">Solution</a>
     </div>
 
     <!-- Frontier — one quiet line -->
@@ -274,17 +269,17 @@
 
     <!-- MCP agents: tool chips + CTAs -->
     <div class="mt-5 flex flex-wrap items-center gap-2">
-      <a href="https://physicsworldmodel.org/start"
+      <a href="/start/"
          class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500 text-white font-semibold text-sm hover:bg-emerald-400 transition-colors shadow">
         <span class="text-base leading-none">★</span>
         Start here — get PWM
       </a>
-      <a href="https://physicsworldmodel.org/ai4science"
+      <a href="/ai4science/"
          class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold text-sm hover:bg-indigo-50 transition-colors shadow ring-1 ring-white/40">
         <span class="text-base leading-none">✦</span>
         Get AI4Science CLI
       </a>
-      <a href="https://physicsworldmodel.org/agents"
+      <a href="/agents/"
          class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-500 text-white font-semibold text-sm hover:bg-violet-400 transition-colors shadow">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         Browse Agents
@@ -354,9 +349,9 @@
 
   <p class="ab-hint mt-2 text-[11px] text-indigo-100/70">
     
-    Free to search; <a href="https://physicsworldmodel.org/login" class="underline">log in</a> to chat with the agent &amp; earn PWM.
+    Free to search; <a href="/login/" class="underline">log in</a> to chat with the agent &amp; earn PWM.
     
-    <a href="https://physicsworldmodel.org/how-to-earn" class="underline">How it works ↗</a>
+    <a href="/how-to-earn/" class="underline">How it works ↗</a>
   </p>
 </div>
 
@@ -450,7 +445,7 @@
           credentials:'same-origin',body:JSON.stringify({interest:q,limit:8,ai:false})});
         var data=await r.json();
         if (!(data.results||[]).length) {
-          out.innerHTML='<p class="ab-tag">No matches. <a href="https://physicsworldmodel.org/artifacts" class="underline">Browse all</a>.</p>'; return;
+          out.innerHTML='<p class="ab-tag">No matches. <a href="/artifacts/" class="underline">Browse all</a>.</p>'; return;
         }
         renderLinks(data.results);
       } catch(e){ out.innerHTML='<p class="ab-tag" style="color:#dc2626">Search unavailable.</p>'; }
@@ -472,7 +467,7 @@
 
     
     <div class="mt-6 flex justify-center">
-    <a href="https://physicsworldmodel.org/login" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/30 rounded-lg px-4 py-2.5 shadow-sm transition-all group">
+    <a href="/login/" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/30 rounded-lg px-4 py-2.5 shadow-sm transition-all group">
       <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -489,15 +484,15 @@
 
     <!-- Stats strip — live PWM Protocol counts -->
     <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <a href="https://physicsworldmodel.org/artifacts?layer=l1" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
+      <a href="/artifacts/" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
         <p class="text-xl font-bold text-white">549</p>
         <p class="text-[11px] text-white/60 mt-0.5">L1 Principles on testnet</p>
       </a>
-      <a href="https://physicsworldmodel.org/benchmarks" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
+      <a href="/benchmarks/" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
         <p class="text-xl font-bold text-amber-300">169</p>
         <p class="text-[11px] text-white/60 mt-0.5">Imaging benchmarks (verified)</p>
       </a>
-      <a href="https://physicsworldmodel.org/artifacts?layer=l4" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
+      <a href="/artifacts/" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
         <p class="text-xl font-bold text-white">1084</p>
         <p class="text-[11px] text-white/60 mt-0.5">L4 Solutions on testnet</p>
       </a>
@@ -535,7 +530,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       
-    <a href="https://physicsworldmodel.org/frontier/reverse-aging"
+    <a href="/frontier/reverse-aging/"
        class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -550,7 +545,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/longevity"
+    <a href="/frontier/longevity/"
        class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -565,7 +560,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/curing-cancer"
+    <a href="/frontier/curing-cancer/"
        class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -580,7 +575,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/regeneration"
+    <a href="/frontier/regeneration/"
        class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -595,7 +590,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/proteostasis"
+    <a href="/frontier/proteostasis/"
        class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -619,7 +614,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       
-    <a href="https://physicsworldmodel.org/frontier/fault-tolerant-quantum-computing"
+    <a href="/frontier/fault-tolerant-quantum-computing/"
        class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -634,7 +629,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/quantum-networks-repeaters"
+    <a href="/frontier/quantum-networks-repeaters/"
        class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -649,7 +644,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/optimal-quantum-control"
+    <a href="/frontier/optimal-quantum-control/"
        class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -664,7 +659,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/quantum-circuit-compilation"
+    <a href="/frontier/quantum-circuit-compilation/"
        class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -688,7 +683,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       
-    <a href="https://physicsworldmodel.org/frontier/atomically-precise-manufacturing"
+    <a href="/frontier/atomically-precise-manufacturing/"
        class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -703,7 +698,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/dna-self-assembly"
+    <a href="/frontier/dna-self-assembly/"
        class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -718,7 +713,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/targeted-nanomedicine"
+    <a href="/frontier/targeted-nanomedicine/"
        class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -733,7 +728,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/molecular-electronics"
+    <a href="/frontier/molecular-electronics/"
        class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -757,7 +752,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       
-    <a href="https://physicsworldmodel.org/frontier/quantum-gravity"
+    <a href="/frontier/quantum-gravity/"
        class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -772,7 +767,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/dark-matter"
+    <a href="/frontier/dark-matter/"
        class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -787,7 +782,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/dark-energy"
+    <a href="/frontier/dark-energy/"
        class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -802,7 +797,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/black-hole-information"
+    <a href="/frontier/black-hole-information/"
        class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -817,7 +812,7 @@
       </div>
     </a>
     
-    <a href="https://physicsworldmodel.org/frontier/room-temp-superconductivity"
+    <a href="/frontier/room-temp-superconductivity/"
        class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
       <div class="p-3.5">
         <div class="flex items-center justify-between gap-2 mb-1">
@@ -840,7 +835,7 @@
         These are open problems, not finished benchmarks. Propose a sharper governing equation, a digital twin, or the
         first real benchmark for one — and <strong class="text-violet-700">earn PWM</strong>.
       </p>
-      <a href="https://physicsworldmodel.org/artifacts?layer=l1" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors shadow">
+      <a href="/artifacts/" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors shadow">
         Browse frontier principles →
       </a>
     </div>
@@ -1034,7 +1029,7 @@
           </div>
           <p class="text-xs text-gray-500 leading-relaxed">ACCEPT → your artifact goes mainnet. You earn PWM tokens. Every future Solution built on your Principle/Spec/Benchmark pays you royalties.</p>
           
-          <a href="https://physicsworldmodel.org/submit" class="mt-3 inline-flex items-center text-xs font-semibold text-emerald-600 hover:text-emerald-700">
+          <a href="/submit/" class="mt-3 inline-flex items-center text-xs font-semibold text-emerald-600 hover:text-emerald-700">
             Start now →
           </a>
           
@@ -1093,7 +1088,7 @@
           <p class="text-xs text-gray-500">Fixed datasets + success metrics tied to a Spec.</p>
         </div>
         <div class="flex gap-2 shrink-0">
-          <a href="https://physicsworldmodel.org/benchmarks" class="text-xs text-gray-400 hover:text-indigo-600 hover:underline px-2 py-1">Browse</a>
+          <a href="/benchmarks/" class="text-xs text-gray-400 hover:text-indigo-600 hover:underline px-2 py-1">Browse</a>
           <a href="https://physicsworldmodel.org/submit/benchmark" class="text-xs font-semibold text-white bg-emerald-500 hover:bg-emerald-600 rounded px-2.5 py-1 transition-colors">Submit</a>
         </div>
       </div>
@@ -1130,7 +1125,7 @@
           <span class="text-gray-400">Design, Sci-Sim, and Imaging System operators open in Stage 3.</span>
         </p>
       </div>
-      <a href="https://physicsworldmodel.org/ai4science" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors shadow">
+      <a href="/ai4science/" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors shadow">
         Use a Solution &rarr;
       </a>
     </div>
@@ -1154,11 +1149,11 @@
         <h2 class="text-lg font-bold text-gray-900">Reference Benchmarks</h2>
         <span class="text-xs text-gray-400">— existing imaging leaderboards</span>
       </div>
-      <a href="https://physicsworldmodel.org/benchmarks" class="text-xs font-medium text-indigo-600 hover:underline">All 169 →</a>
+      <a href="/benchmarks/" class="text-xs font-medium text-indigo-600 hover:underline">All 169 →</a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       
-      <a href="https://physicsworldmodel.org/benchmark/ct" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/ct/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1192,7 +1187,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/mri" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/mri/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1226,7 +1221,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/cryo_em" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/cryo_em/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1260,7 +1255,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/ultrasound" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/ultrasound/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1294,7 +1289,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/cassi" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/cassi/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1328,7 +1323,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/nerf" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/nerf/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1362,7 +1357,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/oct" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/oct/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
@@ -1396,7 +1391,7 @@
         </div>
       </a>
       
-      <a href="https://physicsworldmodel.org/benchmark/pet" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+      <a href="/benchmark/pet/" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
         <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
         <div class="p-4 border-l-4 border-amber-400">
           <div class="flex items-start justify-between gap-2 mb-2">
