@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="talentapp:project_verification" content="0b1860cf96b3030acb50eeffe91d87d72eb2b34fc28427c6af9b6eebf9f80af41d1a8121269ae8448c051ac16b78389a778784fc21ce08b0b2682f30fa6000ec">
+    <title>Physics World Model — register physics, earn when science advances</title>
+    <meta name="description" content="Physics World Model — register Principles, Digital Twins, Benchmarks, and Solutions on-chain. Each verified contribution earns PWM tokens as royalties. Open science, 100% free, NumFOCUS sponsored.">
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS (CDN for MVP — replace with local build in production) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTMX for dynamic UI without full-page reloads -->
+    
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      [x-cloak] { display: none !important; }
+      .sidebar-icon { width: 1rem; display: inline-block; text-align: center; }
+      .main-bg {
+        background-image: radial-gradient(circle, #e0e7ff 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-color: #f9fafb;
+      }
+      /* Long rendered equations scroll within their box instead of widening the page (mobile). */
+      .katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+    </style>
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  .obs-wrap h1, .obs-wrap h2 { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; letter-spacing: -0.015em; }
+
+  /* Cosmos header — layered gradient mesh over deep indigo */
+  .hero-cosmos {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(120% 130% at 8% -10%, rgba(99,102,241,.55), transparent 52%),
+      radial-gradient(90% 120% at 102% 0%, rgba(139,92,246,.45), transparent 50%),
+      radial-gradient(90% 90% at 50% 130%, rgba(16,185,129,.16), transparent 60%),
+      linear-gradient(155deg, #0a0e2a 0%, #1e1b4b 55%, #2b1063 100%);
+  }
+  .hero-cosmos::before {
+    content: ""; position: absolute; inset: -2px; pointer-events: none; opacity: .6;
+    background-image:
+      radial-gradient(1.4px 1.4px at 18% 24%, rgba(255,255,255,.9), transparent),
+      radial-gradient(1.2px 1.2px at 62% 14%, rgba(199,210,254,.8), transparent),
+      radial-gradient(1px 1px at 82% 42%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1.3px 1.3px at 33% 68%, rgba(221,214,254,.7), transparent),
+      radial-gradient(1px 1px at 73% 78%, rgba(255,255,255,.6), transparent),
+      radial-gradient(1px 1px at 47% 38%, rgba(255,255,255,.55), transparent);
+    background-repeat: no-repeat;
+    animation: heroTwinkle 6s ease-in-out infinite alternate;
+  }
+  .hero-cosmos::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(80% 75% at 50% 8%, #000, transparent 78%);
+            mask-image: radial-gradient(80% 75% at 50% 8%, #000, transparent 78%);
+  }
+  @keyframes heroTwinkle { from { opacity: .35; } to { opacity: .7; } }
+
+  .hero-display { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.04; }
+  .hero-accent { font-style: italic; font-weight: 500;
+    background: linear-gradient(92deg, #fcd34d, #f0abfc 60%, #a5b4fc);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  @keyframes heroUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .hero-anim > * { animation: heroUp .7s cubic-bezier(.22,.7,.2,1) both; }
+  .hero-anim > *:nth-child(1) { animation-delay: .04s; }
+  .hero-anim > *:nth-child(2) { animation-delay: .12s; }
+  .hero-anim > *:nth-child(3) { animation-delay: .20s; }
+  .hero-anim > *:nth-child(4) { animation-delay: .28s; }
+  .hero-anim > *:nth-child(5) { animation-delay: .36s; }
+  .hero-anim > *:nth-child(6) { animation-delay: .44s; }
+
+  .obs-wrap a.group { transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  .obs-wrap a.group:hover { transform: translateY(-3px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-anim > *, .hero-cosmos::before { animation: none; }
+    .obs-wrap a.group:hover { transform: none; }
+  }
+</style>
+</head>
+
+<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">
+  📖 Read-only mirror — for the full platform (submit, mine, login) visit
+  <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a>
+</div>
+
+<body class="h-full">
+    
+    <!-- Slim top bar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center gap-4">
+                    <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"
+                            class="lg:hidden p-1.5 rounded-md text-gray-500 hover:bg-gray-100" aria-label="Toggle sidebar">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                    <a href="/" class="flex items-center gap-1.5 text-base font-extrabold">
+                        <span class="text-indigo-600">⚛</span>
+                        <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Physics World Model</span>
+                    </a>
+                    <span class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold tracking-wide">NUMFOCUS · NONPROFIT</span>
+                </div>
+                <div class="flex-1 max-w-xl mx-4 hidden md:block">
+                    <form action="https://physicsworldmodel.org/benchmarks" method="get" class="relative">
+                        <input type="text" name="q" placeholder="Search benchmarks, principles, modalities…"
+                               class="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400">
+                        <svg class="absolute left-2.5 top-2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
+                    </form>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                    <a href="https://physicsworldmodel.org/login" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="flex min-h-[calc(100vh-3.5rem)]">
+        
+        <!-- Persistent sidebar (Tier 1/2/3 nav) -->
+        <aside id="sidebar"
+               class="fixed lg:static top-14 lg:top-0 left-0 bottom-0 z-30 w-60 bg-white border-r border-gray-200 shadow-[inset_-1px_0_0_0_#e5e7eb] transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out overflow-y-auto">
+            <nav class="px-3 py-4 text-sm">
+                <!-- Tier 1: Browse -->
+                <p class="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Browse</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 border-l-2 border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold pl-[6px]"><span class="sidebar-icon">⌂</span> Home</a></li>
+                    <li><a href="https://physicsworldmodel.org/agents" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">🤖</span> Agents <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-600 font-bold leading-none">MCP</span></a></li>
+                    <li><a href="https://physicsworldmodel.org/artifacts?layer=l3" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
+                    <li><a href="https://physicsworldmodel.org/start" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-emerald-700 font-semibold hover:bg-emerald-50 "><span class="sidebar-icon">★</span> Start here <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold leading-none">AI4Science</span></a></li>
+                    <li><a href="https://physicsworldmodel.org/submit" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-violet-700 font-semibold hover:bg-violet-50 "><span class="sidebar-icon">✦</span> Submit <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-700 font-bold leading-none">earn PWM</span></a></li>
+                </ul>
+
+                <!-- Tier 2: Explore -->
+                <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Explore</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="https://physicsworldmodel.org/artifacts?layer=l4" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
+                    <li><a href="https://physicsworldmodel.org/digital-twins" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">📐</span> Digital Twins</a></li>
+                    <li><a href="https://physicsworldmodel.org/principles" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚛</span> Principles</a></li>
+                    <li>
+                      <div class="flex items-center">
+                        <a href="https://physicsworldmodel.org/frontier" class="flex-1 flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">◆</span> Grand Hard Problems</a>
+                        <button id="ghp-toggle" type="button" aria-expanded="false" aria-label="Expand grand hard problems"
+                                class="shrink-0 px-2 py-1.5 text-gray-400 hover:text-violet-600 transition-transform">▸</button>
+                      </div>
+                      <ul id="ghp-submenu" class="hidden mt-0.5 ml-3 pl-2 border-l border-gray-100 space-y-0.5"></ul>
+                    </li>
+                </ul>
+                <script>
+                  (function () {
+                    var btn = document.getElementById('ghp-toggle');
+                    var menu = document.getElementById('ghp-submenu');
+                    if (!btn || !menu) return;
+                    var loaded = false, here = window.location.pathname;
+                    function load() {
+                      if (loaded) return; loaded = true;
+                      fetch('/api/frontier/list', { credentials: 'same-origin' })
+                        .then(function (r) { return r.json(); })
+                        .then(function (d) {
+                          var html = '';
+                          (d.groups || []).forEach(function (g) {
+                            html += '<li class="px-2 pt-1.5 pb-0.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider">' + g.icon + ' ' + g.label + '</li>';
+                            (g.items || []).forEach(function (it) {
+                              var on = it.url === here;
+                              html += '<li><a href="' + it.url + '" class="block px-2 py-1 rounded text-[13px] ' +
+                                (on ? 'bg-violet-50 text-violet-700 font-semibold' : 'text-gray-600 hover:bg-violet-50 hover:text-violet-700') +
+                                '">' + it.short + '</a></li>';
+                            });
+                          });
+                          menu.innerHTML = html || '<li class="px-2 py-1 text-[12px] text-gray-400">No problems yet</li>';
+                        })
+                        .catch(function () { menu.innerHTML = '<li class="px-2 py-1 text-[12px] text-gray-400">Could not load</li>'; });
+                    }
+                    function setOpen(open) {
+                      menu.classList.toggle('hidden', !open);
+                      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                      btn.textContent = open ? '▾' : '▸';
+                      if (open) load();
+                    }
+                    btn.addEventListener('click', function () {
+                      setOpen(menu.classList.contains('hidden'));
+                    });
+                    
+                  })();
+                </script>
+
+                
+
+                <!-- Tier 3b: Meta -->
+                <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Meta</p>
+                <ul class="mt-1 mb-3 space-y-0.5">
+                    <li><a href="https://physicsworldmodel.org/developer-winner" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">🏅</span> Developer Winner</a></li>
+                    <li><a href="/whitepaper/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">📄</span> White Paper</a></li>
+                    <li><a href="/blog/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">✎</span> Blog</a></li>
+                    
+                    <li><a href="https://physicsworldmodel.org/token" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⊙</span> How to get PWM</a></li>
+                    
+                    <li><a href="https://physicsworldmodel.org/community" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⌬</span> Community</a></li>
+                    
+                </ul>
+
+                <!-- NumFOCUS attribution -->
+                <div class="mt-6 px-2 text-[10px] text-gray-400 leading-snug">
+                    PWM is a fiscally sponsored project of NumFOCUS, a 501(c)(3) public charity. Donations are tax-deductible.
+                </div>
+            </nav>
+        </aside>
+        
+
+        <main class="flex-1 px-4 sm:px-6 lg:px-8 py-6 min-w-0 main-bg">
+            
+<div class="obs-wrap space-y-12">
+
+  <!-- ★ HERO — observatory cosmos · AI agents + benchmarks + agent chatbox ★ -->
+  <section class="hero-cosmos relative rounded-2xl border border-indigo-800/60 px-6 py-10 md:px-12 md:py-14 shadow-2xl shadow-indigo-950/40">
+   <div class="relative z-10 hero-anim">
+    <p class="inline-flex items-center gap-2 text-[11px] font-semibold text-indigo-200/90 uppercase tracking-[0.2em] mb-4">
+      <span class="relative flex h-2 w-2">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 animate-ping"></span>
+        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+      </span>
+      Physics World Model · Stage 1 · Open for Contributions
+    </p>
+    <div class="flex items-center gap-2 mb-3 flex-wrap">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-500/30 text-violet-200 text-xs font-bold border border-violet-400/40">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Model Context Protocol
+      </span>
+      <span class="text-xs text-violet-300/70">MCP-native · on-chain rewards</span>
+    </div>
+    <h1 class="hero-display text-5xl md:text-6xl lg:text-7xl text-white max-w-4xl tracking-tight" style="text-shadow:0 2px 30px rgba(99,102,241,.35);">
+      <span class="hero-accent" style="background:linear-gradient(92deg,#ddd6fe,#a78bfa);-webkit-background-clip:text;background-clip:text;">Agents</span>
+      <span class="hero-accent" style="background:linear-gradient(92deg,#a7f3d0,#34d399);-webkit-background-clip:text;background-clip:text;">Science</span>
+      <span class="hero-accent" style="background:linear-gradient(92deg,#fde68a,#f59e0b);-webkit-background-clip:text;background-clip:text;">Blockchain</span>
+    </h1>
+
+    <!-- Tagline — the one line we want to land -->
+    <p class="mt-6 max-w-3xl text-xl md:text-2xl lg:text-[1.7rem] text-indigo-50 font-medium leading-tight" style="text-wrap:balance;">
+      Design AI agents in blockchain for science —
+      <span class="hero-accent whitespace-normal" style="background:linear-gradient(92deg,#fcd34d,#f0abfc 55%,#a5b4fc);-webkit-background-clip:text;background-clip:text;">define the benchmarks that drive science.</span>
+    </p>
+
+    <!-- One concise supporting line -->
+    <p class="mt-4 max-w-2xl text-sm md:text-base text-indigo-200/75 leading-relaxed">
+      MCP-native · on-chain rewards. Starting with <span class="text-amber-300 font-semibold">computational imaging</span> —
+      169 benchmarks with reproduced leaderboards and on-chain certificates.
+    </p>
+
+    <!-- Register-to-earn: scannable artifact pills (replaces the wall of text) -->
+    <div class="mt-5 flex flex-wrap items-center gap-2">
+      <span class="text-xs md:text-sm text-indigo-200/70 font-medium mr-0.5">Register on-chain to earn PWM:</span>
+      <a href="https://physicsworldmodel.org/principles" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-amber-400/15 border border-amber-300/40 text-amber-200 hover:bg-amber-400/25 transition-colors">Principle</a>
+      <a href="https://physicsworldmodel.org/digital-twins" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-blue-400/15 border border-blue-300/40 text-blue-200 hover:bg-blue-400/25 transition-colors">Digital Twin</a>
+      <a href="https://physicsworldmodel.org/artifacts?layer=l3" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-emerald-400/15 border border-emerald-300/40 text-emerald-200 hover:bg-emerald-400/25 transition-colors">Benchmark</a>
+      <a href="https://physicsworldmodel.org/artifacts?layer=l4" class="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-semibold bg-violet-400/15 border border-violet-300/40 text-violet-200 hover:bg-violet-400/25 transition-colors">Solution</a>
+    </div>
+
+    <!-- Frontier — one quiet line -->
+    <p class="mt-3 text-xs md:text-sm text-indigo-200/55 max-w-2xl">
+      <a href="#frontier" class="text-violet-300 hover:text-violet-200 font-medium underline decoration-violet-400/40 underline-offset-2">Frontier ↓</a>
+      — reverse aging, longevity, quantum gravity, dark matter, framed as world models.
+    </p>
+
+    <!-- MCP agents: tool chips + CTAs -->
+    <div class="mt-5 flex flex-wrap items-center gap-2">
+      <a href="https://physicsworldmodel.org/start"
+         class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500 text-white font-semibold text-sm hover:bg-emerald-400 transition-colors shadow">
+        <span class="text-base leading-none">★</span>
+        Start here — get PWM
+      </a>
+      <a href="https://physicsworldmodel.org/ai4science"
+         class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-gray-900 font-semibold text-sm hover:bg-indigo-50 transition-colors shadow ring-1 ring-white/40">
+        <span class="text-base leading-none">✦</span>
+        Get AI4Science CLI
+      </a>
+      <a href="https://physicsworldmodel.org/agents"
+         class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-500 text-white font-semibold text-sm hover:bg-violet-400 transition-colors shadow">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Browse Agents
+      </a>
+      
+      <a href="https://physicsworldmodel.org/agents/forward-check" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/10 border border-white/20 text-xs text-violet-200 hover:bg-white/20 transition-colors font-mono">
+        ✅ forward_check
+      </a>
+      
+      <a href="https://physicsworldmodel.org/agents/dispatch" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/10 border border-white/20 text-xs text-violet-200 hover:bg-white/20 transition-colors font-mono">
+        ⚙️ dispatch
+      </a>
+      
+      <a href="https://physicsworldmodel.org/agents/result" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/10 border border-white/20 text-xs text-violet-200 hover:bg-white/20 transition-colors font-mono">
+        📊 result
+      </a>
+      
+      <a href="https://physicsworldmodel.org/agents/benchmark-lookup" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/10 border border-white/20 text-xs text-violet-200 hover:bg-white/20 transition-colors font-mono">
+        🔍 benchmark_lookup
+      </a>
+      
+      <a href="https://physicsworldmodel.org/agents/arxiv-fetch" class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/10 border border-white/20 text-xs text-violet-200 hover:bg-white/20 transition-colors font-mono">
+        📚 arxiv_fetch
+      </a>
+      
+    </div>
+
+    <!-- Agent chatbox -->
+    <div class="mt-7">
+      
+
+
+
+<div class="agentbox agentbox-hero"
+     data-variant="hero" data-auth="0"
+     >
+
+  
+  <p class="text-sm font-semibold text-indigo-100 mb-2">
+    💬 Ask the PWM agent — chat about anything, or find a Principle / Digital Twin / Benchmark / Solution to improve:
+  </p>
+  
+
+  <div class="ab-transcript space-y-2 mb-2"></div>
+
+  <div class="flex gap-2">
+    <input class="ab-input flex-1 outline-none" type="text" autocomplete="off"
+           placeholder="Search artifacts (log in to chat) — e.g. MRI, CT…" />
+    <button class="ab-go" type="button">🔎 Find</button>
+  </div>
+
+  <div class="ab-chips mt-2 flex flex-wrap gap-1.5">
+    
+    <button type="button" class="ab-chip" data-q="MRI">MRI</button>
+    
+    <button type="button" class="ab-chip" data-q="CT">CT</button>
+    
+    <button type="button" class="ab-chip" data-q="CASSI">CASSI</button>
+    
+    <button type="button" class="ab-chip" data-q="hyperspectral">hyperspectral</button>
+    
+    <button type="button" class="ab-chip" data-q="ultrasound">ultrasound</button>
+    
+  </div>
+
+  <div class="ab-results mt-3 space-y-1.5"></div>
+
+  <p class="ab-hint mt-2 text-[11px] text-indigo-100/70">
+    
+    Free to search; <a href="https://physicsworldmodel.org/login" class="underline">log in</a> to chat with the agent &amp; earn PWM.
+    
+    <a href="https://physicsworldmodel.org/how-to-earn" class="underline">How it works ↗</a>
+  </p>
+</div>
+
+<style>
+  .agentbox-hero .ab-input, .agentbox-hero .ab-go { font-size: 1rem; padding: 0.7rem 1rem; }
+  .agentbox .ab-input { background:#fff; color:#111827; border:1px solid #d1d5db; border-radius:10px;
+                        padding:0.55rem 0.85rem; font-size:0.9rem; }
+  .agentbox-inline .ab-input { font-size:0.95rem; padding:0.62rem 0.9rem; border-color:#a5b4fc; }
+  .agentbox-inline .ab-go { padding:0.62rem 1.05rem; font-size:0.92rem; }
+  .agentbox .ab-input:focus { border-color:#6366f1; box-shadow:0 0 0 2px #c7d2fe; }
+  .agentbox .ab-go { background:#10b981; color:#fff; font-weight:700; border:none; border-radius:10px;
+                     padding:0.55rem 1rem; cursor:pointer; white-space:nowrap; }
+  .agentbox .ab-go:hover { background:#059669; }
+  .agentbox .ab-chip { font-size:11px; padding:3px 9px; border-radius:999px; cursor:pointer;
+                       border:1px solid rgba(148,163,184,.5); background:rgba(255,255,255,.85); color:#4338ca; }
+  .agentbox-hero .ab-chip { background:rgba(255,255,255,.15); color:#e0e7ff; border-color:rgba(255,255,255,.3); }
+  .agentbox .ab-chip:hover { border-color:#6366f1; }
+  .agentbox .ab-card { display:flex; align-items:center; justify-content:space-between; gap:8px;
+                       background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px; }
+  .agentbox .ab-card a { color:#4f46e5; font-weight:600; text-decoration:none; }
+  .agentbox .ab-card a:hover { text-decoration:underline; }
+  .agentbox .ab-tag { font-size:10px; color:#6b7280; }
+  .agentbox-hero .ab-results, .agentbox-hero .ab-transcript { max-height: 38vh; overflow-y:auto; }
+  .agentbox-inline .ab-transcript { max-height: 40vh; overflow-y:auto; }
+  /* chat bubbles */
+  .ab-msg { font-size:13px; line-height:1.5; padding:8px 12px; border-radius:12px; white-space:pre-wrap; max-width:92%; }
+  .ab-msg-user { background:#4f46e5; color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .ab-msg-bot  { background:#eef2ff; color:#1e1b4b; border:1px solid #c7d2fe; border-bottom-left-radius:4px; }
+  .agentbox-hero .ab-msg-bot { background:rgba(255,255,255,.12); color:#e0e7ff; border-color:rgba(255,255,255,.25); }
+  .agentbox-hero .ab-msg-user { background:#6366f1; }
+  .ab-answer { background:#eef2ff; border:1px solid #c7d2fe; border-radius:10px; padding:8px 12px; font-size:13px; color:#3730a3; line-height:1.5; }
+  .agentbox-hero .ab-answer { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.25); color:#e0e7ff; }
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.agentbox').forEach(function (box) {
+    if (box.dataset.wired) return; box.dataset.wired = '1';
+    var input = box.querySelector('.ab-input');
+    var go    = box.querySelector('.ab-go');
+    var out   = box.querySelector('.ab-results');
+    var trans = box.querySelector('.ab-transcript');
+    var loggedIn = box.dataset.auth === '1';
+    var ICON  = {principle:'⚛','digital-twin':'📐',benchmark:'☆',solution:'⚡'};
+    var history = [];  // {role, content} for the chat endpoint
+    var ctx = (box.dataset.ctxId || box.dataset.ctxTitle || box.dataset.ctxTopic)
+      ? {layer:box.dataset.ctxLayer||'', id:box.dataset.ctxId||'', title:box.dataset.ctxTitle||'', topic:box.dataset.ctxTopic||''}
+      : null;
+
+    function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function bubble(role, text) {
+      var d=document.createElement('div');
+      d.className='ab-msg ' + (role==='user'?'ab-msg-user':'ab-msg-bot');
+      d.textContent=text; trans.appendChild(d); trans.scrollTop=trans.scrollHeight; return d;
+    }
+    function renderLinks(res) {
+      out.innerHTML='';
+      if (!res || !res.length) return;
+      var lab=document.createElement('p'); lab.className='ab-tag'; lab.textContent='Artifacts you can improve:'; out.appendChild(lab);
+      res.forEach(function (x) {
+        var d=document.createElement('div'); d.className='ab-card';
+        d.innerHTML='<div style="min-width:0"><span>'+(ICON[x.layer_name]||'')+'</span> '+
+          '<a href="'+esc(x.url)+'">'+esc(x.title)+'</a> '+
+          '<span class="ab-tag">'+esc(x.layer_name)+' · '+esc(x.id)+'</span></div>'+
+          '<a class="ab-tag" href="'+esc(x.url)+'" style="white-space:nowrap;color:#4f46e5">open →</a>';
+        out.appendChild(d);
+      });
+    }
+
+    // Logged-in: real conversation with Haiku.
+    async function chat(q) {
+      bubble('user', q); history.push({role:'user', content:q});
+      var thinking = bubble('bot', '…');
+      try {
+        var r = await fetch('/api/agent/chat', {
+          method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
+          body: JSON.stringify({message:q, history:history.slice(0,-1), context:ctx})
+        });
+        var data = await r.json();
+        thinking.textContent = data.reply || '(no reply)';
+        if (data.reply) history.push({role:'assistant', content:data.reply});
+        renderLinks(data.results);
+      } catch(e) { thinking.textContent = 'Chat unavailable — try again.'; }
+    }
+
+    // Logged-out: link search + a nudge to log in.
+    async function search(q) {
+      out.innerHTML='<p class="ab-tag">Searching…</p>';
+      try {
+        var r=await fetch('/api/agent/search',{method:'POST',headers:{'Content-Type':'application/json'},
+          credentials:'same-origin',body:JSON.stringify({interest:q,limit:8,ai:false})});
+        var data=await r.json();
+        if (!(data.results||[]).length) {
+          out.innerHTML='<p class="ab-tag">No matches. <a href="https://physicsworldmodel.org/artifacts" class="underline">Browse all</a>.</p>'; return;
+        }
+        renderLinks(data.results);
+      } catch(e){ out.innerHTML='<p class="ab-tag" style="color:#dc2626">Search unavailable.</p>'; }
+    }
+
+    function submit() {
+      var q=input.value.trim(); if(!q) return; input.value='';
+      if (loggedIn) chat(q); else search(q);
+    }
+    go.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e){ if(e.key==='Enter') submit(); });
+    box.querySelectorAll('.ab-chip').forEach(function(c){
+      c.addEventListener('click', function(){ input.value=c.getAttribute('data-q'); submit(); });
+    });
+  });
+})();
+</script>
+    </div>
+
+    
+    <div class="mt-6 flex justify-center">
+    <a href="https://physicsworldmodel.org/login" class="inline-flex items-center gap-2 bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/30 rounded-lg px-4 py-2.5 shadow-sm transition-all group">
+      <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      <div class="text-left">
+        <p class="text-sm font-semibold text-white group-hover:text-emerald-300">No wallet? <span class="text-emerald-300">Sign in with Google →</span></p>
+        <p class="text-[11px] text-white/50">30-second onboarding — no wallet install, no seed phrase</p>
+      </div>
+    </a>
+    </div>
+    
+
+    <!-- Stats strip — live PWM Protocol counts -->
+    <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <a href="https://physicsworldmodel.org/artifacts?layer=l1" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
+        <p class="text-xl font-bold text-white">549</p>
+        <p class="text-[11px] text-white/60 mt-0.5">L1 Principles on testnet</p>
+      </a>
+      <a href="https://physicsworldmodel.org/benchmarks" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
+        <p class="text-xl font-bold text-amber-300">169</p>
+        <p class="text-[11px] text-white/60 mt-0.5">Imaging benchmarks (verified)</p>
+      </a>
+      <a href="https://physicsworldmodel.org/artifacts?layer=l4" class="bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20 transition-colors">
+        <p class="text-xl font-bold text-white">1084</p>
+        <p class="text-[11px] text-white/60 mt-0.5">L4 Solutions on testnet</p>
+      </a>
+      <div class="bg-white/10 backdrop-blur rounded-lg px-4 py-3 text-center border border-white/20">
+        <p class="text-xl font-bold text-emerald-300">Open</p>
+        <p class="text-[11px] text-white/60 mt-0.5">100% Free · NumFOCUS</p>
+      </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- ★ GRAND HARD PROBLEMS — clickable framing-page cards (not yet benchmarked) ★ -->
+  
+  <section id="frontier" class="scroll-mt-20">
+    <div class="flex items-center gap-2 mb-1 flex-wrap">
+      <span class="w-1 h-5 bg-violet-500 rounded-full inline-block"></span>
+      <h2 class="text-xl font-bold text-gray-900">Grand Hard Problems</h2>
+      <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-violet-100 text-violet-800">the frontier</span>
+    </div>
+    <p class="text-sm text-gray-500 mb-4 max-w-3xl">
+      The grand hard problems an AI Scientist could one day crack — click any card to open its
+      <strong>framing page</strong> (the governing equation and what "solved" would mean).
+      <span class="text-violet-700 font-semibold">Not yet benchmarked or verified</span>, unlike PWM's mature
+      computational-imaging benchmarks. Help define them and earn PWM.
+      <span class="text-gray-400">Life sciences &amp; longevity lead.</span>
+    </p>
+
+    
+
+    
+    <div class="flex items-center gap-2 mb-2 ">
+      <span class="text-base">🧬</span>
+      <h3 class="text-sm font-bold text-gray-800">Life Sciences &amp; Aging</h3>
+      <span class="text-[11px] text-gray-400">— reverse aging · longevity · cancer · regeneration</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      
+    <a href="https://physicsworldmodel.org/frontier/reverse-aging"
+       class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Reverse Aging</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold whitespace-nowrap">Ch.13</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Restore a youthful epigenome with partial reprogramming — turn biological age down without losing cell identity.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Aging Biology</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/longevity"
+       class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Longevity</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold whitespace-nowrap">Ch.13</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Bend the Gompertz mortality curve — slow the rate of aging itself, extending healthspan, not just lifespan.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Longevity Science</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/curing-cancer"
+       class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Curing Cancer</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold whitespace-nowrap">Ch.13</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Treat the tumor as an evolving population — schedule therapy to keep it controllable forever instead of selecting for resistance.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Oncology</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/regeneration"
+       class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Regeneration</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold whitespace-nowrap">Ch.13</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Steer wounded tissue toward regeneration instead of scar — control the morphogen / ECM dynamics that decide fibrosis vs repair.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Regenerative Medicine</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/proteostasis"
+       class="group block bg-white rounded-xl border border-emerald-200 hover:border-emerald-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Proteostasis</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold whitespace-nowrap">Ch.13</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Predict and reverse age-driven protein aggregation — the proteostasis collapse behind Alzheimer&#39;s and Parkinson&#39;s.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Neurodegeneration</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    </div>
+    
+    <div class="flex items-center gap-2 mb-2 mt-6">
+      <span class="text-base">⚛️</span>
+      <h3 class="text-sm font-bold text-gray-800">Quantum Technology</h3>
+      <span class="text-[11px] text-gray-400">— fault tolerance · repeaters · control · compilation</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      
+    <a href="https://physicsworldmodel.org/frontier/fault-tolerant-quantum-computing"
+       class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Fault-Tolerant Quantum Computing</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-sky-50 text-sky-700 font-semibold whitespace-nowrap">Ch.12</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Cross the fault-tolerance threshold — decode the surface code fast enough that adding qubits drives the logical error rate down, not up.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Quantum Computing</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/quantum-networks-repeaters"
+       class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Quantum Networks &amp; Repeaters</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-sky-50 text-sky-700 font-semibold whitespace-nowrap">Ch.12</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Build a quantum internet — distribute entanglement over continental distances by beating fibre loss with repeaters and memories.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Quantum Networking</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/optimal-quantum-control"
+       class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Optimal Quantum Control</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-sky-50 text-sky-700 font-semibold whitespace-nowrap">Ch.12</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Hit the gate fidelities fault tolerance needs — shape control pulses that beat decoherence and crosstalk on real hardware.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Quantum Control</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/quantum-circuit-compilation"
+       class="group block bg-white rounded-xl border border-sky-200 hover:border-sky-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Quantum Circuit Compilation</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-sky-50 text-sky-700 font-semibold whitespace-nowrap">Ch.12</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Make quantum programs runnable — compile and route circuits to hardware with the fewest two-qubit gates so the result survives noise.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Quantum Software</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    </div>
+    
+    <div class="flex items-center gap-2 mb-2 mt-6">
+      <span class="text-base">🔬</span>
+      <h3 class="text-sm font-bold text-gray-800">Nanotechnology</h3>
+      <span class="text-[11px] text-gray-400">— atomically precise manufacturing · DNA self-assembly · nanomedicine</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      
+    <a href="https://physicsworldmodel.org/frontier/atomically-precise-manufacturing"
+       class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Atomically Precise Manufacturing</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold whitespace-nowrap">Ch.15</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Build matter atom by atom — place reactive groups with positional control to assemble structures no bulk chemistry can reach.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Nanotechnology</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/dna-self-assembly"
+       class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">DNA Self-Assembly</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold whitespace-nowrap">Ch.15</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Program matter to fold itself — design DNA sequences that self-assemble into a target nanostructure at high yield.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Nanotechnology</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/targeted-nanomedicine"
+       class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Targeted Nanomedicine</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold whitespace-nowrap">Ch.13/15</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Deliver drugs only where they&#39;re needed — design nanoparticles that navigate the body and accumulate in target tissue, sparing the rest.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Nanomedicine</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/molecular-electronics"
+       class="group block bg-white rounded-xl border border-amber-200 hover:border-amber-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Molecular Electronics</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold whitespace-nowrap">Ch.15</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Compute with single molecules — predict and design the quantum conductance of a molecule wired between two electrodes.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Nanoelectronics</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    </div>
+    
+    <div class="flex items-center gap-2 mb-2 mt-6">
+      <span class="text-base">🌌</span>
+      <h3 class="text-sm font-bold text-gray-800">Physics &amp; Cosmology</h3>
+      <span class="text-[11px] text-gray-400">— quantum gravity · dark matter · dark energy · superconductivity</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      
+    <a href="https://physicsworldmodel.org/frontier/quantum-gravity"
+       class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Quantum Gravity</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold whitespace-nowrap">Ch.11</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Reconstruct the geometry of spacetime from quantum entanglement — test whether gravity is emergent (Ryu–Takayanagi).</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Quantum Gravity</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/dark-matter"
+       class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Dark Matter</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold whitespace-nowrap">Ch.11</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Pin down the dark-matter halo from how galaxies rotate — distinguish particle dark matter from modified gravity.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Astrophysics</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/dark-energy"
+       class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Dark Energy</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold whitespace-nowrap">Ch.11</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Measure whether dark energy is a constant or evolving — reconstruct the equation of state w(z) from the expansion history.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Cosmology</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/black-hole-information"
+       class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Black-Hole Information</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold whitespace-nowrap">Ch.11</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Show that black holes preserve information — recover the unitary Page curve of Hawking radiation via the island formula.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Quantum Gravity</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    <a href="https://physicsworldmodel.org/frontier/room-temp-superconductivity"
+       class="group block bg-white rounded-xl border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-150 overflow-hidden">
+      <div class="p-3.5">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <span class="text-sm font-bold text-gray-900 group-hover:text-violet-700 transition-colors leading-snug">Room-Temp Superconductivity</span>
+          <span class="shrink-0 text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold whitespace-nowrap">Ch.15</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">Design a material that superconducts at room temperature — predict Tc from electron–phonon coupling and invert for high-Tc structures.</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-[10px] text-gray-400">Materials Science</span>
+          <span class="text-[11px] font-semibold text-violet-600 group-hover:text-violet-700">Framing page →</span>
+        </div>
+      </div>
+    </a>
+    
+    </div>
+    
+
+    <div class="mt-5 rounded-xl border border-violet-100 bg-gradient-to-br from-violet-50 to-indigo-50 px-5 py-4 flex items-center justify-between gap-4 flex-wrap">
+      <p class="text-sm text-gray-700 max-w-2xl">
+        These are open problems, not finished benchmarks. Propose a sharper governing equation, a digital twin, or the
+        first real benchmark for one — and <strong class="text-violet-700">earn PWM</strong>.
+      </p>
+      <a href="https://physicsworldmodel.org/artifacts?layer=l1" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors shadow">
+        Browse frontier principles →
+      </a>
+    </div>
+  </section>
+  
+
+  <!-- ★ CONTRIBUTE — 4 types ★ -->
+  <section>
+    <div class="flex items-center gap-2 mb-1">
+      <span class="w-1 h-5 bg-emerald-500 rounded-full inline-block"></span>
+      <h2 class="text-xl font-bold text-gray-900">Contribute to the Protocol</h2>
+      <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Stage 1 open</span>
+    </div>
+    <p class="text-sm text-gray-500 mb-5">
+      Each submission goes through S1–S4 mathematical verification. Verified entries go mainnet and earn PWM tokens.
+      Start from a Principle — or jump to any layer.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <!-- L1 Principle -->
+      <a href="https://physicsworldmodel.org/submit/principle"
+         class="group block bg-white rounded-xl border-2 border-amber-200 hover:border-amber-400 hover:shadow-lg transition-all duration-150 overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-amber-400 to-orange-400"></div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">L1</span>
+            <span class="text-lg">⚛</span>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 group-hover:text-amber-700 transition-colors">Principle</h3>
+          <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">
+            A governing physical law — governing equations, conservation laws, symmetry principles.
+            The foundation every Digital Twin and Benchmark builds on.
+          </p>
+          <div class="mt-4 space-y-1 text-xs">
+            <div class="flex justify-between text-gray-500">
+              <span>5 fields</span>
+              <span class="font-semibold text-amber-700">5% royalty on L4 events</span>
+            </div>
+          </div>
+          <div class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-amber-600 group-hover:text-amber-700">
+            Submit Principle →
+          </div>
+        </div>
+      </a>
+
+      <!-- L2 Digital Twin -->
+      <a href="https://physicsworldmodel.org/submit/digital-twin"
+         class="group block bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 hover:shadow-lg transition-all duration-150 overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-blue-400 to-indigo-400"></div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800">L2</span>
+            <span class="text-lg">📐</span>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-700 transition-colors">Digital Twin</h3>
+          <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">
+            A forward operator over domain Ω with tolerance ε. Defines the mathematical interface
+            between a Principle and a testable Benchmark.
+          </p>
+          <div class="mt-4 space-y-1 text-xs">
+            <div class="flex justify-between text-gray-500">
+              <span>5 fields</span>
+              <span class="font-semibold text-blue-700">10% royalty on L4 events</span>
+            </div>
+          </div>
+          <div class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-blue-600 group-hover:text-blue-700">
+            Submit Digital Twin →
+          </div>
+        </div>
+      </a>
+
+      <!-- L3 Benchmark -->
+      <a href="https://physicsworldmodel.org/submit/benchmark"
+         class="group block bg-white rounded-xl border-2 border-emerald-200 hover:border-emerald-400 hover:shadow-lg transition-all duration-150 overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-emerald-400 to-green-400"></div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800">L3</span>
+            <span class="text-lg">☆</span>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 group-hover:text-emerald-700 transition-colors">Benchmark</h3>
+          <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">
+            A fixed dataset + success metric that defines what "solved" means.
+            Every verified Solution that uses your Benchmark pays you royalties.
+          </p>
+          <div class="mt-4 space-y-1 text-xs">
+            <div class="flex justify-between text-gray-500">
+              <span>5 fields</span>
+              <span class="font-semibold text-emerald-700">15% royalty on L4 events</span>
+            </div>
+          </div>
+          <div class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-emerald-600 group-hover:text-emerald-700">
+            Submit Benchmark →
+          </div>
+        </div>
+      </a>
+
+      <!-- L4 Solution -->
+      <a href="https://physicsworldmodel.org/submit/solution"
+         class="group block bg-white rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all duration-150 overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-violet-400 to-purple-400"></div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2 py-0.5 rounded text-xs font-bold bg-violet-100 text-violet-800">L4</span>
+            <span class="text-lg">⚡</span>
+          </div>
+          <h3 class="text-base font-bold text-gray-900 group-hover:text-violet-700 transition-colors">Solution</h3>
+          <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">
+            A verified solver for a Principle. Describe your algorithm or AI output.
+            Mismatch check is embedded in S2 verification — no separate submission needed.
+          </p>
+          <div class="mt-4 space-y-1 text-xs">
+            <div class="flex justify-between text-gray-500">
+              <span>5 fields</span>
+              <span class="font-semibold text-violet-700">55% of mining pool</span>
+            </div>
+          </div>
+          <div class="mt-3 inline-flex items-center gap-1 text-xs font-bold text-violet-600 group-hover:text-violet-700">
+            Submit Solution →
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Badge explanation -->
+    <div class="mt-4 flex flex-wrap items-center gap-4 text-xs text-gray-500">
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-gray-300 inline-block"></span>⊙ Testnet — submitted, not yet verified</span>
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>⊙ Reviewing — S1–S4 gates running</span>
+      <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>● Mainnet — verified, PWM awarded</span>
+    </div>
+  </section>
+
+  <!-- ★ HOW IT WORKS ★ -->
+  <section id="how-it-works" class="bg-white rounded-xl border border-gray-200 px-6 py-6 md:px-8">
+    <div class="flex items-center gap-2 mb-5">
+      <span class="w-1 h-5 bg-indigo-500 rounded-full inline-block"></span>
+      <h2 class="text-lg font-bold text-gray-900">How it works</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-0">
+      
+      <div class="flex md:border-r border-gray-100">
+        <div class="flex flex-col px-4 pl-0  py-1 w-full">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-full bg-indigo-100 border-2 border-indigo-300 flex items-center justify-center text-indigo-700 font-bold text-sm shrink-0">1</span>
+            <p class="text-sm font-bold text-gray-900">Choose &amp; fill</p>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">Pick a type — Principle, Digital Twin, Benchmark, or Solution. Fill 5 simplified fields. A live preview shows how your submission maps to the protocol.</p>
+          
+        </div>
+        
+        <div class="hidden md:flex items-center text-gray-300 text-lg shrink-0 -mr-2 z-10">›</div>
+        
+      </div>
+      
+      <div class="flex md:border-r border-gray-100">
+        <div class="flex flex-col px-4   py-1 w-full">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-full bg-violet-100 border-2 border-violet-300 flex items-center justify-center text-violet-700 font-bold text-sm shrink-0">2</span>
+            <p class="text-sm font-bold text-gray-900">Sign &amp; register</p>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">Connect a wallet (or sign in with Google). Your submission registers on Base Sepolia testnet with a timestamp. Takes 30 seconds.</p>
+          
+        </div>
+        
+        <div class="hidden md:flex items-center text-gray-300 text-lg shrink-0 -mr-2 z-10">›</div>
+        
+      </div>
+      
+      <div class="flex md:border-r border-gray-100">
+        <div class="flex flex-col px-4   py-1 w-full">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-full bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-amber-700 font-bold text-sm shrink-0">3</span>
+            <p class="text-sm font-bold text-gray-900">S1–S4 verification</p>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">Our Claude-based agent checks: dimensional consistency (S1), well-posedness (S2), solver existence (S3), and bounded error certificate (S4).</p>
+          
+        </div>
+        
+        <div class="hidden md:flex items-center text-gray-300 text-lg shrink-0 -mr-2 z-10">›</div>
+        
+      </div>
+      
+      <div class="flex ">
+        <div class="flex flex-col px-4  pr-0 py-1 w-full">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-7 h-7 rounded-full bg-emerald-100 border-2 border-emerald-300 flex items-center justify-center text-emerald-700 font-bold text-sm shrink-0">4</span>
+            <p class="text-sm font-bold text-gray-900">Mainnet + PWM</p>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">ACCEPT → your artifact goes mainnet. You earn PWM tokens. Every future Solution built on your Principle/Spec/Benchmark pays you royalties.</p>
+          
+          <a href="https://physicsworldmodel.org/submit" class="mt-3 inline-flex items-center text-xs font-semibold text-emerald-600 hover:text-emerald-700">
+            Start now →
+          </a>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ★ PROTOCOL HIERARCHY ★ -->
+  <section>
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <div class="flex items-center gap-2">
+        <span class="w-1 h-5 bg-gray-400 rounded-full inline-block"></span>
+        <h2 class="text-lg font-bold text-gray-900">Protocol hierarchy</h2>
+      </div>
+      <div class="flex gap-2">
+        <a href="https://physicsworldmodel.org/principles" class="text-xs text-gray-500 hover:text-indigo-600 hover:underline">Browse all →</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+      
+      <div class="flex items-center gap-4 px-4 py-3 group hover:bg-gray-50 transition-colors">
+        <span class="shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800 w-8 text-center">L1</span>
+        <span class="text-base shrink-0">⚛</span>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900">Principles</p>
+          <p class="text-xs text-gray-500">Governing physical laws — the root of every chain.</p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a href="https://physicsworldmodel.org/principles" class="text-xs text-gray-400 hover:text-indigo-600 hover:underline px-2 py-1">Browse</a>
+          <a href="https://physicsworldmodel.org/submit/principle" class="text-xs font-semibold text-white bg-amber-500 hover:bg-amber-600 rounded px-2.5 py-1 transition-colors">Submit</a>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-4 px-4 py-3 group hover:bg-gray-50 transition-colors">
+        <span class="shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 w-8 text-center">L2</span>
+        <span class="text-base shrink-0">📐</span>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900">Digital Twins</p>
+          <p class="text-xs text-gray-500">Forward operators: Ω domain, operator class, tolerance ε.</p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a href="https://physicsworldmodel.org/digital-twins" class="text-xs text-gray-400 hover:text-indigo-600 hover:underline px-2 py-1">Browse</a>
+          <a href="https://physicsworldmodel.org/submit/digital-twin" class="text-xs font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded px-2.5 py-1 transition-colors">Submit</a>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-4 px-4 py-3 group hover:bg-gray-50 transition-colors">
+        <span class="shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 w-8 text-center">L3</span>
+        <span class="text-base shrink-0">☆</span>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900">Benchmarks</p>
+          <p class="text-xs text-gray-500">Fixed datasets + success metrics tied to a Spec.</p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a href="https://physicsworldmodel.org/benchmarks" class="text-xs text-gray-400 hover:text-indigo-600 hover:underline px-2 py-1">Browse</a>
+          <a href="https://physicsworldmodel.org/submit/benchmark" class="text-xs font-semibold text-white bg-emerald-500 hover:bg-emerald-600 rounded px-2.5 py-1 transition-colors">Submit</a>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-4 px-4 py-3 group hover:bg-gray-50 transition-colors">
+        <span class="shrink-0 px-2 py-0.5 rounded text-xs font-bold bg-violet-100 text-violet-800 w-8 text-center">L4</span>
+        <span class="text-base shrink-0">⚡</span>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-gray-900">Solutions</p>
+          <p class="text-xs text-gray-500">Verified solvers. Mismatch check embedded in S2.</p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <a href="https://physicsworldmodel.org/verify" class="text-xs text-gray-400 hover:text-indigo-600 hover:underline px-2 py-1">Browse</a>
+          <a href="https://physicsworldmodel.org/submit/solution" class="text-xs font-semibold text-white bg-violet-500 hover:bg-violet-600 rounded px-2.5 py-1 transition-colors">Submit</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ★ AI4SCIENCE (SOLUTION) ★ -->
+  <section class="rounded-xl bg-gradient-to-br from-violet-50 via-white to-indigo-50 border border-violet-100 px-6 py-6 md:px-8">
+    <div class="flex items-start justify-between gap-4 flex-wrap">
+      <div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="w-1 h-5 bg-violet-500 rounded-full inline-block"></span>
+          <span class="text-lg">✦</span>
+          <h2 class="text-lg font-bold text-gray-900">AI4Science</h2>
+          <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-violet-100 text-violet-800">Solution</span>
+          <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Stage 1</span>
+        </div>
+        <p class="mt-1 text-sm text-gray-600 max-w-2xl">
+          Run a verified L4 solution on your measurements. Returns an on-chain certificate with PSNR, SSIM, and full provenance.
+          <span class="text-gray-400">Design, Sci-Sim, and Imaging System operators open in Stage 3.</span>
+        </p>
+      </div>
+      <a href="https://physicsworldmodel.org/ai4science" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition-colors shadow">
+        Use a Solution &rarr;
+      </a>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-semibold">
+      <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800">L1 Principle</span>
+      <span class="text-gray-400">→</span>
+      <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800">L2 Digital Twin</span>
+      <span class="text-gray-400">→</span>
+      <span class="px-2 py-0.5 rounded bg-green-100 text-green-800">L3 Benchmark</span>
+      <span class="text-gray-400">→</span>
+      <span class="px-2 py-0.5 rounded bg-violet-100 text-violet-800 font-bold">L4 Solution Certificate</span>
+    </div>
+  </section>
+
+  <!-- ★ REFERENCE BENCHMARKS ★ -->
+  
+  <section>
+    <div class="flex items-center justify-between gap-2 mb-4">
+      <div class="flex items-center gap-2">
+        <span class="w-1 h-5 bg-amber-500 rounded-full inline-block"></span>
+        <h2 class="text-lg font-bold text-gray-900">Reference Benchmarks</h2>
+        <span class="text-xs text-gray-400">— existing imaging leaderboards</span>
+      </div>
+      <a href="https://physicsworldmodel.org/benchmarks" class="text-xs font-medium text-indigo-600 hover:underline">All 169 →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      
+      <a href="https://physicsworldmodel.org/benchmark/ct" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">CT</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Medical</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">CT-FM</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">44.1dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">PINER-CT</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">43.6dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">CT-MAE</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">43.2dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/mri" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">MRI</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Medical</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">SwinMR++</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">43.8dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">HUMUS-Net++</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">43.1dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">MR-IPT</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">42.5dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/cryo_em" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">Cryo-EM Single Particle Analysis</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Scientific Instrumentation</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">DiffusionCryo</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">39.8dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">CryoSTAR</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">38.4dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">CryoFormer</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">37.1dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/ultrasound" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">Ultrasound</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Medical Ultrasound</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">ScoreUS</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">36.3dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">DiffUS</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">36.0dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">AttentionBeam</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">35.5dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/cassi" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">CASSI</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Compressive</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">MiJUN-5stg</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">40.9dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">RDLUF-MixS2-9stg</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">39.6dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">DAUHST-9stg</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">38.4dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/nerf" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">NeRF</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Neural Rendering</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">NeRFactor2</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">35.9dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">GaussianShader</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">35.2dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">3D-GS++</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">34.5dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/oct" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">OCT</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Clinical Optics</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">ScoreOCT</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">38.0dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">DiffusionOCT</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">37.5dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">SpeckleFormer</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">36.9dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+      <a href="https://physicsworldmodel.org/benchmark/pet" class="block bg-white rounded-lg overflow-hidden hover:shadow-md transition-all ring-1 ring-gray-200 hover:ring-indigo-300 hover:-translate-y-0.5 group">
+        <div class="h-0.5 bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400"></div>
+        <div class="p-4 border-l-4 border-amber-400">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <h3 class="text-sm font-bold text-gray-900 leading-snug">PET</h3>
+            <span class="shrink-0 text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium whitespace-nowrap">Medical</span>
+          </div>
+          
+          <div class="space-y-1">
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥇</span>
+              <span class="text-gray-600 truncate flex-1">U-Net-PET</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">36.8dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥈</span>
+              <span class="text-gray-600 truncate flex-1">PET-ViT</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">36.4dB</span>
+            </div>
+            
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="shrink-0 w-4 text-center">🥉</span>
+              <span class="text-gray-600 truncate flex-1">PETFormer</span>
+              <span class="shrink-0 font-mono font-bold text-gray-800 text-[11px]">35.7dB</span>
+            </div>
+            
+          </div>
+          
+          <div class="mt-2 text-xs text-amber-600 font-semibold group-hover:text-amber-700">View →</div>
+        </div>
+      </a>
+      
+    </div>
+  </section>
+  
+
+  <!-- Footer strip -->
+  <section class="border-t border-gray-200 pt-6 text-xs text-gray-500 space-y-1">
+    <p>PWM is a fiscally sponsored project of <a href="https://numfocus.org" class="text-indigo-600 hover:underline">NumFOCUS</a>, a 501(c)(3) public charity. Donations are tax-deductible.</p>
+    <p>100% free to use during Stage 1. Token economics (PWM rewards to contributors) operate at the smart-contract layer — the site charges no fees.</p>
+  </section>
+
+</div>
+
+            <footer class="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-400">
+                PWM · NumFOCUS fiscally sponsored
+            </footer>
+        </main>
+    </div>
+
+    
+    
+
+    
+</body>
+</html>
