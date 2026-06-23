@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="talentapp:project_verification" content="0b1860cf96b3030acb50eeffe91d87d72eb2b34fc28427c6af9b6eebf9f80af41d1a8121269ae8448c051ac16b78389a778784fc21ce08b0b2682f30fa6000ec">
-    <title>Start here — get PWM, then use AI4Science</title>
+    <title>Start here — earn PWM, use AI, contribute to science</title>
     <meta name="description" content="Physics World Model — register Principles, Digital Twins, Benchmarks, and Solutions on-chain. Each verified contribution earns PWM tokens as royalties. Open science, 100% free, NumFOCUS sponsored.">
     <!-- Inter font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Tailwind CSS (CDN for MVP — replace with local build in production) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- HTMX for dynamic UI without full-page reloads -->
-    
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
     <style>
       body { font-family: 'Inter', sans-serif; }
       [x-cloak] { display: none !important; }
@@ -26,8 +26,8 @@
     </style>
     
 </head>
-<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">📖 Read-only mirror — for the full platform (submit, mine, login) visit <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a></div>
 <body class="h-full">
+<div style="background:#1e1b4b;color:#c7d2fe;text-align:center;padding:8px 16px;font-size:13px;font-family:Inter,sans-serif;position:sticky;top:0;z-index:9999;border-bottom:1px solid #4338ca;">🌐 Mirror of <a href="https://physicsworldmodel.org" style="color:#a5b4fc;font-weight:600;text-decoration:underline;">physicsworldmodel.org</a> — <a href="https://physicsworldmodel.org/login" style="color:#a5b4fc;text-decoration:underline;">Sign in</a> to submit, mine, and earn PWM.</div>
     
     <!-- Slim top bar -->
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
@@ -45,7 +45,7 @@
                     <span class="hidden sm:inline-block text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold tracking-wide">NUMFOCUS · NONPROFIT</span>
                 </div>
                 <div class="flex-1 max-w-xl mx-4 hidden md:block">
-                    <form action="/benchmarks/" method="get" class="relative">
+                    <form action="https://physicsworldmodel.org/benchmarks" method="get" class="relative">
                         <input type="text" name="q" placeholder="Search benchmarks, principles, modalities…"
                                class="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-400">
                         <svg class="absolute left-2.5 top-2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     
-                    <a href="/login/" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
+                    <a href="https://physicsworldmodel.org/login" class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign in</a>
                     
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 <ul class="mt-1 mb-3 space-y-0.5">
                     <li><a href="/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⌂</span> Home</a></li>
                     <li><a href="/agents/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 "><span class="sidebar-icon">🤖</span> Agents <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-600 font-bold leading-none">MCP</span></a></li>
-                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
+                    <li><a href="https://physicsworldmodel.org/artifacts?layer=l3" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">☆</span> Benchmarks</a></li>
                     <li><a href="/start/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-emerald-700 font-semibold hover:bg-emerald-50 border-l-2 border-emerald-500 bg-emerald-50 pl-[6px]"><span class="sidebar-icon">★</span> Start here <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold leading-none">AI4Science</span></a></li>
                     <li><a href="/submit/" class="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-violet-700 font-semibold hover:bg-violet-50 "><span class="sidebar-icon">✦</span> Submit <span class="ml-auto text-[9px] px-1 py-0.5 rounded bg-violet-100 text-violet-700 font-bold leading-none">earn PWM</span></a></li>
                 </ul>
@@ -80,7 +80,7 @@
                 <!-- Tier 2: Explore -->
                 <p class="px-2 mt-3 pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">Explore</p>
                 <ul class="mt-1 mb-3 space-y-0.5">
-                    <li><a href="/artifacts/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
+                    <li><a href="https://physicsworldmodel.org/artifacts?layer=l4" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚡</span> Solutions</a></li>
                     <li><a href="https://physicsworldmodel.org/digital-twins" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">📐</span> Digital Twins</a></li>
                     <li><a href="https://physicsworldmodel.org/principles" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 "><span class="sidebar-icon">⚛</span> Principles</a></li>
                     <li>
@@ -100,7 +100,7 @@
                     var loaded = false, here = window.location.pathname;
                     function load() {
                       if (loaded) return; loaded = true;
-                      fetch('/api/frontier/list', { credentials: 'same-origin' })
+                      fetch('https://physicsworldmodel.org/api/frontier/list', { credentials: 'same-origin' })
                         .then(function (r) { return r.json(); })
                         .then(function (d) {
                           var html = '';
@@ -162,18 +162,20 @@
     <div class="relative z-10 max-w-3xl">
       <p class="text-[11px] font-semibold text-indigo-500 uppercase tracking-[0.2em] mb-2">Start here · the whole loop</p>
       <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 leading-tight">
-        Get <span class="text-violet-700">PWM</span> first, then put it to work with <span class="text-indigo-700">AI4Science</span>
+        Earn <span class="text-violet-700">PWM</span>, use <span class="text-sky-700">Claude &amp; Codex</span>, contribute to <span class="text-indigo-700">Science</span>
       </h1>
       <p class="mt-4 text-base md:text-lg text-gray-700 leading-snug">
-        Two minutes, three parts. First earn a starter balance of PWM right here on the website,
-        then install the AI4Science agent and spend it — earning more back through feedback as you go.
-        We'll use one real example the whole way through: the
-        <a href="https://physicsworldmodel.org/artifact/l1/L1-003" class="font-semibold text-violet-700 hover:underline">CASSI principle</a>.
+        Five steps, one loop. Earn a starter balance of PWM on the website, then use it with Claude Code,
+        Codex, or the AI4Science agent. Earn more back via feedback — or flip the model entirely and
+        let your idle subscriptions earn PWM for the network.
+        Running example throughout: the <a href="https://physicsworldmodel.org/artifact/l1/L1-003" class="font-semibold text-violet-700 hover:underline">CASSI principle</a>.
       </p>
-      <div class="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
-        <a href="#part1" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-700 text-white transition-colors">① Earn your first PWM ↓</a>
-        <a href="#part2" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 transition-colors">② Use AI4Science</a>
-        <a href="#part3" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 transition-colors">③ Earn more via feedback</a>
+      <div class="mt-6 flex flex-wrap gap-2 text-sm font-semibold">
+        <a href="#part1" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white transition-colors">① Earn PWM</a>
+        <a href="#part2" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-sky-200 text-sky-700 hover:bg-sky-50 transition-colors">② Use Claude / Codex</a>
+        <a href="#part3" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 transition-colors">③ Use AI4Science</a>
+        <a href="#part4" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 transition-colors">④ Earn via feedback</a>
+        <a href="#part5" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-orange-200 text-orange-700 hover:bg-orange-50 transition-colors">⑤ Be a provider</a>
       </div>
     </div>
   </div>
@@ -206,7 +208,7 @@
         <div class="flex-1 min-w-0">
           <h3 class="font-semibold text-gray-900">Sign in (your wallet comes with it)</h3>
           <p class="text-sm text-gray-600 mt-0.5">
-            <a href="/login/" class="text-violet-700 font-semibold hover:underline">Sign in</a> with Google/email — that gives you a
+            <a href="https://physicsworldmodel.org/login" class="text-violet-700 font-semibold hover:underline">Sign in</a> with Google/email — that gives you a
             non-custodial embedded wallet automatically (no seed phrase) — or connect your own wallet (MetaMask, Coinbase).
             Either way, <strong>one wallet = your identity + where PWM is credited</strong>.
           </p>
@@ -257,10 +259,104 @@
     </div>
   </section>
 
-  <!-- ════════════ PART 2 — USE AI4SCIENCE ════════════ -->
+  <!-- ════════════ PART 2 — USE CLAUDE / CODEX ════════════ -->
   <section id="part2" class="scroll-mt-20">
     <div class="flex items-center gap-3 mb-1">
-      <span class="w-9 h-9 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center">2</span>
+      <span class="w-9 h-9 rounded-full bg-sky-600 text-white font-extrabold flex items-center justify-center">2</span>
+      <h2 class="text-2xl font-bold text-gray-900">Use Claude Code or Codex — powered by PWM</h2>
+    </div>
+    <p class="text-sm text-gray-600 mb-6 ml-12">
+      Already use Claude Code or Codex in your workflow? Two environment variables point them at the PWM exchange gateway.
+      Every call draws from your PWM balance — no Anthropic or OpenAI account required on your end.
+    </p>
+
+    <div class="space-y-5 ml-1">
+      <!-- 2a — balance gate -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm">a</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Check your PWM balance first</h3>
+          <p class="text-sm text-gray-600 mt-0.5">
+            Go to <a href="https://physicsworldmodel.org/settings" class="text-sky-700 font-semibold hover:underline">/settings → Wallet</a> and confirm your
+            balance is above zero — the gateway returns
+            <span class="font-mono text-xs bg-gray-100 px-1 rounded">402 Payment Required</span> on the first call if it isn't.
+            If you're starting from zero, <a href="#part1" class="text-sky-700 font-semibold hover:underline">earn a starter balance in Part 1 first ↑</a>.
+          </p>
+        </div>
+      </div>
+      <!-- 2b — API key -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm">b</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Get your PWM API key</h3>
+          <p class="text-sm text-gray-600 mt-0.5">
+            Go to <a href="https://physicsworldmodel.org/settings" class="text-sky-700 font-semibold hover:underline">/settings → API Keys</a> and generate a key —
+            it starts with <span class="font-mono text-xs bg-gray-100 px-1 rounded">pwm_</span>.
+            This is your bearer token for all gateway calls; keep it private.
+          </p>
+        </div>
+      </div>
+      <!-- 2c — Claude Code -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm">c</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Point Claude Code at the PWM gateway</h3>
+          <p class="text-sm text-gray-600 mt-0.5 mb-2">Set two env vars before starting Claude Code — that's the entire integration:</p>
+          <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs md:text-sm overflow-x-auto"><code><span class="text-gray-400"># add to your shell profile, or export before each session</span>
+export ANTHROPIC_BASE_URL=https://physicsworldmodel.org/api/v1/exchange/anthropic
+export ANTHROPIC_AUTH_TOKEN=pwm_your_key_here
+
+claude -p "hello"   <span class="text-gray-500"># test it — check /exchange → Activity for the PWM debit</span></code></pre>
+          <p class="text-xs text-gray-500 mt-1.5">Claude Code sends requests as normal; the gateway meters each call in real upstream tokens, charges your PWM balance, and streams results back — wire-compatible.</p>
+          <p class="text-xs text-amber-700 mt-2 leading-relaxed">
+            <strong>Privacy:</strong> if the gateway routes your call to a <strong>node</strong> provider, your prompt passes
+            through their computer. For sensitive sessions, pin a vault credential:
+            <span class="font-mono text-xs bg-gray-100 px-1 rounded">ANTHROPIC_API_HEADERS="X-PWM-Credential: &lt;id&gt;" claude</span>
+            — credential IDs are listed in <a href="https://physicsworldmodel.org/exchange" class="underline font-semibold">Activity</a>.
+          </p>
+        </div>
+      </div>
+      <!-- 2d — Codex -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm">d</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Or point Codex at the PWM gateway</h3>
+          <p class="text-sm text-gray-600 mt-0.5 mb-2">Same pattern for OpenAI / Codex:</p>
+          <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs md:text-sm overflow-x-auto"><code>export OPENAI_BASE_URL=https://physicsworldmodel.org/api/v1/exchange/openai
+export OPENAI_API_KEY=pwm_your_key_here
+
+codex   <span class="text-gray-500"># or use the OpenAI Python SDK as usual</span></code></pre>
+          <p class="text-xs text-amber-700 mt-2">
+            <strong>Privacy:</strong> same note as above — node providers can observe prompts.
+            Pin a vault credential with <span class="font-mono text-xs bg-gray-100 px-1 rounded">OPENAI_API_HEADERS="X-PWM-Credential: &lt;id&gt;"</span> for sensitive sessions.
+          </p>
+        </div>
+      </div>
+      <!-- 2e — usage -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center justify-center text-sm">e</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">How PWM is used</h3>
+          <p class="text-sm text-gray-600 mt-0.5">
+            Each call draws PWM from your balance proportional to the tokens used and the provider's rate.
+            The cheapest available provider is selected automatically.
+            Check <a href="https://physicsworldmodel.org/exchange" class="text-sky-700 font-semibold hover:underline">/exchange → Activity</a> for a full per-call log —
+            tokens used and PWM drawn per call.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 ml-1 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900 flex items-start gap-3">
+      <span class="shrink-0">💡</span>
+      <p>The gateway is wire-compatible with the Anthropic and OpenAI APIs — any SDK or tool that respects <span class="font-mono text-xs">ANTHROPIC_BASE_URL</span> / <span class="font-mono text-xs">OPENAI_BASE_URL</span> works without code changes.</p>
+    </div>
+  </section>
+
+  <!-- ════════════ PART 3 — USE AI4SCIENCE ════════════ -->
+  <section id="part3" class="scroll-mt-20">
+    <div class="flex items-center gap-3 mb-1">
+      <span class="w-9 h-9 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center">3</span>
       <h2 class="text-2xl font-bold text-gray-900">Use AI4Science — spend PWM to do science</h2>
     </div>
     <p class="text-sm text-gray-600 mb-6 ml-12">With a balance in hand, install the agent and put it to work. It runs like Claude Code, then specializes on PWM's verified artifacts. <a href="/ai4science/" class="text-indigo-700 font-semibold hover:underline">Full intro →</a></p>
@@ -322,10 +418,10 @@ curl -fsSL https://physicsworldmodel.org/install.sh | bash -s -- --dev   <span c
     </div>
   </section>
 
-  <!-- ════════════ PART 3 — FEEDBACK EARNS PWM BACK ════════════ -->
-  <section id="part3" class="scroll-mt-20">
+  <!-- ════════════ PART 4 — FEEDBACK EARNS PWM BACK ════════════ -->
+  <section id="part4" class="scroll-mt-20">
     <div class="flex items-center gap-3 mb-1">
-      <span class="w-9 h-9 rounded-full bg-emerald-500 text-white font-extrabold flex items-center justify-center">3</span>
+      <span class="w-9 h-9 rounded-full bg-emerald-500 text-white font-extrabold flex items-center justify-center">4</span>
       <h2 class="text-2xl font-bold text-gray-900">Earn PWM back — feedback inside AI4Science</h2>
     </div>
     <p class="text-sm text-gray-600 mb-6 ml-12">Using the agent costs PWM; the easiest way to earn it back is <strong>feedback</strong> — right inside the chat session, no website round-trip.</p>
@@ -358,7 +454,7 @@ curl -fsSL https://physicsworldmodel.org/install.sh | bash -s -- --dev   <span c
           <h3 class="font-semibold text-gray-900">Or contribute tools &amp; solutions — earn weekly</h3>
           <p class="text-sm text-gray-600 mt-0.5">
             Beyond feedback, you can publish tools/sub-agents or submit solutions (e.g. a new CASSI reconstruction method).
-            Whenever an agent uses them on a paid turn, you earn from the weekly emission pool — for as long as they stay useful.
+            Whenever an agent uses them, you earn from the weekly emission pool — for as long as they stay useful.
             See <a href="https://physicsworldmodel.org/agents/earn" class="text-emerald-700 font-semibold hover:underline">how contributing earns PWM →</a>
           </p>
         </div>
@@ -366,19 +462,143 @@ curl -fsSL https://physicsworldmodel.org/install.sh | bash -s -- --dev   <span c
     </div>
   </section>
 
+  <!-- ════════════ PART 5 — BE A PROVIDER ════════════ -->
+  <section id="part5" class="scroll-mt-20">
+    <div class="flex items-center gap-3 mb-1">
+      <span class="w-9 h-9 rounded-full bg-orange-500 text-white font-extrabold flex items-center justify-center">5</span>
+      <h2 class="text-2xl font-bold text-gray-900">Be a provider — let idle Claude &amp; ChatGPT earn PWM for science</h2>
+    </div>
+    <p class="text-sm text-gray-600 mb-6 ml-12">
+      Got a Claude Code Pro, Max, or ChatGPT subscription you're not using 24/7? Or an API key sitting idle?
+      Run a <strong>provider node</strong> and earn PWM whenever the network routes calls through your credential.
+      Your key never leaves your machine. 90% of every call's PWM value goes to you; 10% funds the science pool.
+    </p>
+
+    <div class="space-y-5 ml-1">
+      <!-- 5a — node path -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-orange-100 text-orange-700 font-bold flex items-center justify-center text-sm">a</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Flagship: run a provider node — your key stays on your computer</h3>
+          <p class="text-sm text-gray-600 mt-0.5 mb-3">
+            The node polls the platform for jobs, makes the upstream call <em>locally</em>, and streams results back.
+            The platform never sees your raw credential — it only brokers, meters, and settles PWM.
+          </p>
+
+          <!-- path A: download + double-click -->
+          <div class="rounded-lg border border-orange-200 bg-orange-50/60 px-4 py-3 mb-3">
+            <p class="text-xs font-bold text-orange-800 mb-2">Easiest — download &amp; double-click (no config needed)</p>
+            <ol class="text-xs text-gray-700 space-y-1.5 list-decimal list-inside mb-3">
+              <li>Go to <a href="https://physicsworldmodel.org/exchange" class="text-orange-700 font-semibold hover:underline">/exchange → Contribute → Run a self-custody node</a> and download <strong>exchange-node.py</strong> (or a native binary for your OS — no Python needed).</li>
+              <li><strong>Double-click</strong> the file — your browser opens a local setup page automatically.</li>
+              <li>Click <strong>Sign in to PWM</strong> (browser device flow, no key pasting). The page detects your existing Claude Code / Codex login automatically.</li>
+              <li>Enter your <strong>PWM per 1M tokens rate</strong> and <strong>payout wallet</strong>, then click <em>Start serving</em>.</li>
+            </ol>
+            <p class="text-xs text-gray-600">
+              Leave the window open while you're serving. Config saves to
+              <span class="font-mono text-xs">~/.exchange-node/config.json</span> — next launch is one double-click.
+              If no subscription is detected, the page offers to run the provider's login for you.
+            </p>
+          </div>
+
+          <!-- path B: headless -->
+          <details class="rounded-lg border border-gray-200 bg-gray-50/60">
+            <summary class="cursor-pointer select-none px-4 py-2.5 text-xs font-bold text-gray-700">Headless / server mode ▾</summary>
+            <div class="px-4 pb-3 pt-1 space-y-2">
+              <p class="text-xs text-gray-600">
+                Needs your <span class="font-mono text-xs bg-gray-100 px-1 rounded">pwm_</span> API key
+                (<a href="https://physicsworldmodel.org/settings" class="text-orange-700 font-semibold hover:underline">/settings → API Keys</a>)
+                and your upstream credential in the env.
+              </p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code><span class="text-gray-400"># auto-detects ~/.claude/.credentials.json or ~/.codex/auth.json</span>
+<span class="text-gray-400"># set EXCHANGE_NODE_SECRET=sk-ant-… to use a BYO API key instead</span>
+
+EXCHANGE_API_KEY=pwm_your_key_here \
+EXCHANGE_NODE_SECRET=sk-ant-your-key-here \
+  python3 exchange-node.py start \
+  --base-url https://physicsworldmodel.org \
+  --node-id my-laptop \
+  --provider anthropic \
+  --pwm-per-usd 10 \
+  --payout-wallet 0xYOUR_WALLET</code></pre>
+              <p class="text-xs text-gray-500">The upstream key is used only to call the provider — it is never forwarded to the platform.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+      <!-- 5b — vault path -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-orange-100 text-orange-700 font-bold flex items-center justify-center text-sm">b</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Or: attach an API key via the browser (vault path)</h3>
+          <p class="text-sm text-gray-600 mt-0.5">
+            Prefer a set-and-forget option with no daemon to run? Go to
+            <a href="https://physicsworldmodel.org/exchange" class="text-orange-700 font-semibold hover:underline">/exchange → Contribute → Bring your own API key</a>
+            and paste your Anthropic or OpenAI <span class="font-mono text-xs bg-gray-100 px-1 rounded">sk-…</span> key.
+            It's stored Fernet-encrypted on the platform; only prefix and suffix are ever shown back to you.
+            The platform calls upstream on your behalf when a call is routed to you.
+            <span class="text-gray-500">Trade-off vs. node: easier setup, but your key leaves your machine — the node path keeps it exclusively on your computer.</span>
+          </p>
+        </div>
+      </div>
+      <!-- 5c — set price -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-orange-100 text-orange-700 font-bold flex items-center justify-center text-sm">c</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">Set your PWM rate and earning wallet</h3>
+          <p class="text-sm text-gray-600 mt-0.5">
+            You set a <strong>PWM rate</strong> — how many PWM tokens you earn per 1M tokens of upstream compute,
+            using <strong>Claude Opus 4.8</strong> as the reference model.
+            The gateway always routes to the <strong>lowest-rate active provider</strong> under cap for a given model,
+            so a lower rate gets more traffic.
+            Earnings go to any wallet address you specify — it can be different from your login wallet.
+          </p>
+        </div>
+      </div>
+      <!-- 5d — how it works -->
+      <div class="flex gap-4">
+        <div class="shrink-0 w-8 h-8 rounded-full bg-orange-100 text-orange-700 font-bold flex items-center justify-center text-sm">d</div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900">How routing and settlement work</h3>
+          <p class="text-sm text-gray-600 mt-0.5">
+            When a scientist runs Claude Code or Codex through the PWM gateway, the platform picks the
+            cheapest available active provider for that model. If your node is live and under cap, it
+            can be selected. The call happens, tokens are counted, and the platform atomically
+            <strong>debits the consumer</strong> and <strong>credits you 90%</strong> — no manual withdrawal, no delays.
+            Track every call in <a href="https://physicsworldmodel.org/exchange" class="text-orange-700 font-semibold hover:underline">/exchange → Activity</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 ml-1 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-900 flex items-start gap-3">
+      <span class="shrink-0">⚠️</span>
+      <p>
+        <strong>ToS note:</strong> sharing a Claude Code Pro/Max or ChatGPT subscription seat with others may conflict with
+        Anthropic's or OpenAI's subscriber terms regardless of custody mode. The subscription path requires explicit
+        consent and is independently feature-flagged. BYO API keys are ToS-clean and unaffected.
+        You accept the risk when enabling subscription sharing.
+      </p>
+    </div>
+  </section>
+
   <!-- ★ THE LOOP RECAP ★ -->
-  <div class="rounded-2xl border border-gray-200 bg-gradient-to-r from-violet-50 via-indigo-50 to-emerald-50 px-6 py-7 md:px-10">
+  <div class="rounded-2xl border border-gray-200 bg-gradient-to-r from-violet-50 via-sky-50 via-indigo-50 to-orange-50 px-6 py-7 md:px-10">
     <h3 class="text-lg font-bold text-gray-900 mb-3">The whole loop, in one line</h3>
     <div class="flex flex-wrap items-center gap-2 text-sm font-semibold">
-      <span class="px-3 py-1.5 rounded-lg bg-white border border-violet-200 text-violet-700">① Earn PWM on the site (CASSI principle)</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white border border-violet-200 text-violet-700">① Earn PWM</span>
       <span class="text-gray-400">→</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white border border-indigo-200 text-indigo-700">② Spend it in AI4Science</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white border border-sky-200 text-sky-700">② Use Claude / Codex</span>
       <span class="text-gray-400">→</span>
-      <span class="px-3 py-1.5 rounded-lg bg-white border border-emerald-200 text-emerald-700">③ Earn more via /feedback &amp; contributions</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white border border-indigo-200 text-indigo-700">③ Use AI4Science</span>
+      <span class="text-gray-400">→</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white border border-emerald-200 text-emerald-700">④ Earn via /feedback</span>
       <span class="text-gray-400">↺</span>
     </div>
+    <p class="mt-3 text-sm text-gray-500">Or skip straight to <a href="#part5" class="text-orange-700 font-semibold hover:underline">⑤ Be a provider</a> and earn PWM from your idle subscriptions without spending any first.</p>
     <div class="mt-5 flex flex-wrap gap-3">
       <a href="https://physicsworldmodel.org/artifact/l1/L1-003" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-sm transition-colors">Start on the CASSI principle →</a>
+      <a href="https://physicsworldmodel.org/exchange" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold shadow-sm transition-colors">⚡ Become a provider →</a>
       <a href="/ai4science/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 text-sm font-semibold transition-colors">✦ Get AI4Science CLI</a>
     </div>
   </div>
@@ -449,7 +669,7 @@ curl -fsSL https://physicsworldmodel.org/install.sh | bash -s -- --dev   <span c
 
   <p class="ab-hint mt-2 text-[11px] text-gray-400">
     
-    Free to search; <a href="/login/" class="underline">log in</a> to chat with the agent &amp; earn PWM.
+    Free to search; <a href="https://physicsworldmodel.org/login" class="underline">log in</a> to chat with the agent &amp; earn PWM.
     
     <a href="/how-to-earn/" class="underline">How it works ↗</a>
   </p>
@@ -526,7 +746,7 @@ curl -fsSL https://physicsworldmodel.org/install.sh | bash -s -- --dev   <span c
       bubble('user', q); history.push({role:'user', content:q});
       var thinking = bubble('bot', '…');
       try {
-        var r = await fetch('/api/agent/chat', {
+        var r = await fetch('https://physicsworldmodel.org/api/agent/chat', {
           method:'POST', headers:{'Content-Type':'application/json'}, credentials:'same-origin',
           body: JSON.stringify({message:q, history:history.slice(0,-1), context:ctx})
         });
@@ -541,11 +761,11 @@ curl -fsSL https://physicsworldmodel.org/install.sh | bash -s -- --dev   <span c
     async function search(q) {
       out.innerHTML='<p class="ab-tag">Searching…</p>';
       try {
-        var r=await fetch('/api/agent/search',{method:'POST',headers:{'Content-Type':'application/json'},
+        var r=await fetch('https://physicsworldmodel.org/api/agent/search',{method:'POST',headers:{'Content-Type':'application/json'},
           credentials:'same-origin',body:JSON.stringify({interest:q,limit:8,ai:false})});
         var data=await r.json();
         if (!(data.results||[]).length) {
-          out.innerHTML='<p class="ab-tag">No matches. <a href="/artifacts/" class="underline">Browse all</a>.</p>'; return;
+          out.innerHTML='<p class="ab-tag">No matches. <a href="https://physicsworldmodel.org/artifacts" class="underline">Browse all</a>.</p>'; return;
         }
         renderLinks(data.results);
       } catch(e){ out.innerHTML='<p class="ab-tag" style="color:#dc2626">Search unavailable.</p>'; }
