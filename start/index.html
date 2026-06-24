@@ -140,6 +140,7 @@
                     <li><a href="/blog/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">✎</span> Blog</a></li>
                     
                     <li><a href="/token/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⊙</span> How to get PWM</a></li>
+                    <li><a href="/absorb/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⬢</span> Suck Subs to PWM</a></li>
                     
                     <li><a href="/community/" class="flex items-center gap-2 px-2 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-xs "><span class="sidebar-icon">⌬</span> Community</a></li>
                     
@@ -307,7 +308,9 @@ export ANTHROPIC_BASE_URL=https://physicsworldmodel.org/api/v1/exchange/anthropi
 export ANTHROPIC_AUTH_TOKEN=pwm_your_key_here
 
 claude -p "hello"   <span class="text-gray-500"># test it — check /exchange → Activity for the PWM debit</span></code></pre>
-          <p class="text-xs text-gray-500 mt-1.5">Claude Code sends requests as normal; the gateway meters each call in real upstream tokens, charges your PWM balance, and streams results back — wire-compatible.</p>
+          <a href="https://physicsworldmodel.org/start/claude" class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold transition-colors">
+            Install Claude Code — Mac / Linux / Windows (no Node.js needed) →
+          </a>
           <p class="text-xs text-amber-700 mt-2 leading-relaxed">
             <strong>Privacy:</strong> if the gateway routes your call to a <strong>node</strong> provider, your prompt passes
             through their computer. For sensitive sessions, pin a vault credential:
