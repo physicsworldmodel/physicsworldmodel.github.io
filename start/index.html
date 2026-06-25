@@ -303,14 +303,34 @@
         <div class="flex-1 min-w-0">
           <h3 class="font-semibold text-gray-900">Point Claude Code at the PWM gateway</h3>
           <p class="text-sm text-gray-600 mt-0.5 mb-2">Set two env vars before starting Claude Code — that's the entire integration:</p>
-          <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs md:text-sm overflow-x-auto"><code><span class="text-gray-400"># add to your shell profile, or export before each session</span>
+          <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs md:text-sm overflow-x-auto"><code><span class="text-gray-400"># Linux / macOS — add to ~/.bashrc or ~/.zshrc</span>
 export ANTHROPIC_BASE_URL=https://physicsworldmodel.org/api/v1/exchange/anthropic
 export ANTHROPIC_AUTH_TOKEN=pwm_your_key_here
 
-claude -p "hello"   <span class="text-gray-500"># test it — check /exchange → Activity for the PWM debit</span></code></pre>
+claude -p "hello"   <span class="text-gray-500"># test it — check /exchange → Activity for the PWM debit</span>
+
+<span class="text-gray-400"># Windows (PowerShell) — same vars, same command</span>
+$env:ANTHROPIC_BASE_URL  = "https://physicsworldmodel.org/api/v1/exchange/anthropic"
+$env:ANTHROPIC_AUTH_TOKEN = "pwm_your_key_here"
+claude -p "hello"   <span class="text-gray-500"># if claude isn't found, see "Install Claude Code" below</span></code></pre>
           <a href="https://physicsworldmodel.org/start/claude" class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold transition-colors">
             Install Claude Code — Mac / Linux / Windows (no Node.js needed) →
           </a>
+          <details class="mt-2 rounded-lg border border-gray-200 bg-gray-50/60">
+            <summary class="cursor-pointer select-none px-3 py-2 text-xs font-semibold text-gray-600">↑ Already installed? Update claude-pwm ▾</summary>
+            <div class="px-3 pb-3 pt-1 space-y-2 text-xs text-gray-600">
+              <p class="text-gray-500 mb-1">macOS (no admin needed):</p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code>mkdir -p ~/bin && curl -L https://github.com/integritynoble/claude-pwm/releases/latest/download/claude-pwm-macos \
+  -o ~/bin/claude-pwm && chmod +x ~/bin/claude-pwm && export PATH="$HOME/bin:$PATH"</code></pre>
+              <p class="text-gray-500 mb-1">Linux:</p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code>curl -L https://github.com/integritynoble/claude-pwm/releases/latest/download/claude-pwm-linux \
+  -o /usr/local/bin/claude-pwm && chmod +x /usr/local/bin/claude-pwm</code></pre>
+              <p class="text-gray-500 mb-1">Windows (PowerShell):</p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code>Invoke-WebRequest https://github.com/integritynoble/claude-pwm/releases/latest/download/claude-pwm-windows.exe `
+  -OutFile "$env:USERPROFILE\bin\claude-pwm.exe"</code></pre>
+              <p class="text-gray-400">Exchange improvements are server-side — no update needed for those. Full instructions: <a href="https://physicsworldmodel.org/start/claude#update" class="underline text-violet-700">start/claude#update</a></p>
+            </div>
+          </details>
           <p class="text-xs text-amber-700 mt-2 leading-relaxed">
             <strong>Privacy:</strong> if the gateway routes your call to a <strong>node</strong> provider, your prompt passes
             through their computer. For sensitive sessions, pin a vault credential:
@@ -327,15 +347,32 @@ claude -p "hello"   <span class="text-gray-500"># test it — check /exchange �
           <p class="text-sm text-gray-600 mt-0.5 mb-3">
             <strong>codex-pwm</strong> is a two-line patch of the open-source Codex CLI that adds
             <code class="bg-gray-100 px-1 rounded text-xs">OPENAI_BASE_URL</code> env var support —
-            so it routes through the exchange exactly like Claude Code. Works on Mac and Linux.
+            so it routes through the exchange exactly like Claude Code.
           </p>
+          <p class="text-xs font-semibold text-gray-700 mb-1">Step 1 — install codex-pwm first</p>
+          <a href="https://physicsworldmodel.org/start/codex" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold transition-colors">
+            Install codex-pwm — Mac / Linux / Windows →
+          </a>
+          <p class="text-xs font-semibold text-gray-700 mt-3 mb-1">Step 2 — set env vars and run</p>
           <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs md:text-sm overflow-x-auto"><code>export OPENAI_BASE_URL=https://physicsworldmodel.org/api/v1/exchange/openai
 export OPENAI_API_KEY=pwm_your_key_here
 
-codex-pwm   <span class="text-gray-500"># or use the OpenAI Python SDK as usual</span></code></pre>
-          <a href="https://physicsworldmodel.org/start/codex" class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold transition-colors">
-            Install codex-pwm — Mac / Linux / Windows →
-          </a>
+codex-pwm   <span class="text-gray-500"># same command on Mac, Linux, Windows</span></code></pre>
+          <details class="mt-2 rounded-lg border border-gray-200 bg-gray-50/60">
+            <summary class="cursor-pointer select-none px-3 py-2 text-xs font-semibold text-gray-600">↑ Already installed? Update codex-pwm ▾</summary>
+            <div class="px-3 pb-3 pt-1 space-y-2 text-xs text-gray-600">
+              <p class="text-gray-500 mb-1">macOS (no admin needed):</p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code>mkdir -p ~/bin && curl -L https://github.com/integritynoble/codex-pwm/releases/latest/download/codex-pwm-macos \
+  -o ~/bin/codex-pwm && chmod +x ~/bin/codex-pwm</code></pre>
+              <p class="text-gray-500 mb-1">Linux:</p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code>curl -L https://github.com/integritynoble/codex-pwm/releases/latest/download/codex-pwm-linux \
+  -o /usr/local/bin/codex-pwm && chmod +x /usr/local/bin/codex-pwm</code></pre>
+              <p class="text-gray-500 mb-1">Windows (PowerShell):</p>
+              <pre class="bg-gray-900 text-gray-100 rounded-lg p-3 text-xs overflow-x-auto"><code>Invoke-WebRequest https://github.com/integritynoble/codex-pwm/releases/latest/download/codex-pwm-windows.exe `
+  -OutFile "$env:USERPROFILE\bin\codex-pwm.exe"</code></pre>
+              <p class="text-gray-400">Full instructions: <a href="https://physicsworldmodel.org/start/codex#update" class="underline text-sky-700">start/codex#update</a></p>
+            </div>
+          </details>
         </div>
       </div>
       <!-- 2e — usage -->
@@ -623,6 +660,66 @@ EXCHANGE_NODE_SECRET=sk-ant-your-key-here \
   </div>
 
 </div>
+
+<style>
+.copy-btn {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: #374151;
+  color: #d1d5db;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  white-space: nowrap;
+  z-index: 10;
+}
+.copy-btn:hover { background: #4b5563; }
+.copy-btn.copied { background: #065f46; color: #6ee7b7; }
+</style>
+
+<script>
+(function() {
+  document.querySelectorAll('pre.bg-gray-900').forEach(function(pre) {
+    var wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('mouseenter', function() { btn.style.opacity = '1'; });
+    btn.addEventListener('mouseleave', function() { btn.style.opacity = '0'; });
+    wrapper.addEventListener('mouseenter', function() { btn.style.opacity = '1'; });
+    wrapper.addEventListener('mouseleave', function() { btn.style.opacity = '0'; });
+    btn.addEventListener('click', function() {
+      var text = pre.innerText;
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(function() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    });
+    wrapper.appendChild(btn);
+  });
+})();
+</script>
 
             <footer class="mt-12 pt-4 border-t border-gray-200 text-center text-xs text-gray-400">
                 PWM · NumFOCUS fiscally sponsored
